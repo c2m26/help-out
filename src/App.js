@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import  {BrowserRouter, Route, Switch} from 'react-router-dom'
+import Navabar from './components/general/Navbar.js'
 import Home from './components/home/Home.js'
 import Dashboard from './components/dashboard/Dashboard.js'
+import Login from './components/auth/Login.js'
+import Registration from './components/auth/Registration.js'
+import LandingPage from './components/home/LandingPage.js'
 
 
 class App extends Component {
@@ -15,6 +19,7 @@ class App extends Component {
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
   }
 
   checkLoginStatus() {
@@ -52,6 +57,11 @@ class App extends Component {
     this.checkLoginStatus()
   }
 
+  // handleSuccessfulAuth(data) {
+  //   this.props.handleLogin(data)
+  //   this.props.history.push("/dashboard")
+  // }
+
   handleLogin(data) {
     this.setState({
       loggedInStatus: 'LOGGED_IN',
@@ -66,25 +76,68 @@ class App extends Component {
     })
   }
   
+
+
   render(){
     return (
       <div className="app">
+      
         <BrowserRouter>
+          
+        <Navabar 
+        
+          handleLogin={this.handleLogin}
+          handleLogout={this.handleLogout}
+          loggedInStatus={this.state.loggedInStatus}
+          user={this.state.user}
+        />
+        
           <Switch>
-            <Route
+          
+            {/* <Route
             exact
             path={"/"}
-            render={props => (
+            // component = {Home}
+            render = {props => (
               <Home { ... props}
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
-              loggedInStatus={this.state.loggedInStatus}/>
+              loggedInStatus={this.state.loggedInStatus}
+              />
+            )}
+            /> */}
+            <Route
+            exact
+            path = {"/"}
+            component = {LandingPage}
+            />
+            <Route 
+            exact
+            path={"/signup"}
+            render = {props => (
+              <Registration {...props}
+              handleLogin={this.handleLogin}
+              // handleLogout={this.handleLogout}
+              // loggedInStatus={this.state.loggedInStatus}
+              />
+            )}
+            />
+            <Route 
+            exact
+            path={"/signin"}
+            render = {props => (
+              <Login { ... props}
+              // handleSuccessfulAuth={this.handleSuccessfulAuth}
+              handleLogin={this.handleLogin}
+              // handleLogout={this.handleLogout}
+              // loggedInStatus={this.state.loggedInStatus}
+              />
             )}
             />
             <Route
             exact
             path={"/dashboard"}
-            render={props => (
+            render = {props => (
               <Dashboard { ... props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus}/>
             )}
             />

@@ -22,7 +22,6 @@ class Login extends Component {
     this.setState({
       [name]: value
     });
- 
   }
 
   handleSubmit(event) {
@@ -48,7 +47,8 @@ class Login extends Component {
     })
     .then((data) =>{
       if (data.logged_in) {
-        this.props.handleSuccessfulAuth(data)
+        this.props.handleLogin(data)
+        this.props.history.push("/dashboard")
       } else {
         this.setState({
           registration_errors: "Error in Log In!"

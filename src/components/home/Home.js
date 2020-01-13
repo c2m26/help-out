@@ -25,7 +25,7 @@ class Home extends Component {
         'Content-Type': 'application/json'
       }
     })
-    .then(reponse => {
+    .then(response => {
       this.props.handleLogout()
     })
     .catch (error => {
