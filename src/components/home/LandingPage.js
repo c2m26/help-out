@@ -1,11 +1,23 @@
-import React from 'react'
+import React, {Component} from 'react'
+import Hero from './Hero.js'
 
-const LandingPage = () => {
-  return (
-    <div>
-      Fill with HERO
-    </div>
-  )
+
+class LandingPage extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state={
+      fsHero: true
+    }
+  }
+
+  render () {
+    return (
+    
+      <Hero />
+      
+    
+  )}
 }
 
 export default LandingPage

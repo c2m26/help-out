@@ -44,7 +44,7 @@ class Navbar extends Component {
     if (isLoggedIn === 'LOGGED_IN') {
       navblock = 
         <div className="navbar-nav">
-          <div className="nav-item nav-link text-dark ml-xl-2 ml-lg-2 p-2"> Hello, {this.props.user.firstName}</div>
+          <div className="nav-item nav-link text-white ml-xl-2 ml-lg-2 p-2"> Hello, {this.props.user.firstName}</div>
           <button className="nav-item nav-link btn btn-danger text-white ml-xl-2 ml-lg-2 p-2" onClick={this.handleLogoutClick}>Logout</button>
         </div> } else {
       navblock = 
@@ -55,7 +55,7 @@ class Navbar extends Component {
       }
 
     return (
-      <nav className="navbar navbar-expand-lg sticky-top navbar-light bg-white">
+      <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-transparent">
         <NavLink className="navbar-brand" to="/">HelpOut</NavLink>
         {/* <div className="d-flex flex-fill justify-content-start align-items-center">
         <a id="icon-color" className="nav-item nav-link" href="http://youtube.com" target="_blank"><FontAwesomeIcon icon={['fab','youtube']}/></a>
