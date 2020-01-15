@@ -3,15 +3,20 @@ import Hero from './Hero.js'
 
 
 class LandingPage extends Component {
-  constructor (props) {
-    super(props)
+  
+  componentDidMount(){
+    this.props.handleNavbar(true)
+    console.log("mounted")
+  }
+  
 
-    this.state={
-      fsHero: true
-    }
+  componentWillUnmount(){
+    this.props.handleNavbar(false)
+    console.log("unmounted")
   }
 
   render () {
+    
     return (
     
       <Hero />

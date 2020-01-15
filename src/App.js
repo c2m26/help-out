@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import  {BrowserRouter, Route, Switch} from 'react-router-dom'
-import Navabar from './components/general/Navbar.js'
+import Navbar from './components/general/Navbar.js'
 // import Home from './components/home/Home.js'
 import Dashboard from './components/dashboard/Dashboard.js'
 import Login from './components/auth/Login.js'
@@ -14,14 +14,16 @@ class App extends Component {
 
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
+      user: {},
+      fsHero: false
     }
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
+    this.handleNavbar = this.handleNavbar.bind(this)
   }
-
+// Auth methods
   checkLoginStatus() {
     let url = 'http://localhost:3001/logged_in'
     
@@ -75,21 +77,48 @@ class App extends Component {
       user: {}
     })
   }
+
+  // Navbar methods for switching props depending on Landingpage true
+
+  handleNavbar(data){
+    this.setState({
+      fsHero: data
+    })
+    console.log(this.state.fsHero)
+  }
+
+
   
 
 
   render(){
+// conditional rendering for Navbar
+    
+    console.log(this.state.fsHero)
+    let navcolorscheme
+    let navbg
+
+    if (this.state.fsHero) {
+      navcolorscheme = "navbar-dark"
+      navbg = "bg-transparent"
+    } else {
+      navcolorscheme = "navbar-light"
+      navbg = "bg-white"
+    }
+
     return (
       <div className="app">
       
         <BrowserRouter>
           
-        <Navabar 
-        
+        <Navbar 
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           loggedInStatus={this.state.loggedInStatus}
           user={this.state.user}
+          navcolorscheme={navcolorscheme}
+
+          navbg={navbg}
         />
         
           <Switch>
@@ -109,7 +138,11 @@ class App extends Component {
             <Route
             exact
             path = {"/"}
-            component = {LandingPage}
+            render = {props => (
+              <LandingPage {...props}
+              handleNavbar={this.handleNavbar}
+              />
+            )}
             />
             <Route 
             exact

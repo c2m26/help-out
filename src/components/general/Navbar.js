@@ -18,6 +18,7 @@ class Navbar extends Component {
   //   this.props.history.push("/dashboard")
   // }
 
+  
   handleLogoutClick(){
     let url = 'http://localhost:3001/logout'
     
@@ -29,7 +30,7 @@ class Navbar extends Component {
       }
     })
     .then(response => {
-      this.props.handleLogout()
+      this.props.handleLogout(response)
     })
     .catch (error => {
       console.log("logout error", error)
@@ -40,7 +41,9 @@ class Navbar extends Component {
     console.log(this.props.loggedInStatus)
     const isLoggedIn = this.props.loggedInStatus
     let navblock
+    
 
+  
     if (isLoggedIn === 'LOGGED_IN') {
       navblock = 
         <div className="navbar-nav">
@@ -55,7 +58,7 @@ class Navbar extends Component {
       }
 
     return (
-      <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-transparent">
+      <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
         <NavLink className="navbar-brand" to="/">HelpOut</NavLink>
         {/* <div className="d-flex flex-fill justify-content-start align-items-center">
         <a id="icon-color" className="nav-item nav-link" href="http://youtube.com" target="_blank"><FontAwesomeIcon icon={['fab','youtube']}/></a>
