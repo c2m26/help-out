@@ -79,17 +79,12 @@ class App extends Component {
   }
 
   // Navbar methods for switching props depending on Landingpage true
-
   handleNavbar(data){
     this.setState({
       fsHero: data
     })
     console.log(this.state.fsHero)
   }
-
-
-  
-
 
   render(){
 // conditional rendering for Navbar
