@@ -54,7 +54,7 @@ class Navbar extends Component {
     if (isLoggedIn === 'LOGGED_IN') {
       navblock = 
         <div className="navbar-nav">
-          <div className="nav-item nav-link text-white ml-xl-2 ml-lg-2 p-2"> Hello, {this.props.user.firstName}</div>
+          <div className={`nav-item nav-link ${this.props.textColor} ml-xl-2 ml-lg-2 p-2`}> Hello, {this.props.user.firstName}</div>
           <button className="nav-item nav-link btn btn-danger text-white ml-xl-2 ml-lg-2 p-2" onClick={this.handleLogoutClick}>Logout</button>
         </div> } else {
       navblock = 

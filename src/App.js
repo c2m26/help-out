@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import  {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Navbar from './components/general/Navbar.js'
-// import Home from './components/home/Home.js'
 import Dashboard from './components/dashboard/Dashboard.js'
 import Login from './components/auth/Login.js'
 import Registration from './components/auth/Registration.js'
@@ -17,14 +16,12 @@ class App extends Component {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
       fsHero: false,
-      // showModal: false,
       contentModal: 'none'
     }
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleNavbar = this.handleNavbar.bind(this)
-    // this.handleShowModal = this.handleShowModal.bind(this)
     this.handleContentModal = this.handleContentModal.bind(this)
   }
 // Auth methods
@@ -86,13 +83,6 @@ class App extends Component {
   }
 
   //Modal methods
-  // handleShowModal(data){
-  //   this.setState({
-  //     showModal: data
-  //   })
-  //   console.log(this.state.showModal)
-    
-  // }
 
   handleContentModal(data){
     this.setState({
@@ -101,8 +91,6 @@ class App extends Component {
     console.log(this.state.contentModal)
     console.log(data)
   }
-
-  
 
 //Modal rendering method
   renderModal(){
@@ -130,13 +118,16 @@ class App extends Component {
     console.log(this.state.fsHero)
     let navcolorscheme
     let navbg
+    let textColor
 
     if (this.state.fsHero) {
       navcolorscheme = "navbar-dark"
       navbg = "bg-transparent"
+      textColor = "text-white"
     } else {
       navcolorscheme = "navbar-light"
       navbg = "bg-white"
+      textColor = "text-dark"
     }
 
     // this.renderModal()
@@ -157,6 +148,7 @@ class App extends Component {
           user={this.state.user}
           navcolorscheme={navcolorscheme}
           navbg={navbg}
+          textColor={textColor}
         />
         
           <Switch>
