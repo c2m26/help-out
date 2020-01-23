@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import  {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Navbar from './components/general/Navbar.js'
 import Dashboard from './components/dashboard/Dashboard.js'
@@ -96,11 +96,14 @@ class App extends Component {
   renderModal(){
     console.log(this.state.contentModal)
     //conditional rendering for Modal content
-    if(this.state.contentModal === "signup") {
+    if(this.state.contentModal === "signup" && this.state.loggedInStatus === "NOT_LOGGED_IN") {
       return(
+        
         <Modal
-          content={<Registration />}
-        />  
+          content={<Registration handleLogin={this.handleLogin}/>}
+          // handleLogin={this.handleLogin}
+        />
+          
       )
     } else {
       return(
@@ -135,10 +138,12 @@ class App extends Component {
     return (
       <div className="app">
 
-        {this.renderModal()}
+        
       
         <BrowserRouter>
-          
+
+        {this.renderModal()}
+
         <Navbar 
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
   
 class Registration extends Component {
   constructor(props) {
@@ -95,6 +96,7 @@ class Registration extends Component {
  
      
   render () {
+    
     return(
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
@@ -143,4 +145,4 @@ class Registration extends Component {
   }
 }
 
-export default Registration
+export default withRouter(Registration)

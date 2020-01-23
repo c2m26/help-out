@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import ReactDom from 'react-dom'
+import {withRouter} from 'react-router-dom'
 import '../../auth/Registration'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
@@ -10,7 +11,7 @@ import Backdrop from './Backdrop'
 class Modal extends Component {
   
   render () {
-
+    
     return (
       ReactDom.createPortal(
            <div className="modal-frame d-flex justify-content-center align-items-center">
@@ -20,7 +21,7 @@ class Modal extends Component {
               <div className="card p-4">
                 {this.props.content}
               </div>
-              
+
            </div>
 
         ,document.querySelector("#modal")
@@ -28,4 +29,4 @@ class Modal extends Component {
     )
   }
 
-} export default Modal
+} export default withRouter(Modal)
