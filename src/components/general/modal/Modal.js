@@ -5,27 +5,49 @@ import '../../auth/Registration'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import './Modal.css'
-import Backdrop from './Backdrop'
+import ModalTemplate from './ModalTemplate'
 
 
 class Modal extends Component {
+  constructor(props){
+    super(props)
+
+    // this.state = {
+    //   contentModal: 'none'
+    // }
+  }
+  
+  //Modal methods
+
+  // handleContentModal(data){
+  //   this.setState({
+  //     contentModal: data
+  //   })
+  //   console.log(this.state.contentModal)
+  //   console.log(data)
+  // }
   
   render () {
     
-    return (
+    //conditional rendering for Modal content
+    let slot
+    
+    // if(this.props.contentModal === "signup") {
+      
+      slot=  
+        <ModalTemplate >
+          {this.props.content}
+        </ModalTemplate>
+      
+    // } else {
+    //   content = null
+    // }
+    
+    return(
       ReactDom.createPortal(
-           <div className="modal-frame d-flex justify-content-center align-items-center">
-             
-              <Backdrop/>
-
-              <div className="card p-4">
-                {this.props.content}
-              </div>
-
-           </div>
-
+        slot
         ,document.querySelector("#modal")
-      ) 
+      )
     )
   }
 

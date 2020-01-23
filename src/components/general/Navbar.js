@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {NavLink} from 'react-router-dom'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { HashLink as Link } from 'react-router-hash-link'
+import Modal from '../general/modal/Modal'
+import Registration from '../auth/Registration'
 
 
 class Navbar extends Component {
@@ -9,8 +11,15 @@ class Navbar extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      showModal: false,
+      modalContent: ''
+    }
+
     // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
+    this.handleModalShow = this.handleModalShow.bind(this)
+    this.handleModalContentSignUp = this.handleModalContentSignUp.bind(this)
     this.handleModal = this.handleModal.bind(this)
   }
 
@@ -39,14 +48,29 @@ class Navbar extends Component {
   }
 
   // Modal methods
-  handleModal(){
-    // let type = 'signup'
-    // this.props.handleShowModal(true)
-    this.props.handleContentModal('signup')
-  }
 
-    
+  
+    handleModalShow(){
+      this.setState({
+        showModal: true
+      })
+      console.log('passou')
+    };
+  
+    handleModalContentSignUp(){
+      this.setState({
+        modalContent: 'signup'
+      })
+    }
+
+    handleModal() {
+      this.handleModalShow();
+      this.handleModalContentSignUp()
+    }
+  
   render () {
+    
+    // Conditional statement for buttons
     console.log(this.props.loggedInStatus)
     const isLoggedIn = this.props.loggedInStatus
     let navblock
@@ -64,7 +88,23 @@ class Navbar extends Component {
           </div>
       }
 
+    // Conditional statement for modal
+    let modalblock  
+    
+    if (this.state.showModal === true && this.state.modalContent === 'signup') {
+      modalblock =
+    <Modal content={<Registration handleLogin={this.props.handleLogin}/>}  />
+    } else {
+      modalblock = null
+    }
+
     return (
+      
+      <div>
+      <Fragment>
+        {modalblock}
+      </Fragment>
+
       <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
         <NavLink className="navbar-brand" to="/">HelpOut</NavLink>
         {/* <div className="d-flex flex-fill justify-content-start align-items-center">
@@ -83,6 +123,7 @@ class Navbar extends Component {
             
         </div>
       </nav>
+      </div>
     )
   }
   
