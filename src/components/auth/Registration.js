@@ -17,13 +17,7 @@ class Registration extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFileSelect = this.handleFileSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    
   }
-
-  
-
-    
-
 
   handleInputChange(event) {
     
@@ -45,37 +39,45 @@ class Registration extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    // alert(
-    //   `Selected file - ${
-    //     this.fileInput.current.files[0].name
-    //   }`
-    // )
-
-    const firstName = this.state.firstName
-    const lastName = this.state.lastName
-    const email = this.state.email
-    const password = this.state.password
-    const password_confirmation = this.state.password_confirmation
     
+    const user = new FormData();
+    
+    user.append('firstName', this.state.firstName);
+    user.append('lastName', this.state.lastName);
+    user.append('email', this.state.email);
+    user.append('password', this.state.password);
+    user.append('password_confirmation', this.state.password_confirmation);
+    user.append('idFile', this.state.idDoc, this.state.idDoc.name);
+
+    console.log(user.get('idFile'))
+
+    // const firstName = this.state.firstName;
+    // const lastName = this.state.lastName;
+    // const email = this.state.email;
+    // const password = this.state.password;
+    // const password_confirmation = this.state.password_confirmation;
+    // const idFile = this.state.idDoc;
+
+    // console.log(idFile)
+
+    // const user = {firstName, lastName, email, password, password_confirmation, idFile}
+
     const url = 'http://localhost:3001/registrations';
-    const user = { firstName, lastName, email, password, password_confirmation }
-    
-    user.append('idFile', this.state.idDoc, this.state.idDoc.name)
 
     fetch(url, {
       method: 'POST',
       credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user),
+      // headers: {
+      //   // 'Content-Type': 'application/json'
+      // },
+      body: user,
     })
     
     .then((response)=>{
       return response.json()
     })
     .then((data) =>{
+      console.log(data)
       if (data.status === 'created') {
         this.props.handleLogin(data)
         this.props.history.push("/dashboard")
@@ -84,7 +86,7 @@ class Registration extends Component {
           registration_errors: "Error in registration!"
         })
       }
-      console.log(data.user)
+      // console.log(data.user)
     })    
     .catch(error => {
       console.log("registration error", error)
@@ -133,7 +135,7 @@ class Registration extends Component {
         </div>
         
 
-        <div className="form-group">
+        <div >
           <input type="submit" value="Sign Up" className="btn btn-primary"/>
         </div>
       </form>

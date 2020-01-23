@@ -11,6 +11,7 @@ class Navbar extends Component {
 
     // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
+    this.handleModal = this.handleModal.bind(this)
   }
 
   // handleSuccessfulAuth(data) {
@@ -18,7 +19,7 @@ class Navbar extends Component {
   //   this.props.history.push("/dashboard")
   // }
 
-  
+  // Auth methods
   handleLogoutClick(){
     let url = 'http://localhost:3001/logout'
     
@@ -36,14 +37,20 @@ class Navbar extends Component {
       console.log("logout error", error)
     })
   }
+
+  // Modal methods
+  handleModal(){
+    // let type = 'signup'
+    // this.props.handleShowModal(true)
+    this.props.handleContentModal('signup')
+  }
+
     
   render () {
     console.log(this.props.loggedInStatus)
     const isLoggedIn = this.props.loggedInStatus
     let navblock
-    
-
-  
+      
     if (isLoggedIn === 'LOGGED_IN') {
       navblock = 
         <div className="navbar-nav">
@@ -53,7 +60,7 @@ class Navbar extends Component {
       navblock = 
           <div className="navbar-nav">
             <NavLink className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" to="/signin">Sign In</NavLink>
-            <NavLink className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" to="/signup">Sign Up</NavLink>
+            <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModal}>Sign Up</div>
           </div>
       }
 

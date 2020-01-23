@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import  {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Navbar from './components/general/Navbar.js'
 // import Home from './components/home/Home.js'
@@ -6,6 +6,7 @@ import Dashboard from './components/dashboard/Dashboard.js'
 import Login from './components/auth/Login.js'
 import Registration from './components/auth/Registration.js'
 import LandingPage from './components/home/LandingPage.js'
+import Modal from './components/general/modal/Modal.js'
 
 
 class App extends Component {
@@ -15,13 +16,16 @@ class App extends Component {
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
-      fsHero: false
+      fsHero: false,
+      // showModal: false,
+      contentModal: 'none'
     }
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
-    // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
     this.handleNavbar = this.handleNavbar.bind(this)
+    // this.handleShowModal = this.handleShowModal.bind(this)
+    this.handleContentModal = this.handleContentModal.bind(this)
   }
 // Auth methods
   checkLoginStatus() {
@@ -59,11 +63,6 @@ class App extends Component {
     this.checkLoginStatus()
   }
 
-  // handleSuccessfulAuth(data) {
-  //   this.props.handleLogin(data)
-  //   this.props.history.push("/dashboard")
-  // }
-
   handleLogin(data) {
     this.setState({
       loggedInStatus: 'LOGGED_IN',
@@ -86,8 +85,47 @@ class App extends Component {
     console.log(this.state.fsHero)
   }
 
+  //Modal methods
+  // handleShowModal(data){
+  //   this.setState({
+  //     showModal: data
+  //   })
+  //   console.log(this.state.showModal)
+    
+  // }
+
+  handleContentModal(data){
+    this.setState({
+      contentModal: data
+    })
+    console.log(this.state.contentModal)
+    console.log(data)
+  }
+
+  
+
+//Modal rendering method
+  renderModal(){
+    console.log(this.state.contentModal)
+    //conditional rendering for Modal content
+    if(this.state.contentModal === "signup") {
+      return(
+        <Modal
+          content={<Registration />}
+        />  
+      )
+    } else {
+      return(
+        null
+      )
+    }
+    
+  }
+
+//App rendering method
   render(){
-// conditional rendering for Navbar
+  
+    // conditional rendering for Navbar
     
     console.log(this.state.fsHero)
     let navcolorscheme
@@ -101,8 +139,12 @@ class App extends Component {
       navbg = "bg-white"
     }
 
+    // this.renderModal()
+
     return (
       <div className="app">
+
+        {this.renderModal()}
       
         <BrowserRouter>
           
@@ -110,26 +152,15 @@ class App extends Component {
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           loggedInStatus={this.state.loggedInStatus}
+          handleShowModal={this.handleShowModal}
+          handleContentModal={this.handleContentModal}
           user={this.state.user}
           navcolorscheme={navcolorscheme}
-
           navbg={navbg}
         />
         
           <Switch>
           
-            {/* <Route
-            exact
-            path={"/"}
-            // component = {Home}
-            render = {props => (
-              <Home { ... props}
-              handleLogin={this.handleLogin}
-              handleLogout={this.handleLogout}
-              loggedInStatus={this.state.loggedInStatus}
-              />
-            )}
-            /> */}
             <Route
             exact
             path = {"/"}
@@ -145,8 +176,6 @@ class App extends Component {
             render = {props => (
               <Registration {...props}
               handleLogin={this.handleLogin}
-              // handleLogout={this.handleLogout}
-              // loggedInStatus={this.state.loggedInStatus}
               />
             )}
             />
@@ -155,10 +184,7 @@ class App extends Component {
             path={"/signin"}
             render = {props => (
               <Login { ... props}
-              // handleSuccessfulAuth={this.handleSuccessfulAuth}
               handleLogin={this.handleLogin}
-              // handleLogout={this.handleLogout}
-              // loggedInStatus={this.state.loggedInStatus}
               />
             )}
             />
@@ -174,9 +200,7 @@ class App extends Component {
       </div>
       
     )
-  }
-  
-            
+  }         
 } 
 
 export default App
