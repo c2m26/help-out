@@ -5,7 +5,6 @@ import Dashboard from './components/dashboard/Dashboard.js'
 import Login from './components/auth/Login.js'
 import Registration from './components/auth/Registration.js'
 import LandingPage from './components/home/LandingPage.js'
-import Modal from './components/general/modal/Modal.js'
 
 
 class App extends Component {

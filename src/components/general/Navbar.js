@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react'
 import {NavLink} from 'react-router-dom'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { HashLink as Link } from 'react-router-hash-link'
-import Modal from '../general/modal/Modal'
+
 import Registration from '../auth/Registration'
+import Modal from './modal/Modal'
 
 
 class Navbar extends Component {
@@ -21,6 +22,7 @@ class Navbar extends Component {
     this.handleModalShow = this.handleModalShow.bind(this)
     this.handleModalContentSignUp = this.handleModalContentSignUp.bind(this)
     this.handleModal = this.handleModal.bind(this)
+    this.handleModalClose=this.handleModalClose.bind(this)
   }
 
   // handleSuccessfulAuth(data) {
@@ -54,7 +56,6 @@ class Navbar extends Component {
       this.setState({
         showModal: true
       })
-      console.log('passou')
     };
   
     handleModalContentSignUp(){
@@ -67,7 +68,14 @@ class Navbar extends Component {
       this.handleModalShow();
       this.handleModalContentSignUp()
     }
+
+    handleModalClose() {
+      this.setState({
+        showModal: false
+      })
+    }
   
+
   render () {
     
     // Conditional statement for buttons
@@ -93,10 +101,11 @@ class Navbar extends Component {
     
     if (this.state.showModal === true && this.state.modalContent === 'signup') {
       modalblock =
-    <Modal content={<Registration handleLogin={this.props.handleLogin}/>}  />
+    <Modal content={<Registration handleLogin={this.props.handleLogin} handleModalClose={this.handleModalClose}/>}  />
     } else {
       modalblock = null
     }
+
 
     return (
       
@@ -125,9 +134,7 @@ class Navbar extends Component {
       </nav>
       </div>
     )
-  }
-  
-    
+  } 
 }
 
 export default Navbar
