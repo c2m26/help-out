@@ -21,10 +21,13 @@ class LandingPage extends Component {
     return (
     
       <Hero
-        content={<AuthButtons/>}
-        handleLogin={this.props.handleLogin}
-        handleNavbar={this.props.handleNavbar}
-        loggedInStatus={this.props.loggedInStatus}
+        content=
+          {<AuthButtons
+            handleLogin={this.props.handleLogin}
+            handleNavbar={this.props.handleNavbar}
+            loggedInStatus={this.props.loggedInStatus}
+        />}
+        
       />
       
     
