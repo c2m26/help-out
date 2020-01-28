@@ -6,6 +6,7 @@ import {NavLink} from 'react-router-dom'
 import Registration from '../auth/Registration'
 import Login from '../auth/Login'
 import Modal from './modal/Modal'
+import NewNeed from '../needs/NewNeed'
 
 
 class Navbar extends Component {
@@ -18,20 +19,17 @@ class Navbar extends Component {
       contentModal: ''
     }
 
-    // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
-    this.handleLogoutClick = this.handleLogoutClick.bind(this)
-    this.handleModalShow = this.handleModalShow.bind(this)
-    this.handleModalContentSignUp = this.handleModalContentSignUp.bind(this)
-    this.handleModalSignIn = this.handleModalSignIn.bind(this)
-    this.handleModalSignUp = this.handleModalSignUp.bind(this)
-    this.handleModalClose=this.handleModalClose.bind(this)
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.handleModalShow = this.handleModalShow.bind(this);
+    this.handleModalContentSignUp = this.handleModalContentSignUp.bind(this);
+    this.handleModalContentSignIn = this.handleModalContentSignIn.bind(this);
+    this.handleModalContentNewHelp = this.handleModalContentNewHelp.bind(this);
+    this.handleModalNewHelp = this.handleModalNewHelp.bind(this);
+    this.handleModalSignIn = this.handleModalSignIn.bind(this);
+    this.handleModalSignUp = this.handleModalSignUp.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
 
   }
-
-  // handleSuccessfulAuth(data) {
-  //   this.props.handleLogin(data)
-  //   this.props.history.push("/dashboard")
-  // }
 
   // Auth methods
   handleLogoutClick(){
@@ -51,11 +49,9 @@ class Navbar extends Component {
       console.log("logout error", error)
     })
   }
-
   
 
   // Modal methods
-
   
     handleModalShow(){
       this.setState({
@@ -75,6 +71,12 @@ class Navbar extends Component {
       }) 
     }
 
+    handleModalContentNewHelp(){
+      this.setState({
+        contentModal: 'NewHelp'
+      }) 
+    }
+
     handleModalSignUp() {
       this.handleModalShow();
       this.handleModalContentSignUp();
@@ -83,6 +85,11 @@ class Navbar extends Component {
     handleModalSignIn() {
       this.handleModalShow();
       this.handleModalContentSignIn();
+    }
+
+    handleModalNewHelp() {
+      this.handleModalShow();
+      this.handleModalContentNewHelp();
     }
 
     handleModalClose() {
@@ -99,17 +106,28 @@ class Navbar extends Component {
     const isLoggedIn = this.props.loggedInStatus
     let navblock
       
-    if (isLoggedIn === 'LOGGED_IN') {
+    if (this.props.loggedInStatus === 'LOGGED_IN') {
       navblock = 
-        <div className="navbar-nav">
-          <div className={`nav-item nav-link ${this.props.textColor} ml-xl-2 ml-lg-2 p-2`}> Hello, {this.props.user.firstName}</div>
-          <button className="nav-item nav-link btn btn-danger text-white ml-xl-2 ml-lg-2 p-2" onClick={this.handleLogoutClick}>Logout</button>
-        </div> } else {
-      navblock = 
-          <div className="navbar-nav">
-            <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
-            <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
+        <Fragment>
+          <button className="btn btn-primary text-white mr-4" onClick={this.handleModalNewHelp}>New HelpOut</button>
+          <div className="dropdown">
+            <button className="btn btn-warning text-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Hello {this.props.user.firstName}
+            </button>
+            <div className="dropdown-menu dropdown-menu-right">
+            <a className="dropdown-item" href="#">My HelpOuts</a>
+            <button className="dropdown-item" onClick={this.handleLogoutClick}>Logout</button>
+            </div>
           </div>
+          
+          {/* <div className={`nav-item nav-link ${this.props.textColor} ml-xl-2 ml-lg-2 p-2`}> Hello, {this.props.user.firstName}</div> */}
+          {/* <button className="nav-item nav-link btn btn-danger text-white ml-xl-2 ml-lg-2 p-2" onClick={this.handleLogoutClick}>Logout</button> */}
+        </Fragment> } else {
+      navblock = 
+        <Fragment>
+          <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
+          <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
+        </Fragment>
       }
 
     // Conditional statement for modal
@@ -131,6 +149,16 @@ class Navbar extends Component {
           <Modal
             content=
               {<Login
+              handleLogin={this.props.handleLogin}
+              handleModalClose={this.handleModalClose}
+              />}
+          />
+      }
+      if (this.state.contentModal === 'NewHelp') {
+        modalblock =
+          <Modal
+            content=
+              {<NewNeed
               handleLogin={this.props.handleLogin}
               handleModalClose={this.handleModalClose}
               />}

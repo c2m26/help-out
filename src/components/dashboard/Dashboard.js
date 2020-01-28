@@ -1,15 +1,38 @@
-import React from 'react'
+import React, { Component } from 'react'
+import NewNeed from '../needs/NewNeed'
+import Registration from '../auth/Registration'
 
 
-const Dashboard = props => {
-  return (
-    <div>
-      <div>
-        <h1>Dashboard</h1>
-        <h2>Status: {props.loggedInStatus}</h2>
+class Dashboard extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  render () {
+    return (
+      <div className="container-fluid">
+        <div>
+          <h1>Dashboard</h1>
+          <h2>Status: {this.props.loggedInStatus}</h2>
+        </div>
+
+        <div className="row">
+          <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+            Needs card list
+          </div>
+
+          <div className="col">
+            <NewNeed user={this.props.user}/>
+    
+            
+          </div>
+        </div>
+  
+        
       </div>
-    </div>
-  )
+    )
+  }
+  
 }
 
 export default Dashboard

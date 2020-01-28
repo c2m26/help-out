@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDom from 'react-dom'
 import {withRouter} from 'react-router-dom'
-import '../../auth/Registration'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import './Modal.css'

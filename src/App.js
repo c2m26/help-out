@@ -149,7 +149,11 @@ class App extends Component {
             exact
             path={"/dashboard"}
             render = {props => (
-              <Dashboard { ... props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus}/>
+              <Dashboard { ... props}
+              handleLogin={this.handleLogin}
+              loggedInStatus={this.state.loggedInStatus}
+              user={this.state.user}
+              />
             )}
             />
           </Switch>

@@ -65,26 +65,28 @@ class Login extends Component {
      
   render () {
     return(
-      <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label>Email address</label>
-          <input required type="email" name="email" value={this.state.email} onChange={this.handleInputChange} className="form-control" placeholder="Johdoe@mail.com"/>
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input required type="password" name="password" value={this.state.password} onChange={this.handleInputChange} className="form-control" placeholder="Enter your password"/>
-          <small id="passwordHelp" className="form-text text-muted">Strong passwords are safer</small>
-        </div>
-        
-        {/* <div className="form-group">
-          <input type="submit" value="Sign In" className="btn btn-primary"/>
-        </div> */}
+      <div>
+        <h3>Sign In</h3>
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label>Email address</label>
+            <input required type="email" name="email" value={this.state.email} onChange={this.handleInputChange} className="form-control" placeholder="Johdoe@mail.com"/>
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input required type="password" name="password" value={this.state.password} onChange={this.handleInputChange} className="form-control" placeholder="Enter your password"/>
+          </div>
+          
+          {/* <div className="form-group">
+            <input type="submit" value="Sign In" className="btn btn-primary"/>
+          </div> */}
 
-        <div className="d-flex">
-          <input type="submit" value="Sign In" className="btn btn-primary"/>
-          <button onClick={this.props.handleModalClose} className="btn btn-primary ml-3">Back</button>
-        </div>
-      </form>
+          <div className="d-flex">
+            <input type="submit" value="Sign In" className="btn btn-primary"/>
+            <button onClick={this.props.handleModalClose} className="btn btn-primary ml-3">Back</button>
+          </div>
+        </form>
+      </div>
     )
   }
 }
