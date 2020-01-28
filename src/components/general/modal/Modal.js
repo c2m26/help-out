@@ -6,16 +6,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import './Modal.css'
 import Backdrop from './Backdrop'
-import Registration from '../../auth/Registration'
 
 
-class Modal extends Component {
-  constructor(props){
-    super(props)
-      
-  }
-   
-  render () {
+const Modal = props => {
       
     const slot =
     
@@ -24,7 +17,7 @@ class Modal extends Component {
       <Backdrop/>
 
       <div className="card p-4">
-        {this.props.content}
+        {props.content}
       </div>
 
     </div>
@@ -36,7 +29,6 @@ class Modal extends Component {
       ,document.querySelector("#modal")
     )
   )
-}
-   
+} 
 
-} export default withRouter(Modal)
+export default withRouter(Modal)
