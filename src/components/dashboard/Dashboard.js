@@ -11,10 +11,6 @@ class Dashboard extends Component {
   render () {
     return (
       <div className="container-fluid">
-        <div>
-          <h1>Dashboard</h1>
-          <h2>Status: {this.props.loggedInStatus}</h2>
-        </div>
 
         <div className="row">
           <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">

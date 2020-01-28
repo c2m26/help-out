@@ -43,8 +43,8 @@ class NewNeed extends Component {
         </div>
         
         <div className="form-group">
-          <label>Description</label>
-          <input required type="text" name="description" value={this.state.description} onChange={this.handleInputChange} className="form-control" placeholder="Brief descrption of the help need in maximum 300 words"/>
+          <label htmlFor="textarea">Description</label>
+          <textarea required name="description" value={this.state.description} onChange={this.handleInputChange} className="form-control" id="textarea" rows="4" placeholder="Brief descrption of the help need in maximum 300 characters"/>
         </div>
 
         <div className="form-group">

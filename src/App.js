@@ -123,7 +123,9 @@ class App extends Component {
             path = {"/"}
             render = {props => (
               <LandingPage {...props}
+              handleLogin={this.handleLogin}
               handleNavbar={this.handleNavbar}
+              loggedInStatus={this.state.loggedInStatus}
               />
             )}
             />

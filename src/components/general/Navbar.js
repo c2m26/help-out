@@ -102,16 +102,15 @@ class Navbar extends Component {
   render () {
     
     // Conditional statement for buttons
-    console.log(this.props.loggedInStatus)
-    const isLoggedIn = this.props.loggedInStatus
+    
     let navblock
       
     if (this.props.loggedInStatus === 'LOGGED_IN') {
       navblock = 
         <Fragment>
-          <button className="btn btn-primary text-white mr-4" onClick={this.handleModalNewHelp}>New HelpOut</button>
+          <button className="btn btn-primary text-white mr-3" onClick={this.handleModalNewHelp}>New HelpOut</button>
           <div className="dropdown">
-            <button className="btn btn-warning text-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button className="btn btn-light text-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Hello {this.props.user.firstName}
             </button>
             <div className="dropdown-menu dropdown-menu-right">

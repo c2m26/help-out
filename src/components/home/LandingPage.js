@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Hero from './Hero.js'
+import AuthButtons from './AuthButtons'
 
 
 class LandingPage extends Component {
@@ -19,7 +20,12 @@ class LandingPage extends Component {
     
     return (
     
-      <Hero />
+      <Hero
+        content={<AuthButtons/>}
+        handleLogin={this.props.handleLogin}
+        handleNavbar={this.props.handleNavbar}
+        loggedInStatus={this.props.loggedInStatus}
+      />
       
     
   )}

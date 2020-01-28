@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import './Hero.css'
-import AuthButtons from './AuthButtons.js'
 import image from '../../images/hero.jpg'
+import { NavLink } from 'react-router-dom'
 
-const Hero = () => {
+const Hero = (props) => {
   const styles = {
     backgroundImage: "url(" + image + ")"
   }
-  return (
-  
+
+  let block
+
+  if (props.loggedInStatus === 'LOGGED_IN') {
+    block = 
+    <NavLink className="btn btn-lg btn-warning m-4" to="/dashboard">Check them out!</NavLink>
+  } else {
+    block =
+      <Fragment>
+      <h2 className="p-1" id="secondHeading">Help Out!</h2>
+      {props.content}
+      </Fragment>
+  }
+
+  return ( 
+
     <div style={styles} id="hero-wrapper">
 
       <div className="overlay d-flex flex-column justify-content-center align-items-center text-center text-white">    
@@ -16,8 +30,7 @@ const Hero = () => {
           <h2 className="p-1" id="secondHeading">and</h2>
           <h2 className="p-1" id="secondHeading">each pair of hands counts</h2>
           <h3 className="p-1" >help requests are currently unfufilled</h3>
-          <h2 className="p-1" id="secondHeading">Help out!</h2>
-          <AuthButtons />
+          {block}
       </div>
     </div>
   
