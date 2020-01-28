@@ -75,8 +75,13 @@ class Login extends Component {
           <small id="passwordHelp" className="form-text text-muted">Strong passwords are safer</small>
         </div>
         
-        <div className="form-group">
+        {/* <div className="form-group">
           <input type="submit" value="Sign In" className="btn btn-primary"/>
+        </div> */}
+
+        <div className="d-flex">
+          <input type="submit" value="Sign In" className="btn btn-primary"/>
+          <button onClick={this.props.handleModalClose} className="btn btn-primary ml-3">Back</button>
         </div>
       </form>
     )

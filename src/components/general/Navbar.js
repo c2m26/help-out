@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom'
 //import { HashLink as Link } from 'react-router-hash-link'
 
 import Registration from '../auth/Registration'
+import Login from '../auth/Login'
 import Modal from './modal/Modal'
 
 
@@ -14,15 +15,17 @@ class Navbar extends Component {
 
     this.state = {
       showModal: false,
-      modalContent: ''
+      contentModal: ''
     }
 
     // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
     this.handleModalShow = this.handleModalShow.bind(this)
     this.handleModalContentSignUp = this.handleModalContentSignUp.bind(this)
-    this.handleModal = this.handleModal.bind(this)
+    this.handleModalSignIn = this.handleModalSignIn.bind(this)
+    this.handleModalSignUp = this.handleModalSignUp.bind(this)
     this.handleModalClose=this.handleModalClose.bind(this)
+
   }
 
   // handleSuccessfulAuth(data) {
@@ -49,6 +52,8 @@ class Navbar extends Component {
     })
   }
 
+  
+
   // Modal methods
 
   
@@ -60,13 +65,24 @@ class Navbar extends Component {
   
     handleModalContentSignUp(){
       this.setState({
-        modalContent: 'signup'
-      })
+        contentModal: 'Registration'
+      }) 
     }
 
-    handleModal() {
+    handleModalContentSignIn(){
+      this.setState({
+        contentModal: 'Login'
+      }) 
+    }
+
+    handleModalSignUp() {
       this.handleModalShow();
-      this.handleModalContentSignUp()
+      this.handleModalContentSignUp();
+    }
+
+    handleModalSignIn() {
+      this.handleModalShow();
+      this.handleModalContentSignIn();
     }
 
     handleModalClose() {
@@ -91,28 +107,48 @@ class Navbar extends Component {
         </div> } else {
       navblock = 
           <div className="navbar-nav">
-            <NavLink className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" to="/signin">Sign In</NavLink>
-            <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModal}>Sign Up</div>
+            <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
+            <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
           </div>
       }
 
     // Conditional statement for modal
     let modalblock  
     
-    if (this.state.showModal === true && this.state.modalContent === 'signup') {
-      modalblock =
-    <Modal content={<Registration handleLogin={this.props.handleLogin} handleModalClose={this.handleModalClose}/>}  />
+    if (this.state.showModal === true) {
+      if (this.state.contentModal === 'Registration') {
+        modalblock =
+          <Modal
+            content=
+              {<Registration
+              handleLogin={this.props.handleLogin}
+              handleModalClose={this.handleModalClose}
+              />}
+          />
+      }
+      if (this.state.contentModal === 'Login') {
+        modalblock =
+          <Modal
+            content=
+              {<Login
+              handleLogin={this.props.handleLogin}
+              handleModalClose={this.handleModalClose}
+              />}
+          />
+      }
     } else {
       modalblock = null
     }
-
-
+    
+     
+  
     return (
       
       <div>
-      <Fragment>
+
         {modalblock}
-      </Fragment>
+        
+      {/* <Modal content={this.state.contentModal} show={this.state.showModal} handleLogin={this.props.handleLogin}/> */}
 
       <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
         <NavLink className="navbar-brand" to="/">HelpOut</NavLink>

@@ -14,14 +14,12 @@ class App extends Component {
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
-      fsHero: false,
-      // contentModal: 'none'
+      fsHero: false
     }
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleNavbar = this.handleNavbar.bind(this)
-    // this.handleContentModal = this.handleContentModal.bind(this)
   }
 // Auth methods
   checkLoginStatus() {
@@ -81,38 +79,9 @@ class App extends Component {
     console.log(this.state.fsHero)
   }
 
-  //Modal methods
-
-  // handleContentModal(data){
-  //   this.setState({
-  //     contentModal: data
-  //   })
-  //   console.log(this.state.contentModal)
-  //   console.log(data)
-  // }
-
-//Modal rendering method
-  // renderModal(){
-  //   console.log(this.state.contentModal)
-  //   //conditional rendering for Modal content
-  //   if(this.state.contentModal === "signup" && this.state.loggedInStatus === "NOT_LOGGED_IN") {
-  //     return(
-        
-  //       <Modal
-  //         content={<Registration handleLogin={this.handleLogin}/>}
-  //         // handleLogin={this.handleLogin}
-  //       />
-          
-  //     )
-  //   } else {
-  //     return(
-  //       null
-  //     )
-  //   }
-    
-  // }
 
 //App rendering method
+
   render(){
   
     // conditional rendering for Navbar
@@ -137,18 +106,10 @@ class App extends Component {
 
         <BrowserRouter>
 
-        {/* {this.renderModal()} */}
-
-        {/* <Modal 
-          contentModal={this.state.contentModal}
-          handleLogin={this.handleLogin}
-        /> */}
-
         <Navbar 
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           loggedInStatus={this.state.loggedInStatus}
-          // handleContentModal={this.handleContentModal}
           user={this.state.user}
           navcolorscheme={navcolorscheme}
           navbg={navbg}
