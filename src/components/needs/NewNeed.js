@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 // import {withRouter} from 'reac-router-dom'
+import Keys from '../Keys'
 
 class NewNeed extends Component {
   constructor (props) {
@@ -11,10 +12,13 @@ class NewNeed extends Component {
       type: '',
       lat: '',
       long: '',
+      location: '',
+      formattedAddress: '',
       user: props.user
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
@@ -29,14 +33,43 @@ class NewNeed extends Component {
     });
   }
 
+
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    let address = this.state.location
+    let apiKey = Keys.googleMaps
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
+
+    fetch(url,
+      {method: 'GET'})
+      .then((response)=>{
+        return response.json()
+      })
+      .then((data)=>{
+        this.setState({
+          lat: data.results[0].geometry.location.lat,
+          long: data.results[0].geometry.location.lng,
+          formattedAddress: data.results[0].formatted_address
+        })
+
+          console.log(data)
+      })
+      .catch(error => {
+        console.log("registration error", error)
+      })
+    
+  }
+
   render () {
     return (
       
       <div>
       <h3>New HelpOut</h3>
       
-      {/* <form onSubmit={this.handleSubmit}> */}
-      <form>
+      <form onSubmit={this.handleSubmit}>
+      
         <div className="form-group">
           <label>Title</label>
           <input required type="text" name="title" value={this.state.title} onChange={this.handleInputChange} className="form-control" placeholder="Short and descriptive title"/>
@@ -65,16 +98,16 @@ class NewNeed extends Component {
 
         <div className="form-group">
           <label>Location</label>
+          <input required type="text" name="location" value={this.state.location} onChange={this.handleInputChange} className="form-control" placeholder="Help need address"/>
 
-
-          <div className="form-row">
+          {/* <div className="form-row">
             <div className="col-6">
               <input required type="text" name="lat" value={this.state.lat} onChange={this.handleInputChange} className="form-control" placeholder="Latitude"/>
             </div>
             <div className="col-6">
               <input required type="text" name="long" value={this.state.long} onChange={this.handleInputChange} className="form-control" placeholder="Longitude"/>
             </div>
-          </div>
+          </div> */}
 
         </div>
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import NewNeed from '../needs/NewNeed'
-import Registration from '../auth/Registration'
+import MapFrame from '../general/map/MapFrame'
 
 
 class Dashboard extends Component {
@@ -18,7 +17,7 @@ class Dashboard extends Component {
           </div>
 
           <div className="col">
-            <NewNeed user={this.props.user}/>
+            Map 
     
             
           </div>

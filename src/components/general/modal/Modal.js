@@ -9,19 +9,13 @@ import Backdrop from './Backdrop'
 
 const Modal = props => {
       
-    const slot =
-    
-    <div className="modal-frame d-flex justify-content-center align-items-center">
-      
-      <Backdrop/>
-
-      <div className="card p-4">
-        {props.content}
-      </div>
-
-    </div>
+  const slot =  <div className="modal-frame d-flex justify-content-center align-items-center">
+                  <Backdrop/>
+                  <div className="card p-4">
+                    {props.content}
+                  </div>
+                </div>
   
-
   return(
     ReactDom.createPortal(
       slot

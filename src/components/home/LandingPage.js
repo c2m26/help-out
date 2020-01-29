@@ -25,9 +25,8 @@ class LandingPage extends Component {
           {<AuthButtons
             handleLogin={this.props.handleLogin}
             handleNavbar={this.props.handleNavbar}
-            loggedInStatus={this.props.loggedInStatus}
         />}
-        
+        loggedInStatus={this.props.loggedInStatus}
       />
       
     
