@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {NavLink} from 'react-router-dom'
 import Modal from '../general/modal/Modal'
 import Registration from '../auth/Registration'
 import Login from '../auth/Login'

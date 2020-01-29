@@ -38,6 +38,7 @@ class NewNeed extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    // Getting data from Geocoding API
     let address = this.state.location
     let apiKey = Keys.googleMaps
     let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
@@ -59,6 +60,8 @@ class NewNeed extends Component {
       .catch(error => {
         console.log("registration error", error)
       })
+    
+      // Posting new help need to database
     
   }
 

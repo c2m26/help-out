@@ -17,7 +17,7 @@ class Dashboard extends Component {
           </div>
 
           <div className="col">
-            Map 
+            <MapFrame/>
     
             
           </div>
