@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Map from './Map'
 
 class MapFrame extends Component {
   constructor(props){
@@ -22,8 +23,8 @@ class MapFrame extends Component {
   storeUserGeoposition(position){
   
     this.setState({
-      userLat: position.coords.latitude,
-      userLng: position.coords.longitude
+      userLat: parseFloat(position.coords.latitude),
+      userLng: parseFloat(position.coords.longitude)
 
     })
   
@@ -38,7 +39,13 @@ class MapFrame extends Component {
           <li>Latitude: {this.state.userLat}</li>  
           <li>Longitude: {this.state.userLng}</li>  
         </ul> 
-        
+        <Map
+          id = "map1"
+          options = {{
+            center: {lat: this.state.userLat, lng: this.state.userLng},
+            zoom: 14
+          }}
+        />
       </div>
     )
   }
