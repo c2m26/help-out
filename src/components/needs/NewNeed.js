@@ -14,10 +14,11 @@ class NewNeed extends Component {
       lng: '',
       location: '',
       formattedAddress: '',
-      user: props.user
+      user: props.user.id
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleGeocoding = this.handleGeocoding.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
@@ -35,7 +36,7 @@ class NewNeed extends Component {
 
 
 
-  handleSubmit(e) {
+  handleGeocoding(e) {
     e.preventDefault();
 
     // Getting data from Geocoding API
@@ -51,7 +52,7 @@ class NewNeed extends Component {
       .then((data)=>{
         this.setState({
           lat: data.results[0].geometry.location.lat,
-          long: data.results[0].geometry.location.lng,
+          lng: data.results[0].geometry.location.lng,
           formattedAddress: data.results[0].formatted_address
         })
 
@@ -60,10 +61,46 @@ class NewNeed extends Component {
       .catch(error => {
         console.log("registration error", error)
       })
-      -t
-      // Posting new help need to database
-    
+
+      this.handleSubmit()
   }
+      
+    handleSubmit() {
+      // e.preventDefault();
+
+      // Posting new help need to database
+      let need = {
+        userID: this.state.user,
+        title: this.state.title,
+        description: this.state.description,
+        needType: this.state.needType,
+        lat: this.state.lat,
+        lng: this.state.lng,
+        formattedAddress: this.state.formattedAddress,
+        status: 'open'
+      }
+      let urlneeds = 'http://localhost:3001/api/v1/needs'
+
+      fetch(urlneeds, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(need)
+      })
+      
+      .then((response)=>{
+        return response.json()
+      })
+      .then((data) =>{
+        console.log(data)
+      })    
+      .catch(error => {
+        console.log("Log In error", error)
+      })
+    
+    }
 
   render () {
     return (
@@ -71,7 +108,7 @@ class NewNeed extends Component {
       <div>
       <h3>New HelpOut</h3>
       
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleGeocoding}>
       
         <div className="form-group">
           <label>Title</label>

@@ -63,7 +63,7 @@ class Registration extends Component {
 
     // const user = {firstName, lastName, email, password, password_confirmation, idFile}
 
-    const url = 'http://localhost:3001/registrations';
+    const url = 'http://localhost:3001/api/v1/registrations';
 
     fetch(url, {
       method: 'POST',

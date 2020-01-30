@@ -31,7 +31,7 @@ class Login extends Component {
     const email = this.state.email
     const password = this.state.password
     
-    const url = 'http://localhost:3001/sessions';
+    const url = 'http://localhost:3001/api/v1/sessions';
     const user = { email, password }
 
     fetch(url, {

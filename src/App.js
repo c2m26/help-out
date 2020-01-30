@@ -23,7 +23,7 @@ class App extends Component {
   }
 // Auth methods
   checkLoginStatus() {
-    let url = 'http://localhost:3001/logged_in'
+    let url = 'http://localhost:3001/api/v1/logged_in'
     
     fetch(url, {
       method: 'GET',
@@ -153,7 +153,6 @@ class App extends Component {
             render = {props => (
               <Dashboard { ... props}
               handleLogin={this.handleLogin}
-              loggedInStatus={this.state.loggedInStatus}
               user={this.state.user}
               />
             )}

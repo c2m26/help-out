@@ -33,7 +33,7 @@ class Navbar extends Component {
 
   // Auth methods
   handleLogoutClick(){
-    let url = 'http://localhost:3001/logout'
+    let url = 'http://localhost:3001/api/v1/logout'
     
     fetch(url, {
       method: 'DELETE',
@@ -158,6 +158,7 @@ class Navbar extends Component {
           <Modal
             content=
               {<NewNeed
+              user={this.props.user}
               handleLogin={this.props.handleLogin}
               handleModalClose={this.handleModalClose}
               />}
