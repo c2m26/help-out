@@ -9,9 +9,9 @@ class NewNeed extends Component {
     this.state = {
       title: '',
       description: '',
-      type: '',
+      needType: '',
       lat: '',
-      long: '',
+      lng: '',
       location: '',
       formattedAddress: '',
       user: props.user
@@ -60,7 +60,7 @@ class NewNeed extends Component {
       .catch(error => {
         console.log("registration error", error)
       })
-    
+      -t
       // Posting new help need to database
     
   }
@@ -88,13 +88,13 @@ class NewNeed extends Component {
 
           <div className="form-group">
           
-          <div className="custom-control custom-checkbox custom-control-inline">
-            <input required type="checkbox" name="type" id="customCheck1" value={this.state.type} onChange={this.handleInputChange} className="custom-control-input"/>
-            <label className="custom-control-label" htmlFor="customCheck1">Material Need</label>
+          <div className="custom-control custom-radio custom-control-inline">
+            <input required type="radio" name="needType" id="customRadio1" value="material" checked={this.state.needType === "material"} onChange={this.handleInputChange} className="custom-control-input"/>
+            <label className="custom-control-label" htmlFor="customRadio1">Material Need</label>
           </div>
-          <div className="custom-control custom-checkbox custom-control-inline">
-            <input required type="checkbox" name="type" id="customCheck2" value={this.state.type} onChange={this.handleInputChange} className="custom-control-input"/>
-            <label className="custom-control-label" htmlFor="customCheck2">One-time Task</label>
+          <div className="custom-control custom-radio custom-control-inline">
+            <input required type="radio" name="needType" id="customRadio2" value="oneTime" checked={this.state.needType === "oneTime"} onChange={this.handleInputChange} className="custom-control-input"/>
+            <label className="custom-control-label" htmlFor="customRadio2">One-time Task</label>
           </div>
           </div>
         </div>
@@ -102,16 +102,6 @@ class NewNeed extends Component {
         <div className="form-group">
           <label>Location</label>
           <input required type="text" name="location" value={this.state.location} onChange={this.handleInputChange} className="form-control" placeholder="Help need address"/>
-
-          {/* <div className="form-row">
-            <div className="col-6">
-              <input required type="text" name="lat" value={this.state.lat} onChange={this.handleInputChange} className="form-control" placeholder="Latitude"/>
-            </div>
-            <div className="col-6">
-              <input required type="text" name="long" value={this.state.long} onChange={this.handleInputChange} className="form-control" placeholder="Longitude"/>
-            </div>
-          </div> */}
-
         </div>
 
 
