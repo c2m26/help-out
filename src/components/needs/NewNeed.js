@@ -20,6 +20,7 @@ class NewNeed extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleGeocoding = this.handleGeocoding.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this)
 
   }
 
@@ -36,7 +37,7 @@ class NewNeed extends Component {
 
 
 
-  handleGeocoding(e) {
+  async handleGeocoding(e) {
     e.preventDefault();
 
     // Getting data from Geocoding API
@@ -44,7 +45,7 @@ class NewNeed extends Component {
     let apiKey = Keys.googleMaps
     let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
 
-    fetch(url,
+    await fetch(url,
       {method: 'GET'})
       .then((response)=>{
         return response.json()
@@ -62,7 +63,7 @@ class NewNeed extends Component {
         console.log("registration error", error)
       })
 
-      this.handleSubmit()
+    await this.handleSubmit()
   }
       
     handleSubmit() {
@@ -100,6 +101,11 @@ class NewNeed extends Component {
         console.log("Log In error", error)
       })
     
+      this.handleModalClose()
+    }
+
+    handleModalClose() {
+      this.props.handleModalClose()
     }
 
   render () {

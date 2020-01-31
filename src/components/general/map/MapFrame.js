@@ -6,29 +6,22 @@ class MapFrame extends Component {
     super(props)
 
     this.state = {
-      userLat: '',
-      userLng: ''
+      userLat: null,
+      userLng: null
     }
-
-    this.storeUserGeoposition = this.storeUserGeoposition.bind(this)
+  
   }
 
 
   componentDidMount(){
        
-    navigator.geolocation.getCurrentPosition(this.storeUserGeoposition)
-    
-  }
-
-  storeUserGeoposition(position){
-  
-    this.setState({
-      userLat: parseFloat(position.coords.latitude),
-      userLng: parseFloat(position.coords.longitude)
-
+    navigator.geolocation.getCurrentPosition( position => {
+      this.setState({
+        userLat: position.coords.latitude,
+        userLng: position.coords.longitude
+      })
     })
-  
-
+    
   }
 
   render(){
