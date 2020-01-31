@@ -12,6 +12,7 @@ class Login extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this)
   }
 
   handleInputChange(event) {
@@ -50,6 +51,7 @@ class Login extends Component {
       if (data.logged_in) {
         this.props.handleLogin(data)
         this.props.history.push("/dashboard")
+        this.handleModalClose()
       } else {
         this.setState({
           registration_errors: "Error in Log In!"
@@ -60,6 +62,10 @@ class Login extends Component {
     .catch(error => {
       console.log("Log In error", error)
     })
+  }
+
+  handleModalClose(){
+    this.props.handleModalClose()
   }
  
      

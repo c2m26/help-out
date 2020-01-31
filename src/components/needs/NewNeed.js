@@ -96,12 +96,15 @@ class NewNeed extends Component {
       })
       .then((data) =>{
         console.log(data)
+        if(data.status === "ok") {
+          this.handleModalClose()
+        } else {
+          alert ("Sorry, your Need could not be submitted")
+        }
       })    
       .catch(error => {
         console.log("Log In error", error)
       })
-    
-      this.handleModalClose()
     }
 
     handleModalClose() {

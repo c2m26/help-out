@@ -18,6 +18,7 @@ class Registration extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFileSelect = this.handleFileSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this)
   }
 
   handleInputChange(event) {
@@ -82,16 +83,22 @@ class Registration extends Component {
       if (data.status === 'created') {
         this.props.handleLogin(data)
         this.props.history.push("/dashboard")
+        this.handleModalClose()
       } else {
         this.setState({
           registration_errors: "Error in registration!"
         })
+        alert ("Sorry, but we could not conclude your registration")
       }
       // console.log(data.user)
     })    
     .catch(error => {
       console.log("registration error", error)
     })
+  }
+
+  handleModalClose(){
+    this.props.handleModalClose()
   }
  
      
