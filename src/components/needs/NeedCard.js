@@ -4,7 +4,7 @@ function NeedCard (props) {
   
   
   return(
-    <div className="card my-2">
+    <div className="card bg-light my-2">
       <div className="card-body">
         <h5 className="card-title">{props.title}</h5>
         <p className="card-text">{props.formattedAdress}</p>

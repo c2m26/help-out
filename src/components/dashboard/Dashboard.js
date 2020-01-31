@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MapFrame from '../general/map/MapFrame'
-import NeedCard from '../needs/NeedCard'
 
+import NeedsList from '../needs/NeedsList'
 
 class Dashboard extends Component {
   constructor(props){
@@ -37,37 +37,21 @@ class Dashboard extends Component {
     .catch(error => {
       console.log("Log In error", error)
     })
-  
   }
   
   
   render () {
-    console.log(this.state.needs)
-    const NeedsList = this.state.needs.map( needs => {
-                                              return( 
-                                                <NeedCard key={needs.id} {...needs} />
-                                              ) 
-                                            })
-
-    // const RiderRows = RidersData.map(rider => {
-    //                                           return(
-    //                                               <RidersList key={rider.firstName + rider.lastName} {...rider} />
-    //                                           )
-    //                                       })
-
-
+    
     return (
       <div className="container-fluid">
 
         <div className="row">
           <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            {NeedsList}
+            <NeedsList needs={this.state.needs} />
           </div>
 
           <div className="col">
             <MapFrame/>
-    
-            
           </div>
         </div>
   
