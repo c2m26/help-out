@@ -1,25 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Keys from '../../Keys'
 
 class Map extends Component {
   constructor(props) {
     super(props);
     this.onScriptLoad = this.onScriptLoad.bind(this)
-  }
-
-  onScriptLoad() {
-    const map = new window.google.maps.Map(
-      document.getElementById(this.props.id),
-      this.props.options);
-      this.loadMarkers(map)
-  }
-
-  loadMarkers(map) {
-    var marker = new window.google.maps.Marker({
-      position: { lat: this.props.options.center.lat, lng: this.props.options.center.lng },
-      map: map
-      
-    });
+    this.loadUserMarker = this.loadUserMarker.bind(this)
+    // this.loadNeedsMarkers = this.loadNeedsMarkers.bind(this)
   }
 
   componentDidMount() {
@@ -36,13 +23,67 @@ class Map extends Component {
         this.onScriptLoad()
       })
     } else {
-      this.onScriptLoad()
+        this.onScriptLoad()
     }
   }
 
+  onScriptLoad() {
+    const mapa = new window.google.maps.Map(
+      document.getElementById(this.props.id),
+      this.props.options);
+      this.loadUserMarker(mapa)
+      // this.loadNeedsMarkers(mapa)
+  }
+
+  loadUserMarker(mapa) {
+    
+    new window.google.maps.Marker({
+      position: { lat: this.props.options.center.lat, lng: this.props.options.center.lng },
+      map: mapa
+    });
+    console.log(this.props.options.center.lat)
+    console.log(this.props.needs)
+    
+    this.props.needs.map( needs => { 
+      return ( new window.google.maps.Marker({
+      position: { lat: needs.lat, lng: needs.lng },
+      map: mapa}))
+    })
+    
+    console.log(this.props.needs)
+  }
+  
+  // componentDidUpdate(prevProps) {
+ 
+  //   if(this.props.needs !== prevProps.needs) {
+  //     this.onScriptLoad()
+  //   }
+    
+  // }
+
+  // loadNeedsMarkers(mapa){
+  //   this.props.needs.map( needs => { 
+  //     return ( new window.google.maps.Marker({
+  //     position: { lat: needs.lat, lng: needs.lng },
+  //     map: mapa}))
+  //   })
+  // }
+
   render() {
+    console.log(this.props.needs)
+    let MapContent
+    if (this.props.needs !== null) {
+      MapContent = <div style={{ width: '100%', height: '80vh' }} id={this.props.id} />
+    } else {
+      MapContent = null
+    }
+    
     return (
-      <div style={{ width: '100%', height: '80vh' }} id={this.props.id} />
+      // <div style={{ width: '100%', height: '80vh' }} id={this.props.id} />
+      <Fragment>
+        {MapContent}
+      </Fragment>
+      
     );
   }
 }

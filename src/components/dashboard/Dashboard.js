@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import MapFrame from '../general/map/MapFrame'
+
+import Map from '../general/map/Map'
 
 import NeedsList from '../needs/NeedsList'
 
@@ -8,17 +9,58 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      needs: []
+      needs: [],
+      userLat: null,
+      userLng: null
     }
+    // this.getUserGeolocation=this.getUserGeolocation.bind(this)
+    // this.fetchNeeds=this.fetchNeeds.bind(this)
   }
   
+  // fetchNeeds() {
+  //  // fetching all needs from API
+  //  let urlneeds = 'http://localhost:3001/api/v1/needs'
 
-  componentDidMount() {
+  //  fetch(urlneeds, {
+  //    method: 'GET',
+  //    credentials: 'include',
+  //    headers: {
+  //      'Content-Type': 'application/json'
+  //    }
+  //  })
+  //  .then((response)=>{
+  //    return response.json()
+  //  })
+  //  .then((data) =>{
+  //    console.log(data)
+  //    this.setState({
+  //      needs: data
+  //    })
+  //  })    
+  //  .catch(error => {
+  //    console.log("Log In error", error)
+  //  })
+  // }
+  
+
+  // getUserGeolocation(){
+  //   navigator.geolocation.getCurrentPosition( position => {
+  //     this.setState({
+  //       userLat: position.coords.latitude,
+  //       userLng: position.coords.longitude
+  //     })
+  //   })
+  // }
+
+  async componentDidMount() {
+
+    // this.fetchNeeds()
+    // this.getUserGeolocation()
     
     // fetching all needs from API
     let urlneeds = 'http://localhost:3001/api/v1/needs'
 
-    fetch(urlneeds, {
+    await fetch(urlneeds, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -37,11 +79,34 @@ class Dashboard extends Component {
     .catch(error => {
       console.log("Log In error", error)
     })
+    
+    navigator.geolocation.getCurrentPosition( position => {
+      this.setState({
+        userLat: position.coords.latitude,
+        userLng: position.coords.longitude
+      })
+    })
   }
+
+  
   
   
   render () {
-    
+    console.log(this.state)
+    let MapElement
+    if(this.state.needs !== null && this.state.userLng && this.state.userLat) {
+      MapElement = 
+      <Map
+        id = "mapDashboard"
+        options = {{
+          center: {lat: this.state.userLat, lng: this.state.userLng},
+          zoom: 14
+        }}
+        needs={this.state.needs}
+      />
+    } else
+    { MapElement = null}
+
     return (
       <div className="container-fluid">
 
@@ -51,7 +116,15 @@ class Dashboard extends Component {
           </div>
 
           <div className="col">
-            <MapFrame/>
+            {MapElement}
+              {/* <Map
+              id = "mapDashboard"
+              options = {{
+                center: {lat: this.state.userLat, lng: this.state.userLng},
+                zoom: 14
+              }}
+              needs={this.state.needs}
+              /> */}
           </div>
         </div>
   
