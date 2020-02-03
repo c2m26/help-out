@@ -1,0 +1,9 @@
+#overflow{
+  height: 93vh;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* Chrome/Safari/Webkit */
+}

@@ -4,8 +4,8 @@ import Keys from '../../Keys'
 class Map extends Component {
   constructor(props) {
     super(props);
-    this.onScriptLoad = this.onScriptLoad.bind(this)
-    this.loadUserMarker = this.loadUserMarker.bind(this)
+    this.initMap = this.initMap.bind(this)
+    // this.loadUserMarker = this.loadUserMarker.bind(this)
     // this.loadNeedsMarkers = this.loadNeedsMarkers.bind(this)
   }
 
@@ -20,60 +20,42 @@ class Map extends Component {
       // Below is important. 
       //We cannot access google.maps until it's finished loading
       s.addEventListener('load', e => {
-        this.onScriptLoad()
+        this.initMap()
       })
     } else {
-        this.onScriptLoad()
+        this.initMap()
     }
   }
 
-  onScriptLoad() {
-    const mapa = new window.google.maps.Map(
+  initMap() {
+    var map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.props.options);
-      this.loadUserMarker(mapa)
-      // this.loadNeedsMarkers(mapa)
-  }
-
-  loadUserMarker(mapa) {
+      
+    // new window.google.maps.Marker({
+    //   position: { lat: this.props.options.center.lat, lng: this.props.options.center.lng },
+    //   icon: {
+    //     path: window.google.maps.SymbolPath.CIRCLE,
+    //     scale: 7
+    //   },
+    //   map: map
+    // });
     
-    new window.google.maps.Marker({
-      position: { lat: this.props.options.center.lat, lng: this.props.options.center.lng },
-      map: mapa
-    });
-    console.log(this.props.options.center.lat)
-    console.log(this.props.needs)
+    // this.props.needs.map( needs => { 
+    //   return ( new window.google.maps.Marker({
+    //   position: { lat: needs.lat, lng: needs.lng },
+    //   map: map}))
+    // })
+    this.props.loadUserMarker(map)
+    this.props.loadNeedsMarkers(map)
     
-    this.props.needs.map( needs => { 
-      return ( new window.google.maps.Marker({
-      position: { lat: needs.lat, lng: needs.lng },
-      map: mapa}))
-    })
-    
-    console.log(this.props.needs)
   }
   
-  // componentDidUpdate(prevProps) {
- 
-  //   if(this.props.needs !== prevProps.needs) {
-  //     this.onScriptLoad()
-  //   }
-    
-  // }
-
-  // loadNeedsMarkers(mapa){
-  //   this.props.needs.map( needs => { 
-  //     return ( new window.google.maps.Marker({
-  //     position: { lat: needs.lat, lng: needs.lng },
-  //     map: mapa}))
-  //   })
-  // }
-
   render() {
-    console.log(this.props.needs)
+    
     let MapContent
     if (this.props.needs !== null) {
-      MapContent = <div style={{ width: '100%', height: '80vh' }} id={this.props.id} />
+      MapContent = <div style={{ width: '100%', height: '93vh' }} id={this.props.id} />
     } else {
       MapContent = null
     }

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import NeedCard from './NeedCard'
+import './NeedList.css'
 
 function NeedsList (props) {
 
@@ -10,9 +11,9 @@ function NeedsList (props) {
   })
 
   return(
-    <Fragment>
+    <div id="overflow" className="mb-2">
       {NeedsListContent}
-    </Fragment>
+    </div>
   )
 
 } export default NeedsList
