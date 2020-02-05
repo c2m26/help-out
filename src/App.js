@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import  {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Navbar from './components/general/Navbar.js'
 import Dashboard from './components/dashboard/Dashboard.js'
 import Login from './components/auth/Login.js'

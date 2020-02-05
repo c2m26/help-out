@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import {Link, BrowserRouter, Switch, Route} from 'react-router-dom'
+import NeedDetail from './NeedDetail'
 
 function NeedCard (props) {
   
   
   return(
+    <Fragment>
+    <Link to= {`/needs/${props.id}`}>
+    
     <div className="card bg-light mb-2">
       <div className="card-body">
         <h5 className="card-title">{props.title}</h5>
@@ -14,6 +19,22 @@ function NeedCard (props) {
         </div>
       </div>
     </div>
+    </Link>
+
+      
+      <Route
+        path = {`/needs/${props.id}`}
+        component = {NeedDetail}
+       //  render = {props => (
+      //    <NeedDetail {...props}
+      //    props={props} />
+      //  )}
+      />
+      
+      </Fragment>
+    
+
+    
   )
 
 } export default NeedCard
