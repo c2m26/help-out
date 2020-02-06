@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 // import {withRouter} from 'reac-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { postNeed } from '../actions/needsAction'
 import Keys from '../Keys'
 
 class NewNeed extends Component {
@@ -34,8 +37,6 @@ class NewNeed extends Component {
       [name]: value
     });
   }
-
-
 
   async handleGeocoding(e) {
     e.preventDefault();
@@ -80,31 +81,16 @@ class NewNeed extends Component {
         formattedAddress: this.state.formattedAddress,
         status: 'open'
       }
-      let urlneeds = 'http://localhost:3001/api/v1/needs'
 
-      fetch(urlneeds, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(need)
-      })
+      this.props.postNeed(need)
+
+      console.log(this.props)
       
-      .then((response)=>{
-        return response.json()
-      })
-      .then((data) =>{
-        console.log(data)
-        if(data.status === "ok") {
+      if(this.props.need.status === "ok") {
           this.handleModalClose()
         } else {
           alert ("Sorry, your Need could not be submitted")
         }
-      })    
-      .catch(error => {
-        console.log("Log In error", error)
-      })
     }
 
     handleModalClose() {
@@ -162,5 +148,13 @@ class NewNeed extends Component {
 
 } 
 // export default withRouter(NewNeed)
+NewNeed.propTypes = {
+  postNeed: PropTypes.func.isRequired,
+  need: PropTypes.object.isRequired,
+}
 
-export default NewNeed
+const mapStateToProps = state => ({
+  need: state.needs.item
+})
+
+export default connect(mapStateToProps, { postNeed })(NewNeed)

@@ -1,4 +1,5 @@
 import { FETCH_NEEDS, NEW_NEED } from '../actions/types'
+import { bindActionCreators } from 'redux'
 
 const initialState = {
   items: [],
@@ -8,14 +9,16 @@ const initialState = {
 export default function(state = initialState, action){
   switch(action.type){
     case FETCH_NEEDS:
-      console.log('reducer')
-      console.log(action.payload)
       return{
         ...state,
         items: action.payload
       }
-    
+    case NEW_NEED:
+      return{
+        ...state,
+        item: action.payload,
+      }
     default:
       return state;
   }
-}
+} 

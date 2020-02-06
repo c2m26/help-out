@@ -1,15 +1,26 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Keys from '../../Keys'
 
 class Map extends Component {
   constructor(props) {
     super(props);
     this.initMap = this.initMap.bind(this)
-    // this.loadUserMarker = this.loadUserMarker.bind(this)
-    // this.loadNeedsMarkers = this.loadNeedsMarkers.bind(this)
+    this.loadMapScript = this.loadMapScript.bind(this)
   }
 
   componentDidMount() {
+    this.loadMapScript()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.needs !== prevProps.needs) {
+      this.loadMapScript()
+    }
+  }
+
+  loadMapScript(){
     if (!window.google) {
       let apiKey = Keys.googleMaps
       var s = document.createElement('script');
@@ -26,7 +37,7 @@ class Map extends Component {
         this.initMap()
     }
   }
-
+  
   initMap() {
     var map = new window.google.maps.Map(
       document.getElementById(this.props.id),
@@ -52,7 +63,7 @@ class Map extends Component {
   }
   
   render() {
-    
+    console.log(this.props.needs)
     let MapContent
     if (this.props.needs !== null) {
       MapContent = <div style={{ width: '100%', height: '93vh' }} id={this.props.id} />
@@ -70,4 +81,12 @@ class Map extends Component {
   }
 }
 
-export default Map
+Map.propTypes = {
+  needs: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => ({
+  needs: state.needs.items
+});
+
+export default connect(mapStateToProps, { })(Map)

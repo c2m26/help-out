@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {fetchNeeds} from '../actions/needsAction'
 import Map from '../general/map/Map'
@@ -11,26 +12,34 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      
       userLat: null,
       userLng: null
     }
     
-  }
+    this.getUserLocation=this.getUserLocation.bind(this)
+  } 
   
 
   componentDidMount() {
-  
-    navigator.geolocation.getCurrentPosition( position => {
+    this.getUserLocation();
+    this.props.fetchNeeds();
+  }
+
+  async getUserLocation(){
+    await navigator.geolocation.getCurrentPosition( position => {
       this.setState({
         userLat: position.coords.latitude,
         userLng: position.coords.longitude
       })
     })
-
-    this.props.fetchNeeds();
-
   }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.newNeed !== prevProps.newNeed) {
+      this.props.fetchNeeds()
+    }
+  }
+
     
   render () {
     console.log(this.props.needs)
@@ -62,7 +71,6 @@ class Dashboard extends Component {
           map: map
           })}
         }
-        needs={this.props.needs}
       />
     } else
     { MapElement = null}
@@ -78,6 +86,30 @@ class Dashboard extends Component {
 
           <div className="col">
             {MapElement}
+            {/* <Map
+              id = "mapDashboard"
+              options = {{
+                center: {lat: this.state.userLat, lng: this.state.userLng},
+                zoom: 15
+              }}
+              loadNeedsMarkers = {map => {
+                this.props.needs.map( needs => { 
+                return ( new window.google.maps.Marker({
+                position: { lat: needs.lat, lng: needs.lng },
+                map: map}))
+                })}
+              }
+              loadUserMarker = {map => {
+                new window.google.maps.Marker({
+                position: { lat: this.state.userLat, lng: this.state.userLng },
+                icon: {
+                  path: window.google.maps.SymbolPath.CIRCLE,
+                  scale: 7
+                },
+                map: map
+                })}
+              }
+            /> */}
           </div>
         </div>
   
@@ -88,8 +120,15 @@ class Dashboard extends Component {
   
 }
 
+Dashboard.propTypes = {
+  fetchNeeds: PropTypes.func.isRequired,
+  needs: PropTypes.array.isRequired,
+  newNeed: PropTypes.object
+}
+
 const mapStateToProps = state => ({
-  needs: state.needs.items
+  needs: state.needs.items,
+  newNeed: state.needs.item.data
 });
 
 export default connect(mapStateToProps, { fetchNeeds })(Dashboard)
