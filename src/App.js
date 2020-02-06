@@ -1,10 +1,15 @@
 import React, {Component} from 'react'
+import {Provider} from 'react-redux'
+
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Navbar from './components/general/Navbar.js'
 import Dashboard from './components/dashboard/Dashboard.js'
 import Login from './components/auth/Login.js'
 import Registration from './components/auth/Registration.js'
 import LandingPage from './components/home/LandingPage.js'
+import store from './components/store'
+
+
 
 
 class App extends Component {
@@ -102,65 +107,65 @@ class App extends Component {
     }
 
     return (
-      <div className="app">
+      <Provider store={store}>
+        <div className="app">
+          <BrowserRouter>
 
-        <BrowserRouter>
-
-        <Navbar 
-          handleLogin={this.handleLogin}
-          handleLogout={this.handleLogout}
-          loggedInStatus={this.state.loggedInStatus}
-          user={this.state.user}
-          navcolorscheme={navcolorscheme}
-          navbg={navbg}
-          textColor={textColor}
-        />
-        
-          <Switch>
+          <Navbar 
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            loggedInStatus={this.state.loggedInStatus}
+            user={this.state.user}
+            navcolorscheme={navcolorscheme}
+            navbg={navbg}
+            textColor={textColor}
+          />
           
-            <Route
-            exact
-            path = {"/"}
-            render = {props => (
-              <LandingPage {...props}
-              handleLogin={this.handleLogin}
-              handleNavbar={this.handleNavbar}
-              loggedInStatus={this.state.loggedInStatus}
+            <Switch>
+            
+              <Route
+              exact
+              path = {"/"}
+              render = {props => (
+                <LandingPage {...props}
+                handleLogin={this.handleLogin}
+                handleNavbar={this.handleNavbar}
+                loggedInStatus={this.state.loggedInStatus}
+                />
+              )}
               />
-            )}
-            />
-            <Route 
-            exact
-            path={"/signup"}
-            render = {props => (
-              <Registration {...props}
-              handleLogin={this.handleLogin}
+              <Route 
+              exact
+              path={"/signup"}
+              render = {props => (
+                <Registration {...props}
+                handleLogin={this.handleLogin}
+                />
+              )}
               />
-            )}
-            />
-            <Route 
-            exact
-            path={"/signin"}
-            render = {props => (
-              <Login { ... props}
-              handleLogin={this.handleLogin}
+              <Route 
+              exact
+              path={"/signin"}
+              render = {props => (
+                <Login { ... props}
+                handleLogin={this.handleLogin}
+                />
+              )}
               />
-            )}
-            />
-            <Route
-            exact
-            path={"/dashboard"}
-            render = {props => (
-              <Dashboard { ... props}
-              handleLogin={this.handleLogin}
-              user={this.state.user}
+              <Route
+              exact
+              path={"/dashboard"}
+              render = {props => (
+                <Dashboard { ... props}
+                handleLogin={this.handleLogin}
+                user={this.state.user}
+                />
+              )}
               />
-            )}
-            />
-          </Switch>
-        </BrowserRouter>
-      </div>
-      
+            </Switch>
+          </BrowserRouter>
+        </div>
+      </Provider>
     )
   }         
 } 

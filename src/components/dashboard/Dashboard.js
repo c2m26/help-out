@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
+import {fetchNeeds} from '../actions/needsAction'
 import Map from '../general/map/Map'
 
 import NeedsList from '../needs/NeedsList'
@@ -10,78 +11,33 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      needs: [],
+      
       userLat: null,
       userLng: null
     }
-    this.fetchNeeds = this.fetchNeeds.bind(this)
+    
   }
   
-  async componentDidMount() {
 
-    await this.fetchNeeds()
-    // fetching all needs from API
-    // let urlneeds = 'http://localhost:3001/api/v1/needs'
-
-    // await fetch(urlneeds, {
-    //   method: 'GET',
-    //   credentials: 'include',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    // .then((response)=>{
-    //   return response.json()
-    // })
-    // .then((data) =>{
-    //   console.log(data)
-    //   this.setState({
-    //     needs: data
-    //   })
-    // })    
-    // .catch(error => {
-    //   console.log("Log In error", error)
-    // })
-    
+  componentDidMount() {
+  
     navigator.geolocation.getCurrentPosition( position => {
       this.setState({
         userLat: position.coords.latitude,
         userLng: position.coords.longitude
       })
     })
-  }
-  
-  async fetchNeeds(){
-    // fetching all needs from API
-    let urlneeds = 'http://localhost:3001/api/v1/needs'
 
-    await fetch(urlneeds, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((response)=>{
-      return response.json()
-    })
-    .then((data) =>{
-      console.log(data)
-      this.setState({
-        needs: data
-      })
-    })    
-    .catch(error => {
-      console.log("Log In error", error)
-    })
+    this.props.fetchNeeds();
+
   }
-  
-  
-  
+    
   render () {
+    console.log(this.props.needs)
     console.log(this.state)
+
     let MapElement
-    if(this.state.needs !== null && this.state.userLng && this.state.userLat) {
+    if(this.props.needs !== null && this.state.userLng && this.state.userLat) {
       MapElement = 
       <Map
         id = "mapDashboard"
@@ -90,7 +46,7 @@ class Dashboard extends Component {
           zoom: 15
         }}
         loadNeedsMarkers = {map => {
-          this.state.needs.map( needs => { 
+          this.props.needs.map( needs => { 
           return ( new window.google.maps.Marker({
           position: { lat: needs.lat, lng: needs.lng },
           map: map}))
@@ -106,17 +62,18 @@ class Dashboard extends Component {
           map: map
           })}
         }
-        needs={this.state.needs}
+        needs={this.props.needs}
       />
     } else
     { MapElement = null}
 
     return (
+      
       <div id="viewframe" className="container-fluid">
 
         <div className="row">
           <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <NeedsList needs={this.state.needs} />
+            <NeedsList needs={this.props.needs} />
           </div>
 
           <div className="col">
@@ -131,4 +88,8 @@ class Dashboard extends Component {
   
 }
 
-export default Dashboard
+const mapStateToProps = state => ({
+  needs: state.needs.items
+});
+
+export default connect(mapStateToProps, { fetchNeeds })(Dashboard)
