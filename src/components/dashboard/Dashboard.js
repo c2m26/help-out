@@ -63,6 +63,10 @@ class Dashboard extends Component {
       needsOT: oneTime
     })
   }
+
+  // handleShowHighlight(){
+
+  // }
   
   componentDidUpdate(prevProps) {
     if(this.props.newNeed !== prevProps.newNeed) {
@@ -114,7 +118,7 @@ class Dashboard extends Component {
         }
       />
     } else
-    { MapElement = null}
+    {MapElement = null}
 
     return (
       
