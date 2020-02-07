@@ -13,7 +13,9 @@ class Dashboard extends Component {
 
     this.state = {
       userLat: null,
-      userLng: null
+      userLng: null,
+      needsOT: [],
+      needsMT: []
     }
     
     this.getUserLocation=this.getUserLocation.bind(this)
@@ -23,6 +25,8 @@ class Dashboard extends Component {
   async componentDidMount() {
     await this.getUserLocation();
     await this.props.fetchNeeds();
+    await this.buildNeedsArrays();
+    console.log(this.state)
   }
 
   getUserLocation(){
@@ -34,9 +38,36 @@ class Dashboard extends Component {
     })
   }
 
+  buildNeedsArrays(){
+    let material = []
+    let oneTime = []
+
+    for (let i=0; i<this.props.needs.length; i++) {
+      if (this.props.needs[i].needType === 'material') {
+        material.push(this.props.needs[i])
+      } else {
+        oneTime.push(this.props.needs[i])
+      }
+    };
+
+    for (let i=0; i<material.length; i++) {
+      material[i].showHighlight = false
+    }
+
+    for (let i=0; i<oneTime.length; i++) {
+      oneTime[i].showHighlight = false
+    }
+
+    this.setState({
+      needsMT: material,
+      needsOT: oneTime
+    })
+  }
+  
   componentDidUpdate(prevProps) {
     if(this.props.newNeed !== prevProps.newNeed) {
       this.props.fetchNeeds()
+      this.buildNeedsArrays()
     }
   }
 
@@ -44,7 +75,7 @@ class Dashboard extends Component {
   render () {
     
     let MapElement
-    if(this.props.needs !== null && this.state.userLng && this.state.userLat) {
+    if(this.props.needs !== null && this.state.needsOT !== [] && this.state.needsMT !== [] && this.state.userLng && this.state.userLat) {
       MapElement = 
       <Map
         id = "mapDashboard"
@@ -52,12 +83,24 @@ class Dashboard extends Component {
           center: {lat: this.state.userLat, lng: this.state.userLng},
           zoom: 15
         }}
-        loadNeedsMarkers = {map => {
-          this.props.needs.map( needs => { 
-          return ( new window.google.maps.Marker({
-          position: { lat: needs.lat, lng: needs.lng },
-          map: map}))
-          })}
+        // possible to make both map() inside of the same object?
+        loadNeedsMTMarkers = {
+          map => {
+            this.state.needsMT.map( needs => { 
+            return ( new window.google.maps.Marker({
+            position: { lat: needs.lat, lng: needs.lng },
+            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+            map: map}))})
+          }
+        }
+        loadNeedsOTMarkers = {
+          map => {
+            this.state.needsOT.map( needs => { 
+            return ( new window.google.maps.Marker({
+            position: { lat: needs.lat, lng: needs.lng },
+            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+            map: map}))})
+          }
         }
         loadUserMarker = {map => {
           new window.google.maps.Marker({
@@ -78,11 +121,11 @@ class Dashboard extends Component {
       <div id="viewframe" className="container-fluid bg-light">
 
         <div className="row">
-          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-4 py-2">
             <NeedsList needs={this.props.needs} />
           </div>
 
-          <div className="col py-2">
+          <div className="col py-2 pr-4">
             {MapElement}
           </div>
         </div>

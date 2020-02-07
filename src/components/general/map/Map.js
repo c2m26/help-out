@@ -10,8 +10,8 @@ class Map extends Component {
     this.loadMapScript = this.loadMapScript.bind(this)
   }
 
-  componentDidMount() {
-    this.loadMapScript()
+  async componentDidMount() {
+    await this.loadMapScript()
   }
 
   componentDidUpdate(prevProps) {
@@ -42,23 +42,10 @@ class Map extends Component {
     var map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.props.options);
-      
-    // new window.google.maps.Marker({
-    //   position: { lat: this.props.options.center.lat, lng: this.props.options.center.lng },
-    //   icon: {
-    //     path: window.google.maps.SymbolPath.CIRCLE,
-    //     scale: 7
-    //   },
-    //   map: map
-    // });
     
-    // this.props.needs.map( needs => { 
-    //   return ( new window.google.maps.Marker({
-    //   position: { lat: needs.lat, lng: needs.lng },
-    //   map: map}))
-    // })
     this.props.loadUserMarker(map)
-    this.props.loadNeedsMarkers(map)
+    this.props.loadNeedsOTMarkers(map)
+    this.props.loadNeedsMTMarkers(map)
     
   }
   
