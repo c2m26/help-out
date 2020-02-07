@@ -20,13 +20,13 @@ class Dashboard extends Component {
   } 
   
 
-  componentDidMount() {
-    this.getUserLocation();
-    this.props.fetchNeeds();
+  async componentDidMount() {
+    await this.getUserLocation();
+    await this.props.fetchNeeds();
   }
 
-  async getUserLocation(){
-    await navigator.geolocation.getCurrentPosition( position => {
+  getUserLocation(){
+    navigator.geolocation.getCurrentPosition( position => {
       this.setState({
         userLat: position.coords.latitude,
         userLng: position.coords.longitude
@@ -42,9 +42,7 @@ class Dashboard extends Component {
 
     
   render () {
-    console.log(this.props.needs)
-    console.log(this.state)
-
+    
     let MapElement
     if(this.props.needs !== null && this.state.userLng && this.state.userLat) {
       MapElement = 
@@ -77,39 +75,15 @@ class Dashboard extends Component {
 
     return (
       
-      <div id="viewframe" className="container-fluid">
+      <div id="viewframe" className="container-fluid bg-light">
 
         <div className="row">
-          <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
             <NeedsList needs={this.props.needs} />
           </div>
 
-          <div className="col">
+          <div className="col py-2">
             {MapElement}
-            {/* <Map
-              id = "mapDashboard"
-              options = {{
-                center: {lat: this.state.userLat, lng: this.state.userLng},
-                zoom: 15
-              }}
-              loadNeedsMarkers = {map => {
-                this.props.needs.map( needs => { 
-                return ( new window.google.maps.Marker({
-                position: { lat: needs.lat, lng: needs.lng },
-                map: map}))
-                })}
-              }
-              loadUserMarker = {map => {
-                new window.google.maps.Marker({
-                position: { lat: this.state.userLat, lng: this.state.userLng },
-                icon: {
-                  path: window.google.maps.SymbolPath.CIRCLE,
-                  scale: 7
-                },
-                map: map
-                })}
-              }
-            /> */}
           </div>
         </div>
   

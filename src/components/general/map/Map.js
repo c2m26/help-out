@@ -64,18 +64,18 @@ class Map extends Component {
   
   render() {
     console.log(this.props.needs)
-    let MapContent
-    if (this.props.needs !== null) {
-      MapContent = <div style={{ width: '100%', height: '93vh' }} id={this.props.id} />
-    } else {
-      MapContent = null
-    }
+    // let MapContent
+    // if (this.props.needs !== null) {
+    //   MapContent = <div style={{ width: '100%', height: '93vh' }} id={this.props.id} />
+    // } else {
+    //   MapContent = null
+    // }
     
     return (
-      // <div style={{ width: '100%', height: '80vh' }} id={this.props.id} />
-      <Fragment>
-        {MapContent}
-      </Fragment>
+      <div style={{ width: '100%', height: '92vh' }} id={this.props.id} />
+      // <Fragment>
+      //   {MapContent}
+      // </Fragment>
       
     );
   }
