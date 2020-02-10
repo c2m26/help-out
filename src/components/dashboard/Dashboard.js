@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {fetchNeeds} from '../actions/needsAction'
+import {getUserLocation} from '../actions/userLocationAction'
 import Map from '../general/map/Map'
-
 import NeedsList from '../needs/NeedsList'
+import NeedCard from '../needs/NeedCard'
 import './Dashboard.css'
 
 class Dashboard extends Component {
@@ -15,10 +16,13 @@ class Dashboard extends Component {
       userLat: null,
       userLng: null,
       needsOT: [],
-      needsMT: []
+      needsMT: [],
+      needHighlight: {}
     }
     
     this.getUserLocation=this.getUserLocation.bind(this)
+    this.handleShowHighlight=this.handleShowHighlight.bind(this)
+    this.handleRemoveHighlight=this.handleRemoveHighlight.bind(this)
   } 
   
 
@@ -29,6 +33,7 @@ class Dashboard extends Component {
     console.log(this.state)
   }
 
+  // to be removed once working fine with redux
   getUserLocation(){
     navigator.geolocation.getCurrentPosition( position => {
       this.setState({
@@ -50,13 +55,13 @@ class Dashboard extends Component {
       }
     };
 
-    for (let i=0; i<material.length; i++) {
-      material[i].showHighlight = false
-    }
+    // for (let i=0; i<material.length; i++) {
+    //   material[i].showHighlight = false
+    // }
 
-    for (let i=0; i<oneTime.length; i++) {
-      oneTime[i].showHighlight = false
-    }
+    // for (let i=0; i<oneTime.length; i++) {
+    //   oneTime[i].showHighlight = false
+    // }
 
     this.setState({
       needsMT: material,
@@ -64,9 +69,30 @@ class Dashboard extends Component {
     })
   }
 
-  // handleShowHighlight(){
+  handleShowHighlight(props){
+    console.log(props)
+    for (let i=0; i<this.state.needsMT.length; i++) {
+      if (this.state.needsMT[i].id === props) { 
+        this.setState({ 
+          needHighlight: this.state.needsMT[i]
+        })
+      } else {
+        for (let i=0; i<this.state.needsOT.length; i++) {
+          if (this.state.needsOT[i].id === props) {
+            this.setState({ 
+              needHighlight: this.state.needsMT[i]
+            })
+          }
+        }
+      }  
+    }
+  }
 
-  // }
+  handleRemoveHighlight(){
+    this.setState({
+      needHighlight: {}
+    })
+  }
   
   componentDidUpdate(prevProps) {
     if(this.props.newNeed !== prevProps.newNeed) {
@@ -77,9 +103,9 @@ class Dashboard extends Component {
 
     
   render () {
-    
+    console.log(this.state.needHighlight.lat)
     let MapElement
-    if(this.props.needs !== null && this.state.needsOT !== [] && this.state.needsMT !== [] && this.state.userLng && this.state.userLat) {
+    if(this.props.needs !== null && this.state.needsOT !== [] && this.state.needsMT !== [] && this.state.userLng !== null && this.state.userLat !== null) {
       MapElement = 
       <Map
         id = "mapDashboard"
@@ -87,35 +113,56 @@ class Dashboard extends Component {
           center: {lat: this.state.userLat, lng: this.state.userLng},
           zoom: 15
         }}
+        activeMarker={
+          {
+            lat: this.state.needHighlight.lat,
+            lng: this.state.needHighlight.lat
+          }
+        }
+        MTMarkers={this.state.needsMT}
+        OTMarkers={this.state.needsOT}
+        userMarker={{
+          lat: this.state.userLat,
+          lng: this.state.userLng
+        }}
+        style={{height: '92vh'}}
+
         // possible to make both map() inside of the same object?
-        loadNeedsMTMarkers = {
-          map => {
-            this.state.needsMT.map( needs => { 
-            return ( new window.google.maps.Marker({
-            position: { lat: needs.lat, lng: needs.lng },
-            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-            map: map}))})
-          }
-        }
-        loadNeedsOTMarkers = {
-          map => {
-            this.state.needsOT.map( needs => { 
-            return ( new window.google.maps.Marker({
-            position: { lat: needs.lat, lng: needs.lng },
-            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-            map: map}))})
-          }
-        }
-        loadUserMarker = {map => {
-          new window.google.maps.Marker({
-          position: { lat: this.state.userLat, lng: this.state.userLng },
-          icon: {
-            path: window.google.maps.SymbolPath.CIRCLE,
-            scale: 7
-          },
-          map: map
-          })}
-        }
+        // loadNeedsActiveMarker = {map => {
+        //   new window.google.maps.Marker({
+        //   position: { lat: this.state.needHighlight.lat, lng: this.state.needHighlight.lat },
+        //   icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        //   map: map})}
+        // }
+        // loadNeedsMTMarkers = {
+        //   map => {
+        //     this.state.needsMT.map( needs => { 
+        //     return ( new window.google.maps.Marker({
+        //     position: { lat: needs.lat, lng: needs.lng },
+        //     icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        //     map: map}))})
+        //   }
+        // }
+        // loadNeedsOTMarkers = {
+        //   map => {
+        //     this.state.needsOT.map( needs => { 
+        //     return ( new window.google.maps.Marker({
+        //     position: { lat: needs.lat, lng: needs.lng },
+        //     icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        //     map: map}))})
+        //   }
+        // }
+        
+        // loadUserMarker = {map => {
+        //   new window.google.maps.Marker({
+        //   position: { lat: this.state.userLat, lng: this.state.userLng },
+        //   icon: {
+        //     path: window.google.maps.SymbolPath.CIRCLE,
+        //     scale: 7
+        //   },
+        //   map: map
+        //   })}
+        // }
       />
     } else
     {MapElement = null}
@@ -126,7 +173,20 @@ class Dashboard extends Component {
 
         <div className="row">
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-4 py-2">
-            <NeedsList needs={this.props.needs} />
+            <NeedsList
+              content={ this.props.needs.map(
+                needs => {
+                  return(
+                    <NeedCard
+                      key={needs.id} 
+                      needs={needs}
+                      handleShowHighlight={this.handleShowHighlight}
+                      handleRemoveHighlight={this.handleRemoveHighlight}
+                    />
+                  )
+                }
+              )}
+            />
           </div>
 
           <div className="col py-2 pr-4">
@@ -144,12 +204,15 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   fetchNeeds: PropTypes.func.isRequired,
   needs: PropTypes.array.isRequired,
-  newNeed: PropTypes.object
+  newNeed: PropTypes.object,
+  getUserLocation: PropTypes.func.isRequired,
+  userLocation: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   needs: state.needs.items,
-  newNeed: state.needs.item.data
+  newNeed: state.needs.item.data,
+  userLocation: state.userCoords
 });
 
-export default connect(mapStateToProps, { fetchNeeds })(Dashboard)
+export default connect(mapStateToProps, { fetchNeeds, getUserLocation})(Dashboard)

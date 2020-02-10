@@ -7,6 +7,7 @@ import Dashboard from './components/dashboard/Dashboard.js'
 import Login from './components/auth/Login.js'
 import Registration from './components/auth/Registration.js'
 import LandingPage from './components/home/LandingPage.js'
+import NeedDetail from './components/needs/NeedDetail'
 import store from './components/store'
 
 
@@ -19,12 +20,15 @@ class App extends Component {
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
-      fsHero: false
+      fsHero: false,
+      userLat: null,
+      userLng: null
     }
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleNavbar = this.handleNavbar.bind(this)
+    this.getUserLocation = this.getUserLocation.bind(this)
   }
 // Auth methods
   checkLoginStatus() {
@@ -60,6 +64,8 @@ class App extends Component {
 
   componentDidMount() {
     this.checkLoginStatus()
+    // to be removed once workign fine in redux
+    this.getUserLocation()
   }
 
   handleLogin(data) {
@@ -82,6 +88,16 @@ class App extends Component {
       fsHero: data
     })
     console.log(this.state.fsHero)
+  }
+
+  // getting user location; to moved to global state
+  getUserLocation(){
+    navigator.geolocation.getCurrentPosition( position => {
+      this.setState({
+        userLat: position.coords.latitude,
+        userLng: position.coords.longitude
+      })
+    })
   }
 
 
@@ -159,6 +175,17 @@ class App extends Component {
                 <Dashboard { ... props}
                 handleLogin={this.handleLogin}
                 user={this.state.user}
+                />
+              )}
+              />
+              <Route
+              path={"/helpNeed/:id"}
+              render= {props => (
+                <NeedDetail {...props}
+                userMarker={{
+                  lat:this.state.userLat,
+                  lng:this.state.userLng}
+                }
                 />
               )}
               />

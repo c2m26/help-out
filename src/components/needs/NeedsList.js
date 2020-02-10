@@ -1,20 +1,12 @@
 import React from 'react'
-import NeedCard from './NeedCard'
-import './NeedList.css'
+
+import './NeedsList.css'
 
 function NeedsList (props) {
 
-  const NeedsListContent = props.needs.map( needs => {
-    return( 
-      
-      <NeedCard key={needs.id} {...needs} />
-      
-    ) 
-  })
-
   return(
     <div id="overflow" className="mb-2">
-      {NeedsListContent}
+      {props.content}
     </div>
   )
 
