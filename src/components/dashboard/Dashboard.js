@@ -103,7 +103,7 @@ class Dashboard extends Component {
 
     
   render () {
-    console.log(this.state.needHighlight.lat)
+    
     let MapElement
     if(this.props.needs !== null && this.state.needsOT !== [] && this.state.needsMT !== [] && this.state.userLng !== null && this.state.userLat !== null) {
       MapElement = 
@@ -115,8 +115,8 @@ class Dashboard extends Component {
         }}
         activeMarker={
           {
-            lat: this.state.needHighlight.lat,
-            lng: this.state.needHighlight.lat
+            lat: this.state.needHighlight ? this.state.needHighlight.lat : null,
+            lng: this.state.needHighlight ? this.state.needHighlight.lat : null
           }
         }
         MTMarkers={this.state.needsMT}
@@ -171,8 +171,8 @@ class Dashboard extends Component {
       
       <div id="viewframe" className="container-fluid bg-light">
 
-        <div className="row">
-          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-4 py-2">
+        <div className="row px-3">
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
             <NeedsList
               content={ this.props.needs.map(
                 needs => {
@@ -189,7 +189,7 @@ class Dashboard extends Component {
             />
           </div>
 
-          <div className="col py-2 pr-4">
+          <div className="col py-2">
             {MapElement}
           </div>
         </div>

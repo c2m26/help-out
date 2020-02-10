@@ -5,7 +5,7 @@ import './NeedsList.css'
 function NeedsList (props) {
 
   return(
-    <div id="overflow" className="mb-2">
+    <div id="overflow">
       {props.content}
     </div>
   )

@@ -52,10 +52,11 @@ class NewNeed extends Component {
         return response.json()
       })
       .then((data)=>{
+        console.log(data)
         this.setState({
           lat: data.results[0].geometry.location.lat,
           lng: data.results[0].geometry.location.lng,
-          formattedAddress: data.results[0].formatted_address
+          formattedAddress: data.results[0].address_components[1].long_name + " " + data.results[0].address_components[0].long_name + ", " + data.results[0].address_components[7].long_name + " " + data.results[0].address_components[3].long_name
         })
 
           console.log(data)
@@ -67,7 +68,7 @@ class NewNeed extends Component {
     await this.handleSubmit()
   }
       
-    handleSubmit() {
+    async handleSubmit() {
       // e.preventDefault();
 
       // Posting new help need to database
@@ -82,15 +83,18 @@ class NewNeed extends Component {
         status: 'open'
       }
 
-      this.props.postNeed(need)
+      console.log(need)
+      
+      await this.props.postNeed(need)
 
       console.log(this.props)
       
       if(this.props.need.status === "ok") {
           this.handleModalClose()
         } else {
-          alert ("Sorry, your Need could not be submitted")
+          alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
         }
+    this.handleModalClose()
     }
 
     handleModalClose() {
@@ -98,6 +102,7 @@ class NewNeed extends Component {
     }
 
   render () {
+    console.log(this.props)
     return (
       
       <div>

@@ -28,11 +28,11 @@ export function fetchNeeds() {
 }
 
 export function postNeed(needData) {
-  return function(dispatch){
+  return async function(dispatch){
     console.log('new need post')
     let urlneeds = 'http://localhost:3001/api/v1/needs'
 
-      fetch(urlneeds, {
+      await fetch(urlneeds, {
         method: 'POST',
         credentials: 'include',
         headers: {
