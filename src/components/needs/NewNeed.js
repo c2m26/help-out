@@ -65,7 +65,7 @@ class NewNeed extends Component {
         console.log("registration error", error)
       })
 
-    await this.handleSubmit()
+    this.handleSubmit()
   }
       
     async handleSubmit() {
@@ -94,7 +94,8 @@ class NewNeed extends Component {
         } else {
           alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
         }
-    this.handleModalClose()
+      
+      this.handleModalClose()
     }
 
     handleModalClose() {

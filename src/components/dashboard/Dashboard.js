@@ -13,39 +13,40 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      userLat: null,
-      userLng: null,
       needsOT: [],
       needsMT: [],
-      needHighlight: {}
+      needHL: {},
+      showMarkers: true
     }
     
-    this.getUserLocation=this.getUserLocation.bind(this)
-    this.handleShowHighlight=this.handleShowHighlight.bind(this)
     this.handleRemoveHighlight=this.handleRemoveHighlight.bind(this)
+    this.buildNeedsArrays = this.buildNeedsArrays.bind(this)
   } 
   
-
   async componentDidMount() {
-    await this.getUserLocation();
-    await this.props.fetchNeeds();
-    await this.buildNeedsArrays();
-    console.log(this.state)
+
+      await this.props.getUserLocation();
+      await this.props.fetchNeeds();
+      await this.buildNeedsArrays();
   }
 
-  // to be removed once working fine with redux
-  getUserLocation(){
-    navigator.geolocation.getCurrentPosition( position => {
-      this.setState({
-        userLat: position.coords.latitude,
-        userLng: position.coords.longitude
-      })
-    })
-  }
-
-  buildNeedsArrays(){
+  // Shouldn't this be the same as above? only above loads immediately all markers on map!
+  // async componentDidMount() {
+  //   await Promise.all([
+  //     this.getUserLocation(),
+  //     this.props.fetchNeeds(),
+  //     this.buildNeedsArrays()
+  //   ]);
+  // }
+  
+  // does this make sense? better way to handle the array.map()? move method to Redux?
+  buildNeedsArrays(needHighID){
+    console.log(needHighID)
+    
     let material = []
     let oneTime = []
+    let needHighlight = {}
+    
 
     for (let i=0; i<this.props.needs.length; i++) {
       if (this.props.needs[i].needType === 'material') {
@@ -53,116 +54,90 @@ class Dashboard extends Component {
       } else {
         oneTime.push(this.props.needs[i])
       }
-    };
+      console.log("MT & OT arrays built")
+    }
 
-    // for (let i=0; i<material.length; i++) {
-    //   material[i].showHighlight = false
-    // }
-
-    // for (let i=0; i<oneTime.length; i++) {
-    //   oneTime[i].showHighlight = false
-    // }
+    for (let i=0; i<material.length; i++) {
+      
+      if (material[i].id === needHighID) { 
+         
+        needHighlight = material[i]
+        
+        material.splice(i,1)
+        break
+      }
+    } 
+        
+    for (let i=0; i<oneTime.length; i++) {
+      
+      if (oneTime[i].id === needHighID) {
+        
+          needHighlight = oneTime[i]
+        
+        oneTime.splice(i,1)
+        break
+      }
+    }
 
     this.setState({
       needsMT: material,
-      needsOT: oneTime
+      needsOT: oneTime,
+      needHL: needHighlight,
+      showMarkers: true
     })
+    console.log(this.state.needHL)
   }
 
-  handleShowHighlight(props){
-    console.log(props)
-    for (let i=0; i<this.state.needsMT.length; i++) {
-      if (this.state.needsMT[i].id === props) { 
-        this.setState({ 
-          needHighlight: this.state.needsMT[i]
-        })
-      } else {
-        for (let i=0; i<this.state.needsOT.length; i++) {
-          if (this.state.needsOT[i].id === props) {
-            this.setState({ 
-              needHighlight: this.state.needsMT[i]
-            })
-          }
-        }
-      }  
-    }
-  }
-
-  handleRemoveHighlight(){
+  handleRemoveHighlight(data){
+    
     this.setState({
-      needHighlight: {}
+      showMarkers: data
     })
+    console.log('passou no remove', data)
   }
   
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if(this.props.newNeed !== prevProps.newNeed) {
       this.props.fetchNeeds()
       this.buildNeedsArrays()
     }
+    // if(this.state.showMarkers !== prevState.showMarkers) {
+    //   this.buildNeedsArrays()
+    // }
   }
 
     
   render () {
-    
     let MapElement
-    if(this.props.needs !== null && this.state.needsOT !== [] && this.state.needsMT !== [] && this.state.userLng !== null && this.state.userLat !== null) {
+    if(this.props.needs !== null && this.state.needsOT !== [] && this.state.needsMT !== [] && this.props.userLocation.lng !== null && this.props.userLocation.lat !== null) {
+      console.log("passing in render map")
       MapElement = 
       <Map
         id = "mapDashboard"
+        
         options = {{
-          center: {lat: this.state.userLat, lng: this.state.userLng},
+          center: {lat: this.props.userLocation.lat, lng: this.props.userLocation.lng},
           zoom: 15
         }}
+        
         activeMarker={
           {
-            lat: this.state.needHighlight ? this.state.needHighlight.lat : null,
-            lng: this.state.needHighlight ? this.state.needHighlight.lat : null
+            lat: this.state.needHL.lat,
+            lng: this.state.needHL.lng
           }
         }
+        
         MTMarkers={this.state.needsMT}
         OTMarkers={this.state.needsOT}
-        userMarker={{
-          lat: this.state.userLat,
-          lng: this.state.userLng
-        }}
-        style={{height: '92vh'}}
-
-        // possible to make both map() inside of the same object?
-        // loadNeedsActiveMarker = {map => {
-        //   new window.google.maps.Marker({
-        //   position: { lat: this.state.needHighlight.lat, lng: this.state.needHighlight.lat },
-        //   icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-        //   map: map})}
-        // }
-        // loadNeedsMTMarkers = {
-        //   map => {
-        //     this.state.needsMT.map( needs => { 
-        //     return ( new window.google.maps.Marker({
-        //     position: { lat: needs.lat, lng: needs.lng },
-        //     icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-        //     map: map}))})
-        //   }
-        // }
-        // loadNeedsOTMarkers = {
-        //   map => {
-        //     this.state.needsOT.map( needs => { 
-        //     return ( new window.google.maps.Marker({
-        //     position: { lat: needs.lat, lng: needs.lng },
-        //     icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-        //     map: map}))})
-        //   }
-        // }
         
-        // loadUserMarker = {map => {
-        //   new window.google.maps.Marker({
-        //   position: { lat: this.state.userLat, lng: this.state.userLng },
-        //   icon: {
-        //     path: window.google.maps.SymbolPath.CIRCLE,
-        //     scale: 7
-        //   },
-        //   map: map
-        //   })}
-        // }
+        userMarker={{
+          lat: this.props.userLocation.lat,
+          lng: this.props.userLocation.lng
+        }}
+
+        showMarkers={this.state.showMarkers}
+        
+        style={{height: '92vh'}}
       />
     } else
     {MapElement = null}
@@ -180,7 +155,7 @@ class Dashboard extends Component {
                     <NeedCard
                       key={needs.id} 
                       needs={needs}
-                      handleShowHighlight={this.handleShowHighlight}
+                      buildNeedsArrays={this.buildNeedsArrays}
                       handleRemoveHighlight={this.handleRemoveHighlight}
                     />
                   )
@@ -192,9 +167,7 @@ class Dashboard extends Component {
           <div className="col py-2">
             {MapElement}
           </div>
-        </div>
-  
-        
+        </div>      
       </div>
     )
   }
@@ -215,4 +188,4 @@ const mapStateToProps = state => ({
   userLocation: state.userCoords
 });
 
-export default connect(mapStateToProps, { fetchNeeds, getUserLocation})(Dashboard)
+export default connect(mapStateToProps, { fetchNeeds, getUserLocation })(Dashboard)

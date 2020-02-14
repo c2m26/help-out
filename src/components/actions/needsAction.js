@@ -21,7 +21,7 @@ export function fetchNeeds() {
       payload: needs
     }))
     .catch(error => {
-      console.log("Log In error", error)
+      console.log("Error fetching existing help needs", error)
     });
         
   }
@@ -49,7 +49,7 @@ export function postNeed(needData) {
         payload: need
       }))
       .catch(error => {
-        console.log("Log In error", error)
+        console.log("Error creating new help need", error)
       })    
   }
 }
