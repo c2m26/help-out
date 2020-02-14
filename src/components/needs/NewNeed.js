@@ -68,7 +68,7 @@ class NewNeed extends Component {
     this.handleSubmit()
   }
       
-    async handleSubmit() {
+    handleSubmit() {
       // e.preventDefault();
 
       // Posting new help need to database
@@ -85,7 +85,7 @@ class NewNeed extends Component {
 
       console.log(need)
       
-      await this.props.postNeed(need)
+      this.props.postNeed(need)
 
       console.log(this.props)
       
@@ -94,8 +94,8 @@ class NewNeed extends Component {
         } else {
           alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
         }
-      
-      this.handleModalClose()
+
+    
     }
 
     handleModalClose() {

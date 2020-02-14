@@ -28,11 +28,11 @@ export function fetchNeeds() {
 }
 
 export function postNeed(needData) {
-  return async function(dispatch){
+  return function(dispatch){
     console.log('new need post')
     let urlneeds = 'http://localhost:3001/api/v1/needs'
 
-      await fetch(urlneeds, {
+      fetch(urlneeds, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -44,10 +44,15 @@ export function postNeed(needData) {
       .then((response)=>{
         return response.json()
       })
-      .then((need) => dispatch({
+      .then(
+        (need) => dispatch({
         type: NEW_NEED,
         payload: need
-      }))
+        },
+        console.log(need)
+        )
+        
+      )
       .catch(error => {
         console.log("Error creating new help need", error)
       })    

@@ -10,12 +10,38 @@ class NeedDetail extends Component {
   constructor(props){
     super(props)
 
-    this.objPosition = this.props.match.params.id - 1 
+    this.state = {
+      selectedNeedID: this.props.match.params.id ,
+      selectedNeed: {}
+    }
+    
+
     this.handleFulfill = this.handleFulfill.bind(this)
+    
   }
 
-  async componentDidMount(){
-    await this.props.fetchNeeds();
+  componentDidMount(){
+    // await this.props.fetchNeeds();
+    this.assignSelectedNeed()
+  }
+
+  assignSelectedNeed(){
+    
+    // this.selectedNeedID = this.props.match.params.id 
+    console.log(this.state.selectedNeedID)
+    let i
+
+    for (i = 0; i < this.state.selectedNeedID; i++) {
+      if (this.props.needs[i] !== undefined) {
+        if(this.props.needs[i].id == this.state.selectedNeedID) {
+          this.setState({
+            selectedNeed: this.props.needs[i]
+          })
+          break
+        }
+      }
+    }
+    console.log(this.state.selectedNeed)
   }
 
   handleFulfill(event) {
@@ -46,23 +72,20 @@ class NeedDetail extends Component {
 
   render(){
     
+  console.log(this.selectedNeed)
   
-  console.log(this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].lat : "fail!")
-     // why do I need the ternary condition to avoid getting 'cannot read prop of undefined?
+
+
     return(
       <div className="container-fluid">
         <div className="row d-flex flex-column flex-fill justify-content-center align-items-center" style={{height: 'calc(100vh - 56px)'}}>
-
-        
-
-      
       <div className="card bg-light col-xl-6 col-lg-10 col-md-11 col-sm-11 col-11">
       <div className="card-body">
         <div className="row">
           <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9">
-          <h5 className="card-title">{this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].title : 'loading'}</h5>
-          <p className="card-text">{this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].description : 'loading'}</p>
-          <p className="card-text">{this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].formattedAddress : 'loading'}</p>
+          <h5 className="card-title">{this.state.selectedNeed.title}</h5>
+          <p className="card-text">{this.state.selectedNeed.description}</p>
+          <p className="card-text">{this.state.selectedNeed.formattedAddress}</p>
           </div>
           <div className="col d-flex flex-column justify-content-around aling-items-center">
             
@@ -73,26 +96,27 @@ class NeedDetail extends Component {
           
         </div>
         <div className="d-flex justify-content-between">
-          <div><span className="pr-2">Type:</span>{this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].needType : 'loading'}</div>
-          <div><span className="pr-2">Status:</span>{this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].status : 'loading'}</div>
+          <div><span className="pr-2">Type:</span>{this.state.selectedNeed.needType}</div>
+          <div><span className="pr-2">Status:</span>{this.state.selectedNeed.status}</div>
         </div>
       </div>
       <div className="pb-3">
+    
       <Map
         id = "mapDashboard"
         style={{height: '60vh'}}
         options = {{
           center: {
-            lat: this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].lat : null,
-            lng: this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].lng : null
+            lat: this.state.selectedNeed.lat,
+            lng: this.state.selectedNeed.lng
             },
             zoom: 14
         }}
         userMarker={this.props.userMarker}
         currentNeed={
           {
-          lat: this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].lat : null,
-          lng: this.props.needs[this.objPosition] ? this.props.needs[this.objPosition].lng : null
+          lat: this.state.selectedNeed.lat,
+          lng: this.state.selectedNeed.lng
           }
         }
       />
@@ -106,7 +130,7 @@ class NeedDetail extends Component {
 }
 
 NeedDetail.propTypes = {
-  fetchNeeds: PropTypes.func.isRequired,
+  // fetchNeeds: PropTypes.func.isRequired,
   needs: PropTypes.array.isRequired
 }
 
@@ -114,4 +138,4 @@ const mapStateToProps = state => ({
   needs: state.needs.items
 });
 
-export default connect(mapStateToProps, { fetchNeeds })(NeedDetail)
+export default connect(mapStateToProps, { })(NeedDetail)
