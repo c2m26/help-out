@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {fetchNeeds} from '../actions/needsAction'
+// import {fetchNeeds} from '../actions/needsAction'
 import Map from '../general/map/Map'
 import { Link } from 'react-router-dom'
 

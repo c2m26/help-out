@@ -89,13 +89,24 @@ class NewNeed extends Component {
 
       console.log(this.props)
       
-      if(this.props.need.status === "ok") {
+      // if(this.props.need.status == "ok") {
+      //     this.handleModalClose()
+      //   } else {
+      //     alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
+      //   }
+
+    
+    }
+
+    componentDidUpdate(prevProps){
+      if(this.props.need !== prevProps.need) {
+        if(this.props.need.status == "ok") {
           this.handleModalClose()
         } else {
           alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
         }
-
-    
+      }
+      
     }
 
     handleModalClose() {

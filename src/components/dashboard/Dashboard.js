@@ -101,9 +101,9 @@ class Dashboard extends Component {
       this.props.fetchNeeds()
       this.buildNeedsArrays()
     }
-    // if(this.state.showMarkers !== prevState.showMarkers) {
-    //   this.buildNeedsArrays()
-    // }
+    if(this.state.showMarkers !== prevState.showMarkers) {
+      this.buildNeedsArrays()
+    }
   }
 
     
@@ -138,6 +138,8 @@ class Dashboard extends Component {
         showMarkers={this.state.showMarkers}
         
         style={{height: '92vh'}}
+
+        history = {this.props.history}
       />
     } else
     {MapElement = null}

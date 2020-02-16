@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+
 import {getUserLocation} from '../../actions/userLocationAction'
 import Keys from '../../Keys'
 
@@ -20,6 +22,14 @@ class Map extends Component {
     var MTMarkers
     var OTMarkers
 
+    
+    
+
+    // this.state = {
+    //   MTMarkers: [],
+    //   OTMarkers: []
+    // }
+
   }
 
   componentDidMount() {
@@ -37,29 +47,25 @@ class Map extends Component {
   }
 
   loadMapScript(){
-    
        
-        if (document.getElementById('googleMaps')) {
-                    
-          this.createMarkers()
-                          
-        } else {
-          let apiKey = Keys.googleMaps
-          var s = document.createElement('script');
-          s.id = 'googleMaps'
-          s.type = 'text/javascript';
-          s.src = `https://maps.google.com/maps/api/js?key=${apiKey}`;
-          var x = document.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s, x);
-          // Below is important. 
-          //We cannot access google.maps until it's finished loading
-          s.onload = (event) => 
-            {
-              this.initMap(); 
-            }
+    if (document.getElementById('googleMaps')) {
+                
+      this.createMarkers()
+                      
+    } else {
+      let apiKey = Keys.googleMaps
+      var s = document.createElement('script');
+      s.id = 'googleMaps'
+      s.type = 'text/javascript';
+      s.src = `https://maps.google.com/maps/api/js?key=${apiKey}`;
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+      //We cannot access google.maps until it's finished loading
+      s.onload = (event) => 
+        {
+          this.initMap(); 
         }
-      
-    
+    }
   }
   
   initMap() {
@@ -105,18 +111,21 @@ class Map extends Component {
           this.MTMarkers = this.props.MTMarkers.map( needs => { 
             return ( new window.google.maps.Marker({
               position: { lat: needs.lat, lng: needs.lng },
-              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-            }))
-          })
+              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+              url: `/helpNeed/${needs.id}`
+              }))
+            })
         }
+        
       
         if(typeof this.props.OTMarkers !== "undefined"){
-        this.OTMarkers = this.props.OTMarkers.map( needs => { 
-          return ( new window.google.maps.Marker({
-            position: { lat: needs.lat, lng: needs.lng },
-            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-            }))
-          })
+          this.OTMarkers = this.props.OTMarkers.map( needs => { 
+            return ( new window.google.maps.Marker({
+              position: { lat: needs.lat, lng: needs.lng },
+              icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+              url: `/helpNeed/${needs.id}`
+              }))
+            })
         }
 
         if(typeof this.props.activeMarker === "undefined" || typeof this.props.activeMarker.lat === "undefined") {
@@ -135,24 +144,36 @@ class Map extends Component {
   }
 
   addMarkers (){
-    
+
     let i
 
     if(typeof this.activeMarker !== "undefined") {
       if(this.props.showMarkers) {
-        this.activeMarker.setMap(this.map)
+        this.activeMarker.setMap(this.map);
       } 
     }
 
     if(typeof this.MTMarkers !== "undefined"){
       for ( i = 0; i < this.MTMarkers.length; i++) {
-        this.MTMarkers[i].setMap(this.map)
+        this.MTMarkers[i].setMap(this.map);
+        var self = this
+        const history = self.props.history
+        window.google.maps.event.addListener(this.MTMarkers[i], 'click', function (event) {
+          history.push(`${this.url}`)
+        }
+        );
       }
     }
 
     if(typeof this.OTMarkers !== "undefined"){
       for ( i = 0; i < this.OTMarkers.length; i++) {
         this.OTMarkers[i].setMap(this.map)
+        var self = this
+        const history = self.props.history
+        window.google.maps.event.addListener(this.OTMarkers[i], 'click', function (event) {
+          history.push(`${this.url}`)
+        }
+        );
       }
     }
 
