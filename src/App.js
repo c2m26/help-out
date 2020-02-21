@@ -4,10 +4,9 @@ import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Navbar from './components/general/Navbar.js'
 import Dashboard from './components/dashboard/Dashboard.js'
-import Login from './components/auth/Login.js'
-import Registration from './components/auth/Registration.js'
 import LandingPage from './components/home/LandingPage.js'
 import NeedDetail from './components/needs/NeedDetail'
+import Fulfillment from './components/fulfillment/Fulfillment'
 import store from './components/store'
 
 
@@ -118,7 +117,7 @@ class App extends Component {
       textColor = "text-white"
     } else {
       navcolorscheme = "navbar-light"
-      navbg = "bg-white"
+      navbg = "bg-light"
       textColor = "text-dark"
     }
 
@@ -140,55 +139,50 @@ class App extends Component {
             <Switch>
             
               <Route
-              exact
-              path = {"/"}
-              render = {props => (
-                <LandingPage {...props}
-                handleLogin={this.handleLogin}
-                handleNavbar={this.handleNavbar}
-                loggedInStatus={this.state.loggedInStatus}
-                />
-              )}
-              />
-              <Route 
-              exact
-              path={"/signup"}
-              render = {props => (
-                <Registration {...props}
-                handleLogin={this.handleLogin}
-                />
-              )}
-              />
-              <Route 
-              exact
-              path={"/signin"}
-              render = {props => (
-                <Login { ... props}
-                handleLogin={this.handleLogin}
-                />
-              )}
+                exact
+                path = {"/"}
+                render = {props => (
+                  <LandingPage {...props}
+                  handleLogin={this.handleLogin}
+                  handleNavbar={this.handleNavbar}
+                  loggedInStatus={this.state.loggedInStatus}
+                  />
+                )}
               />
               <Route
-              exact
-              path={"/dashboard"}
-              render = {props => (
-                <Dashboard { ... props}
-                handleLogin={this.handleLogin}
-                user={this.state.user}
-                />
-              )}
+                exact
+                path={"/dashboard"}
+                render = {props => (
+                  <Dashboard { ... props}
+                  handleLogin={this.handleLogin}
+                  user={this.state.user}
+                  />
+                )}
               />
               <Route
-              path={"/helpNeed/:id"}
-              render= {props => (
-                <NeedDetail {...props}
-                userMarker={{
-                  lat:this.state.userLat,
-                  lng:this.state.userLng}
-                }
-                />
-              )}
+                path={"/helpNeed/:id"}
+                render = {props => (
+                  <NeedDetail {...props}
+                  userMarker={
+                    {
+                    lat:this.state.userLat,
+                    lng:this.state.userLng
+                    }
+                  }
+                  user={this.state.user}
+                  />
+                )}
               />
+              <Route
+                path={"/fulfillment/:id"}
+                render = {props => (
+                  <Fulfillment {...props}
+                  user={this.state.user}
+                  />
+
+                )}
+              />
+
             </Switch>
           </BrowserRouter>
         </div>

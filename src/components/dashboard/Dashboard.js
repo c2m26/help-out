@@ -151,7 +151,7 @@ class Dashboard extends Component {
         <div className="row px-3">
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
             <NeedsList
-              content={ this.props.needs.map(
+              content= {this.props.needs.map(
                 needs => {
                   return(
                     <NeedCard

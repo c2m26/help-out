@@ -11,8 +11,9 @@ class NeedDetail extends Component {
     super(props)
 
     this.state = {
-      selectedNeedID: this.props.match.params.id ,
-      selectedNeed: {}
+      selectedNeedID: parseInt(this.props.match.params.id) ,
+      selectedNeed: {},
+      fulfillmentID: null
     }
     
 
@@ -48,7 +49,12 @@ class NeedDetail extends Component {
     event.preventDefault();
 
     const url = 'http://localhost:3001/api/v1/fulfillments';
-    const data = {needID: this.props.match.params.id}
+    const data = {
+      needID: this.props.match.params.id,
+      helperID: this.props.user.id
+    }
+
+    console.log(JSON.stringify(data))
     
     fetch(url, {
       method: 'POST',
@@ -62,8 +68,12 @@ class NeedDetail extends Component {
     .then((response)=>{
       return response.json()
     })
-    .then((data) =>{
-      console.log(data)
+    .then((payload) =>{
+      this.setState({
+        fulfillmentID: payload.data.id
+      })
+      console.log(payload)
+      this.props.history.push(`/fulfillment/${this.state.fulfillmentID}`)
     })    
     .catch(error => {
       console.log("Error", error)
@@ -72,10 +82,6 @@ class NeedDetail extends Component {
 
   render(){
     
-  console.log(this.selectedNeed)
-  
-
-
     return(
       <div className="container-fluid">
         <div className="row d-flex flex-column flex-fill justify-content-center align-items-center" style={{height: 'calc(100vh - 56px)'}}>
