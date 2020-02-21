@@ -6,9 +6,12 @@ class Conversation extends Component {
     super(props)
 
     this.state = {
-      messages:[]
+      messages:[],
+      messageInput: ''
     }
-    this.getMessages = this.getMessages.bind(this)
+    this.getMessages = this.getMessages.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
@@ -41,11 +44,48 @@ class Conversation extends Component {
     .catch(error => {
       console.log("Error getting help need creator ID", error)
     })
-    
   }
 
+  handleInputChange(event) {
+    
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
 
+    this.setState({
+      [name]: value
+    });
+  }
 
+  handleSubmit(event){
+    event.preventDefault();
+
+    const message = {
+      conversationID: parseInt(this.props.match.params.id),
+      senderID: this.props.user.id,
+      content: this.state.messageInput
+    }
+
+    console.log(JSON.stringify(message))
+
+    const url = 'http://localhost:3001/api/v1/messages';
+    
+    fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(message)
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .catch(error => {
+      console.log("Message could not be sent", error)
+    })
+
+  }
 
   render() {
     
@@ -62,15 +102,12 @@ class Conversation extends Component {
           flexDirection = ''
           alignText= '-left'
         }
-        
         return(
           <div key={message.id} className={`d-flex flex-row${flexDirection}`}>
             <div className={`col-xl-2 text${alignText}`}>{message.senderID}</div>
             <div className={`col-xl-10 text${alignText}`}>{message.content}</div>
           </div>
-        )
-        
-        
+        )       
       })
     } else {
       conversation = "No messages so far"
@@ -79,6 +116,11 @@ class Conversation extends Component {
     return(
       <Fragment>
         <div> {conversation} </div>
+        
+        <form className="d-flex" onSubmit={this.handleSubmit}>
+          <input required type="message" name="messageInput" value={this.state.messageInput} onChange={this.handleInputChange} id="textarea" className="form-control m-2"/>
+          <input type="submit" value="Send" className="btn btn-primary m-2"/> 
+        </form>
 
       </Fragment>    
     )

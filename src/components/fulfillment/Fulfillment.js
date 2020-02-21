@@ -97,6 +97,7 @@ render () {
         <Conversation
           creatorID={this.state.creatorID}
           helperID={this.state.helperID}
+          user={this.props.user}
         />
       </div>
     </div>

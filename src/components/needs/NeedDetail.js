@@ -34,7 +34,7 @@ class NeedDetail extends Component {
 
     for (i = 0; i < this.state.selectedNeedID; i++) {
       if (this.props.needs[i] !== undefined) {
-        if(this.props.needs[i].id == this.state.selectedNeedID) {
+        if(this.props.needs[i].id === this.state.selectedNeedID) {
           this.setState({
             selectedNeed: this.props.needs[i]
           })
