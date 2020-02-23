@@ -146,7 +146,7 @@ class Dashboard extends Component {
 
     return (
       
-      <div id="viewframe" className="container-fluid bg-light">
+      <div id="viewframe" className="container-fluid">
 
         <div className="row px-3">
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">

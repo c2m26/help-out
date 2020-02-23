@@ -7,6 +7,7 @@ import Dashboard from './components/dashboard/Dashboard.js'
 import LandingPage from './components/home/LandingPage.js'
 import NeedDetail from './components/needs/NeedDetail'
 import Fulfillment from './components/fulfillment/Fulfillment'
+import UserNeedsList from './components/needs/UsersNeedList'
 import store from './components/store'
 
 
@@ -117,7 +118,7 @@ class App extends Component {
       textColor = "text-white"
     } else {
       navcolorscheme = "navbar-light"
-      navbg = "bg-light"
+      navbg = "bg-white"
       textColor = "text-dark"
     }
 
@@ -179,7 +180,14 @@ class App extends Component {
                   <Fulfillment {...props}
                   user={this.state.user}
                   />
-
+                )}
+              />
+              <Route
+                path={"/myHelpOuts/:id"}
+                render = {props => (
+                  <UserNeedsList {...props}
+                  user={this.state.user}
+                  />
                 )}
               />
 

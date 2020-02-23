@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import {NavLink} from 'react-router-dom'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { HashLink as Link } from 'react-router-hash-link'
-
+import { Link } from 'react-router-dom'
 import Registration from '../auth/Registration'
 import Login from '../auth/Login'
 import Modal from './modal/Modal'
@@ -108,19 +108,9 @@ class Navbar extends Component {
     if (this.props.loggedInStatus === 'LOGGED_IN') {
       navblock = 
         <Fragment>
-          <button className="btn btn-primary text-white mr-3" onClick={this.handleModalNewHelp}>New HelpOut</button>
-          <div className="dropdown">
-            <button className="btn btn-light text-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Hello {this.props.user.firstName}
-            </button>
-            <div className="dropdown-menu dropdown-menu-right">
-            <a className="dropdown-item" href="#">My HelpOuts</a>
-            <button className="dropdown-item" onClick={this.handleLogoutClick}>Logout</button>
-            </div>
-          </div>
-          
-          {/* <div className={`nav-item nav-link ${this.props.textColor} ml-xl-2 ml-lg-2 p-2`}> Hello, {this.props.user.firstName}</div> */}
-          {/* <button className="nav-item nav-link btn btn-danger text-white ml-xl-2 ml-lg-2 p-2" onClick={this.handleLogoutClick}>Logout</button> */}
+          <button className="btn btn-primary text-white mr-xl-2 mr-lg-2 p-2" onClick={this.handleModalNewHelp}>New HelpOut</button>
+          <Link className="btn btn-warning mr-xl-2 mr-lg-2 p-2" to={`/myHelpOuts/${this.props.user.id}`}>My HelpOuts</Link>
+          <button className="nav-item nav-link btn btn-danger text-white p-2" onClick={this.handleLogoutClick}>Logout</button>
         </Fragment> } else {
       navblock = 
         <Fragment>
@@ -173,19 +163,11 @@ class Navbar extends Component {
     return (
       
       <div>
-
         {modalblock}
-        
-      {/* <Modal content={this.state.contentModal} show={this.state.showModal} handleLogin={this.props.handleLogin}/> */}
-
-      <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
-        <NavLink className="navbar-brand" to="/">HelpOut</NavLink>
-        {/* <div className="d-flex flex-fill justify-content-start align-items-center">
-        <a id="icon-color" className="nav-item nav-link" href="http://youtube.com" target="_blank"><FontAwesomeIcon icon={['fab','youtube']}/></a>
-        <a id="icon-color" className="nav-item nav-link" href="http://instagram.com" target="_blank"><FontAwesomeIcon icon={['fab','instagram']}/></a>
-        <a id="icon-color" className="nav-item nav-link" href="http://twitter.com" target="_blank"><FontAwesomeIcon icon={['fab','twitter']}/></a>
-        </div> */}
   
+      <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
+        <NavLink className="navbar-brand" to="/">HelpOut !</NavLink>
+        
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>

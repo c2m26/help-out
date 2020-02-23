@@ -6,24 +6,52 @@ class Conversation extends Component {
     super(props)
 
     this.state = {
+      conversationID: null,
       messages:[],
       messageInput: ''
     }
     this.getMessages = this.getMessages.bind(this);
+    this.getConversationID = this.getConversationID.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
-    this.getMessages()
+    this.getConversationID()
   }
+
+  async getConversationID() {
+
+    const url = `http://localhost:3001/api/v1/conversations/getID?id=${parseInt(this.props.match.params.id)}`;
+    
+    await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((data) =>{
+      console.log(data);
+      this.setState({
+        conversationID: data.id
+      })
+    })    
+    .catch(error => {
+      console.log("Error getting conversation ID", error)
+    })
+
+    this.getMessages()
+  }  
 
   async getMessages() {
 
-    const conversationID = this.props.match.params.id;
-    console.log(conversationID)
+    console.log(this.state.conversationID)
 
-    const url = `http://localhost:3001/api/v1/messages?id=${conversationID}`;
+    const url = `http://localhost:3001/api/v1/messages?id=${this.state.conversationID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -61,7 +89,7 @@ class Conversation extends Component {
     event.preventDefault();
 
     const message = {
-      conversationID: parseInt(this.props.match.params.id),
+      conversationID: this.state.conversationID,
       senderID: this.props.user.id,
       content: this.state.messageInput
     }
@@ -81,6 +109,10 @@ class Conversation extends Component {
     .then((response)=>{
       return response.json()
     })
+    .then(message =>{
+      console.log(message)
+    }
+      )
     .catch(error => {
       console.log("Message could not be sent", error)
     })

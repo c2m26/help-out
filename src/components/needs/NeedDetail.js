@@ -18,6 +18,7 @@ class NeedDetail extends Component {
     
 
     this.handleFulfill = this.handleFulfill.bind(this)
+    this.createConversation = this.createConversation.bind(this)
     
   }
 
@@ -45,13 +46,48 @@ class NeedDetail extends Component {
     console.log(this.state.selectedNeed)
   }
 
-  handleFulfill(event) {
+  async handleFulfill(event) {
     event.preventDefault();
 
     const url = 'http://localhost:3001/api/v1/fulfillments';
     const data = {
       needID: this.props.match.params.id,
       helperID: this.props.user.id
+    }
+
+    console.log(JSON.stringify(data))
+    
+    await fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    
+    .then((response)=>{
+      return response.json()
+    })
+    .then((payload) =>{
+      this.setState({
+        fulfillmentID: payload.data.id
+      })
+      console.log(payload)
+      // this.props.history.push(`/fulfillment/${this.state.fulfillmentID}`)
+    })    
+    .catch(error => {
+      console.log("Error", error)
+    })
+
+    this.createConversation()
+  }
+
+  createConversation(){
+    
+    const url = 'http://localhost:3001/api/v1/conversations';
+    const data = {
+      fulfillmentID: this.state.fulfillmentID
     }
 
     console.log(JSON.stringify(data))
@@ -69,9 +105,9 @@ class NeedDetail extends Component {
       return response.json()
     })
     .then((payload) =>{
-      this.setState({
-        fulfillmentID: payload.data.id
-      })
+      // this.setState({
+      //   fulfillmentID: payload.data.id
+      // })
       console.log(payload)
       this.props.history.push(`/fulfillment/${this.state.fulfillmentID}`)
     })    

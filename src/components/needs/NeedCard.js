@@ -20,14 +20,16 @@ class NeedCard extends Component {
 
     card.addEventListener("mouseenter", 
       function () {
-        card.classList.add("bg-info")
+        card.classList.add("shadow")
+        card.classList.add("bg-light")
         self.handleCardId()
       }
     )
 
     card.addEventListener("mouseleave", 
       function () {
-        card.classList.remove("bg-info")
+        card.classList.remove("shadow")
+        card.classList.remove("bg-light")
         self.handleRemoveMarker()
       }
     )
@@ -46,7 +48,7 @@ render(){
   return(
   <Link className="text-reset" to= {`/helpNeed/${this.props.needs.id}`}>
   
-  <div id={this.props.needs.id} className="card mb-2">
+  <div id={this.props.needs.id} className="card mb-4">
     <div className="card-body">
       <h5 className="card-title">{this.props.needs.title}</h5>
       <p className="card-text">{this.props.needs.formattedAddress}</p>
