@@ -164,12 +164,6 @@ class App extends Component {
                 path={"/helpNeed/:id"}
                 render = {props => (
                   <NeedDetail {...props}
-                  userMarker={
-                    {
-                    lat:this.state.userLat,
-                    lng:this.state.userLng
-                    }
-                  }
                   user={this.state.user}
                   />
                 )}

@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-
 import {getUserLocation} from '../../actions/userLocationAction'
 import Keys from '../../Keys'
 
@@ -41,9 +39,6 @@ class Map extends Component {
     if(this.props !== prevProps) {
       this.removeMarkers()
     }
-    // if(this.props.showMarkers !== prevProps.showMarkers){
-    //   this.removeMarkers()
-    // }
   }
 
   loadMapScript(){
@@ -68,9 +63,9 @@ class Map extends Component {
     }
   }
   
-  initMap() {
+  async initMap() {
     
-      this.map = new window.google.maps.Map(
+      this.map = await new window.google.maps.Map(
         document.getElementById(this.props.id),
         this.props.options)
 
@@ -87,9 +82,9 @@ class Map extends Component {
       console.log('waiting for map to be defined')
     } else {
         
-      if(this.props.userMarker) {
-          this.userMarker = new window.google.maps.Marker({
-            position: { lat: this.props.userMarker.lat, lng: this.props.userMarker.lng },
+      if(this.props.userLocation) {
+          this.userLocation = new window.google.maps.Marker({
+            position: { lat: this.props.userLocation.lat, lng: this.props.userLocation.lng },
             icon: {
               path: window.google.maps.SymbolPath.CIRCLE,
               scale: 7
@@ -107,7 +102,6 @@ class Map extends Component {
         } 
   
         if(typeof this.props.MTMarkers !== "undefined"){
-          console.log(this.props.MTMarkers.length)
           this.MTMarkers = this.props.MTMarkers.map( needs => { 
             return ( new window.google.maps.Marker({
               position: { lat: needs.lat, lng: needs.lng },
@@ -181,11 +175,9 @@ class Map extends Component {
 
   removeMarkers() {
     let i
-    // if(this.activeMarker) {
       if(this.props.showMarkers == false) {
         this.activeMarker.setMap(null)
-      } 
-    // }
+      }
 
     if(typeof this.MTMarkers !== "undefined"){
       for ( i = 0; i < this.MTMarkers.length; i++) {
@@ -212,7 +204,7 @@ class Map extends Component {
   
   render() {
     let MapContent
-    if (this.props.userMarker !== null) {
+    if (this.props.userLocation !== undefined) {
       MapContent = <div style={{width: '100%', height:`${this.props.style.height}` }} id={this.props.id} />
     } else {
       MapContent = null

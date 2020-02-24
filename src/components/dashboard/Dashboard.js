@@ -30,16 +30,6 @@ class Dashboard extends Component {
       await this.buildNeedsArrays();
   }
 
-  // Shouldn't this be the same as above? only above loads immediately all markers on map!
-  // async componentDidMount() {
-  //   await Promise.all([
-  //     this.getUserLocation(),
-  //     this.props.fetchNeeds(),
-  //     this.buildNeedsArrays()
-  //   ]);
-  // }
-  
-  // does this make sense? better way to handle the array.map()? move method to Redux?
   buildNeedsArrays(needHighID){
     console.log(needHighID)
     
@@ -47,7 +37,6 @@ class Dashboard extends Component {
     let oneTime = []
     let needHighlight = {}
     
-
     for (let i=0; i<this.props.needs.length; i++) {
       if (this.props.needs[i].needType === 'material') {
         material.push(this.props.needs[i])
@@ -57,23 +46,17 @@ class Dashboard extends Component {
       console.log("MT & OT arrays built")
     }
 
-    for (let i=0; i<material.length; i++) {
-      
+    for (let i=0; i<material.length; i++) { 
       if (material[i].id === needHighID) { 
-         
         needHighlight = material[i]
-        
         material.splice(i,1)
         break
       }
     } 
         
     for (let i=0; i<oneTime.length; i++) {
-      
       if (oneTime[i].id === needHighID) {
-        
-          needHighlight = oneTime[i]
-        
+        needHighlight = oneTime[i]
         oneTime.splice(i,1)
         break
       }
@@ -109,7 +92,7 @@ class Dashboard extends Component {
     
   render () {
     let MapElement
-    if(this.props.needs !== null && this.state.needsOT !== [] && this.state.needsMT !== [] && this.props.userLocation.lng !== null && this.props.userLocation.lat !== null) {
+    if(typeof this.props.needs !== "undefined" && typeof this.state.needsOT !== "undefined" && typeof this.state.needsMT !== "undefined" && typeof this.props.userLocation.lng !== "undefined" && typeof this.props.userLocation.lat !== "undefined") {
       console.log("passing in render map")
       MapElement = 
       <Map
@@ -129,11 +112,6 @@ class Dashboard extends Component {
         
         MTMarkers={this.state.needsMT}
         OTMarkers={this.state.needsOT}
-        
-        userMarker={{
-          lat: this.props.userLocation.lat,
-          lng: this.props.userLocation.lng
-        }}
 
         showMarkers={this.state.showMarkers}
         

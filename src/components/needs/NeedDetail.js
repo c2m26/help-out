@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-// import {fetchNeeds} from '../actions/needsAction'
+import {fetchNeeds} from '../actions/needsAction'
+import {getUserLocation} from '../actions/userLocationAction'
 import Map from '../general/map/Map'
 import { Link } from 'react-router-dom'
 
@@ -22,15 +23,14 @@ class NeedDetail extends Component {
     
   }
 
-  componentDidMount(){
-    // await this.props.fetchNeeds();
+  async componentDidMount(){
+    // this.props.getUserLocation(); 
+    await this.props.fetchNeeds();
     this.assignSelectedNeed()
   }
 
   assignSelectedNeed(){
     
-    // this.selectedNeedID = this.props.match.params.id 
-    console.log(this.state.selectedNeedID)
     let i
 
     for (i = 0; i < this.state.selectedNeedID; i++) {
@@ -46,6 +46,7 @@ class NeedDetail extends Component {
     console.log(this.state.selectedNeed)
   }
 
+  // called once user click on "fulfill" button
   async handleFulfill(event) {
     event.preventDefault();
 
@@ -116,7 +117,36 @@ class NeedDetail extends Component {
     })
   }
 
+  
   render(){
+
+    let MapElement
+    if(typeof this.state.selectedNeed.lat !== "undefined") {
+      console.log("passing in render map", this.state.selectedNeed.lat)
+      MapElement = 
+      <Map
+      id = "mapDashboard"
+      style={{height: '60vh'}}
+      options = {{
+        center: {
+          lat: this.state.selectedNeed.lat,
+          lng: this.state.selectedNeed.lng
+          },
+          zoom: 14
+      }}
+      // userMarker={this.props.userLocation}
+      currentNeed={
+        {
+        lat: this.state.selectedNeed.lat,
+        lng: this.state.selectedNeed.lng
+        }
+      }
+      />
+    } else {
+      MapElement = null;
+      console.log("no map")
+    }
+
     
     return(
       <div className="container-fluid">
@@ -143,8 +173,9 @@ class NeedDetail extends Component {
         </div>
       </div>
       <div className="pb-3">
+        {MapElement}
     
-      <Map
+      {/* <Map
         id = "mapDashboard"
         style={{height: '60vh'}}
         options = {{
@@ -154,14 +185,14 @@ class NeedDetail extends Component {
             },
             zoom: 14
         }}
-        userMarker={this.props.userMarker}
+        userMarker={this.props.userLocation}
         currentNeed={
           {
           lat: this.state.selectedNeed.lat,
           lng: this.state.selectedNeed.lng
           }
         }
-      />
+      /> */}
       </div>
       </div>
       </div>
@@ -172,12 +203,15 @@ class NeedDetail extends Component {
 }
 
 NeedDetail.propTypes = {
-  // fetchNeeds: PropTypes.func.isRequired,
+  getUserLocation: PropTypes.func.isRequired,
+  userLocation: PropTypes.object.isRequired,
+  fetchNeeds: PropTypes.func.isRequired,
   needs: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
-  needs: state.needs.items
+  needs: state.needs.items,
+  userLocation: state.userCoords
 });
 
-export default connect(mapStateToProps, { })(NeedDetail)
+export default connect(mapStateToProps, { fetchNeeds, getUserLocation })(NeedDetail)
