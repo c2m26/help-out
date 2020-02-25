@@ -17,7 +17,7 @@ const Hero = (props) => {
     block =
       <Fragment>
       <h2 className="p-1" id="secondHeading">Help Out!</h2>
-      {props.content}
+      {props.auth}
       </Fragment>
   }
 
@@ -29,7 +29,7 @@ const Hero = (props) => {
           <h1 className="p-1" id="mainHeading">Together we are stronger</h1>
           <h2 className="p-1" id="secondHeading">and</h2>
           <h2 className="p-1" id="secondHeading">each pair of hands counts</h2>
-          <h3 className="p-1" >help requests are currently unfufilled</h3>
+          <h3 className="p-1"><span id="secondHeading">{props.counter} </span>help requests are currently unfufilled</h3>
           {block}
       </div>
     </div>
