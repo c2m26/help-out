@@ -14,11 +14,15 @@ class NeedDetail extends Component {
     this.state = {
       selectedNeedID: parseInt(this.props.match.params.id) ,
       selectedNeed: {},
-      fulfillmentID: null
+      fulfillmentID: null,
+      userFulfillments: null
     }
     
 
     this.handleFulfill = this.handleFulfill.bind(this)
+    this.getUserFulfillments = this.getUserFulfillments.bind(this)
+    this.checkUserFulfillment = this.checkUserFulfillment.bind(this)
+    this.createFulfillment = this.createFulfillment.bind(this)
     this.createConversation = this.createConversation.bind(this)
     
   }
@@ -46,13 +50,63 @@ class NeedDetail extends Component {
     console.log(this.state.selectedNeed)
   }
 
-  // called once user click on "fulfill" button
-  async handleFulfill(event) {
+  // called once user clicks on "fulfill" button
+  handleFulfill(event) {
     event.preventDefault();
+    this.getUserFulfillments();  
+  }
+
+  // fetches current user fulfillments
+  async getUserFulfillments() {
+    
+    const url = `http://localhost:3001/api/v1/fulfillments/get_userFulfillments?id=${this.props.user.id}`;
+    
+    await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((data) =>{
+      console.log(data);
+      this.setState({
+        userFulfillments: data.data
+      })
+    })    
+    .catch(error => {
+      console.log("Error getting the user created help need requests", error)
+    })
+
+    this.checkUserFulfillment()
+  }
+
+  // chekcs if user is trying to fulfill a need twice. if so, user is alerted and redirected to open help needs page (dashboard)
+  checkUserFulfillment() {
+    let repeatedFulfillmentCount = 0
+    for(let i=0; i<this.state.userFulfillments.length; i++) {
+      if(this.state.userFulfillments[i].needID === this.state.selectedNeedID){
+        repeatedFulfillmentCount++
+      }
+    }
+
+    if(repeatedFulfillmentCount > 0) {
+      alert("You have already volunteered to fulfill this help request!");
+      this.props.history.push("/dashboard")
+    } else {
+      this.createFulfillment()
+    }
+  }
+  
+  
+  async createFulfillment(){
 
     const url = 'http://localhost:3001/api/v1/fulfillments';
     const data = {
-      needID: this.props.match.params.id,
+      needID: this.state.selectedNeedID,
       helperID: this.props.user.id
     }
 

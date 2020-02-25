@@ -35,7 +35,7 @@ render(){
   return(
   
   
-  <div id={this.props.data.id+"R"} className="card mb-2" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
+  <div id={this.props.data.id+"R"} className="card mb-4" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
     <div className="card-body">
       <h5 className="card-title">{this.props.data.title}</h5>
       <p className="card-text">{this.props.data.formattedAddress}</p>

@@ -51,7 +51,7 @@ class Conversation extends Component {
 
     console.log(this.state.conversationID)
 
-    const url = `http://localhost:3001/api/v1/messages?id=${this.state.conversationID}`;
+    const url = `http://localhost:3001/api/v1/messages/get_Messages?id=${this.state.conversationID}`;
     
     await fetch(url, {
       method: 'GET',

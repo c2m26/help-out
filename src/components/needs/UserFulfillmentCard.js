@@ -35,7 +35,7 @@ render(){
   return(
   <Link className="text-reset" to= {`/fulfillment/${this.props.data.fulfillmentID}`}>
   
-  <div id={this.props.data.fulfillmentID+"F"} className="card mb-2">
+  <div id={this.props.data.fulfillmentID+"F"} className="card mb-4">
     <div className="card-body">
       <h5 className="card-title">{this.props.data.title}</h5>
       <p className="card-text">{this.props.data.formattedAddress}</p>
