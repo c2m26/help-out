@@ -11,11 +11,17 @@ class UsersNeedList extends Component {
     
     this.state = {
       userNeeds: [],
+      userOpenNeeds: [],
+      Fulfillments: [],
+      needFulfillments: [],
       userFulfillments: [],
       userFulfillmentsDetails: []
     }
 
     this.getUserNeeds = this.getUserNeeds.bind(this)
+    this.filterOpenNeeds = this.filterOpenNeeds.bind(this)
+    this.buildNeedFulfillments = this.buildNeedFulfillments.bind(this)
+    this.evaluateRepublishing = this.evaluateRepublishing.bind(this)
     this.getUserFulfillments = this.getUserFulfillments.bind(this)
     this.getUserFulfillmentsDetails = this.getUserFulfillmentsDetails.bind(this)
   }
@@ -49,9 +55,101 @@ class UsersNeedList extends Component {
       console.log("Error getting the user created help need requests", error)
     })
     
-    this.getUserFulfillments()
+    this.filterOpenNeeds()  
   }
 
+  filterOpenNeeds() {
+    this.setState({
+      userOpenNeeds: this.state.userNeeds.filter(needs => needs.status === "open")
+    })
+  
+  this.getFulfillments()
+  }
+
+  async getFulfillments(){
+
+    const url = 'http://localhost:3001/api/v1/fulfillments';
+    
+    await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((data) =>{
+      console.log(data);
+      this.setState({
+        Fulfillments: data
+      })
+    })    
+    .catch(error => {
+      console.log("Error getting fulfillments", error)
+    })
+  
+    this.buildNeedFulfillments()
+  }
+
+  // iterates through the openNeeds array to create one array per need including all fulfillments
+  buildNeedFulfillments(){
+    let auxNeedFulfillment = []
+
+    for(let i=0; i<this.state.userOpenNeeds.length; i++){
+      auxNeedFulfillment.push(this.state.Fulfillments.filter(Fulfillment => Fulfillment.needID === this.state.userOpenNeeds[i].id))
+      console.log(auxNeedFulfillment)
+    }
+
+    this.setState({
+      needFulfillments: auxNeedFulfillment
+    })
+
+    this.evaluateRepublishing()
+  }
+
+  
+  // checks if all the fulfillments associated to a need are older than 24 hours since the Need creation and set the republishing status
+  evaluateRepublishing(){
+    let auxOpenNeeds = []
+  // checks if all the fulfillments associated to a need are older than 24 hours since the Need creation, if yes, then it assigns to the need a property republish with the bolean true
+    for( let i=0; i<this.state.needFulfillments.length; i++){
+      let needID = this.state.needFulfillments[i][0].needID
+      let auxOpenNeed = this.state.userOpenNeeds.filter(need => need.id === needID)
+      let auxNeedDate = new Date(auxOpenNeed[0].created_at)
+      let auxNeedTime = auxNeedDate.getTime()
+      let ageCounter = 0
+      console.log(needID, auxOpenNeed)
+
+      for(let j=0; j<this.state.needFulfillments[i].length; j++){
+        let auxFulfillmentDate = new Date(this.state.needFulfillments[i][j].created_at)
+        let auxFulfillmentTime = auxFulfillmentDate.getTime()
+        let ageFulfillment = auxFulfillmentTime-auxNeedTime
+        let ageReference = 24*60*60*1000
+        console.log("passa aqui")
+        console.log(auxFulfillmentTime, auxNeedTime)
+
+        if(ageFulfillment > ageReference) {
+          ageCounter++
+        }
+      }
+      console.log(ageCounter)
+      if(ageCounter === this.state.needFulfillments[i].length){
+        auxOpenNeed[0].republish = true
+        auxOpenNeeds.push(auxOpenNeed[0])
+      } else {
+        auxOpenNeed[0].republish = false
+        auxOpenNeeds.push(auxOpenNeed[0])
+      }
+    }
+    this.setState({
+      userOpenNeeds: auxOpenNeeds
+    })
+
+    this.getUserFulfillments()
+  }
+  
   async getUserFulfillments() {
     
     const url = `http://localhost:3001/api/v1/fulfillments/get_userFulfillments?id=${this.props.user.id}`;
@@ -73,7 +171,7 @@ class UsersNeedList extends Component {
       })
     })    
     .catch(error => {
-      console.log("Error getting the user created help need requests", error)
+      console.log("Error getting the user created help requests", error)
     })
 
     this.getUserFulfillmentsDetails()
@@ -82,7 +180,6 @@ class UsersNeedList extends Component {
   getUserFulfillmentsDetails() {
 
     let auxUserFN = []
-    
     
     for (let i=0; i<this.props.needs.length; i++) {
       for (let j=0; j<this.state.userFulfillments.length; j++ ) {
@@ -107,7 +204,7 @@ class UsersNeedList extends Component {
 
   render(){
 
-    let userNeeds = this.state.userNeeds.map( need => {
+    let userNeeds = this.state.userOpenNeeds.map( need => {
                       return(
                         <UserNeedCard
                           key={need.id}
