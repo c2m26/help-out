@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import {fetchNeeds} from '../actions/needsAction'
 import UserNeedCard from "./UserNeedCard"
 import UserFulfillmentCard from "./UserFulfillmentCard"
-import { fireEvent } from "@testing-library/react"
 
 class UsersNeedList extends Component {
   constructor(props) {
@@ -241,6 +240,7 @@ class UsersNeedList extends Component {
                         <UserNeedCard
                           key={need.id}
                           data={need}
+                          fulfillments={this.state.needFulfillments}
                         />
                       )
                     })
