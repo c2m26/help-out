@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { postNeed } from '../actions/needsAction'
 
 class UserNeedCard extends Component {
   constructor(props){
     super(props)
 
     this.handleMouseOver=this.handleMouseOver.bind(this)
-    
+    this.handleRepublish = this.handleRepublish.bind(this)
   }
   
   componentDidMount(){
@@ -31,22 +34,84 @@ class UserNeedCard extends Component {
     )
   }
 
+  async handleRepublish(event){
+    event.preventDefault();
+    
+    // updates the need status by sending a patch request to the current need (using its id)
+    let id = this.props.data.id
+    let status = "closed"
+      
+    const url = `http://localhost:3001/api/v1/needs/update_status?id=${id}&status=${status}`;
+    
+    await fetch(url, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((response)=>{
+      console.log(response)
+    })    
+    .catch(error => {
+      console.log("Error changing the need status", error)
+    })
+
+    // creates a new Need with the same data as the closed one
+    let needRepublish = {
+      userID: this.props.data.userID,
+      title: this.props.data.title,
+      description: this.props.data.description,
+      needType: this.props.data.needType,
+      lat: this.props.data.lat,
+      lng: this.props.data.lng,
+      formattedAddress: this.props.data.formattedAddress,
+      status: 'open'
+    }
+    
+    let urlneeds = 'http://localhost:3001/api/v1/needs'
+
+      fetch(urlneeds, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(needRepublish)
+      })
+      
+      .then((response)=>{
+        return response.json()
+      })
+      .then((response)=>{
+        console.log(response)
+      })
+      .catch(error => {
+        console.log("Error republishing need", error)
+      })    
+  
+  }
+
 render(){
   let republishButton
   if(this.props.data.republish === true ) {
-    republishButton = <div className="btn btn-primary">Republish</div>
+    republishButton = <div className="btn btn-primary" onClick={this.handleRepublish}>Republish</div>
   }
+  console.log(this.props.data.status)
 
   return(
   
   
   <div id={this.props.data.id+"R"} className="card mb-4" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
     <div className="card-body">
-      <div className="row">
-        <div className="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
-          <h5 className="card-title">{this.props.data.title}</h5>
+      <div className="card-title row">
+        <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
+          <h5>{this.props.data.title}</h5>
         </div>
-        <div className="col d-flex justify-content-end">
+        <div className="col-3 d-flex justify-content-end">
           {republishButton}
         </div>
       </div>
@@ -77,4 +142,17 @@ render(){
   )
 }
 
-} export default UserNeedCard
+}  
+
+// UserNeedCard.propTypes = {
+//   postNeed: PropTypes.func.isRequired,
+//   // need: PropTypes.object.isRequired,
+// }
+
+// const mapStateToProps = state => ({
+//   need: state.needs.item
+// })
+
+// export default connect(mapStateToProps,{ postNeed })(UserNeedCard)
+
+export default UserNeedCard

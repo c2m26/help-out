@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {fetchNeeds} from '../actions/needsAction'
 import UserNeedCard from "./UserNeedCard"
 import UserFulfillmentCard from "./UserFulfillmentCard"
+import { fireEvent } from "@testing-library/react"
 
 class UsersNeedList extends Component {
   constructor(props) {
@@ -110,11 +111,14 @@ class UsersNeedList extends Component {
   }
 
   
-  // checks if all the fulfillments associated to a need are older than 24 hours since the Need creation and set the republishing status
+  // checks if all the fulfillments associated to a need are older than 24 hours since the Need creation and sets the republishing status
   evaluateRepublishing(){
     let auxOpenNeeds = []
   // checks if all the fulfillments associated to a need are older than 24 hours since the Need creation, if yes, then it assigns to the need a property republish with the bolean true
     for( let i=0; i<this.state.needFulfillments.length; i++){
+      if(typeof this.state.needFulfillments[i][0] === "undefined") {
+        continue
+      }
       let needID = this.state.needFulfillments[i][0].needID
       let auxOpenNeed = this.state.userOpenNeeds.filter(need => need.id === needID)
       let auxNeedDate = new Date(auxOpenNeed[0].created_at)
@@ -143,6 +147,32 @@ class UsersNeedList extends Component {
         auxOpenNeeds.push(auxOpenNeed[0])
       }
     }
+
+    // addresses the case when a need exists but still has no fulfillments:
+    // compares the total user's open needs with the ones that have fulfillments;
+    // needs that have no fulfillment will make he final auxUserOpenNeeds array;
+    // this array will then be merged with the auxOpenNeeeds and finally set a new UserOpenNeeds state
+    let auxUserOpenNeeds = this.state.userOpenNeeds
+
+    for(let k=0; k<auxOpenNeeds.length; k++) {
+      for(let l=0; l<auxUserOpenNeeds.length; l++) {
+        if(auxOpenNeeds[k].id === auxUserOpenNeeds[l].id){
+          auxUserOpenNeeds.splice(l,1)
+        }
+      }
+      console.log(auxUserOpenNeeds) 
+    }
+
+    // adds republish entry before pushing to auxOpenNeeds
+    for(let i=0; i<auxUserOpenNeeds.length; i++){
+      auxUserOpenNeeds[i].republish = false
+      auxOpenNeeds.push(auxUserOpenNeeds[i])
+    }
+  
+    console.log(auxOpenNeeds)
+
+    //sets the array with all needs including a republish status as the userOpenNeeds state;
+    //userOpenNeeds will be used to build the cards no the request column of the page MyHelpOuts
     this.setState({
       userOpenNeeds: auxOpenNeeds
     })
@@ -150,6 +180,7 @@ class UsersNeedList extends Component {
     this.getUserFulfillments()
   }
   
+  // fetches all user's fulfillments
   async getUserFulfillments() {
     
     const url = `http://localhost:3001/api/v1/fulfillments/get_userFulfillments?id=${this.props.user.id}`;
@@ -177,6 +208,7 @@ class UsersNeedList extends Component {
     this.getUserFulfillmentsDetails()
   }
 
+  // maybe this should be done only for "open need requests". as it is now it will show all fulfimments
   getUserFulfillmentsDetails() {
 
     let auxUserFN = []
