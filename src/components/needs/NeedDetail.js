@@ -20,6 +20,7 @@ class NeedDetail extends Component {
     
 
     this.handleFulfill = this.handleFulfill.bind(this)
+    this.checkHelperID = this.checkHelperID.bind(this)
     this.getUserFulfillments = this.getUserFulfillments.bind(this)
     this.checkUserFulfillment = this.checkUserFulfillment.bind(this)
     this.createFulfillment = this.createFulfillment.bind(this)
@@ -53,7 +54,17 @@ class NeedDetail extends Component {
   // called once user clicks on "fulfill" button
   handleFulfill(event) {
     event.preventDefault();
-    this.getUserFulfillments();  
+    this.checkHelperID();  
+  }
+  
+  // checks if user voluteering to fulfill the request is the one that created the request
+  checkHelperID() {
+    if(this.props.user.id === this.state.selectedNeed.userID){
+      alert("You have created this help request and cannot volunteer to fulfill it!");
+      this.props.history.push("/dashboard")
+    } else {
+      this.getUserFulfillments()
+    }
   }
 
   // fetches current user fulfillments
@@ -84,7 +95,7 @@ class NeedDetail extends Component {
     this.checkUserFulfillment()
   }
 
-  // chekcs if user is trying to fulfill a need twice. if so, user is alerted and redirected to open help needs page (dashboard)
+  // chekcs if user is trying to fulfill a need twice. if so, user is alerted and redirected to open help requests page (dashboard)
   checkUserFulfillment() {
     let repeatedFulfillmentCount = 0
     for(let i=0; i<this.state.userFulfillments.length; i++) {
