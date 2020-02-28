@@ -167,7 +167,7 @@ render(){
   if(typeof this.state.needFulfillments !== "undefined") {
     helpersButtons = this.state.needFulfillments.map( fulfillments => {
       return(
-      <Link to= {`/fulfillment/${fulfillments.id}`} className="btn btn-primary m-2">Helper {fulfillments.helperID}</Link>
+      <Link to= {`/fulfillment/${fulfillments.id}`} className="btn btn-warning m-2">Helper {fulfillments.helperID}</Link>
       )
     })
   }
@@ -178,11 +178,11 @@ render(){
   <div id={this.props.data.id+"R"} className="card mb-4" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
     <div className="card-body">
       <div className="card-title row">
-        <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12">
+        <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
           <h5>{this.props.data.title}</h5>
         </div>
-        <div className="col d-flex justify-content-end align-items-start">
-          {republishButton}
+        <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 d-flex justify-content-end align-items-start">
+          <div className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
         </div>
       </div>
       
@@ -199,8 +199,8 @@ render(){
           <div className="d-flex flex-wrap justify-content-around col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
             {helpersButtons}
           </div>
-          <div className="col d-flex justify-content-end col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
-            <div className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
+          <div className="col d-flex justify-content-end align-items-start col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+            {republishButton}
           </div>
         </div>
       </div>
