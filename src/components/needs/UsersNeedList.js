@@ -138,7 +138,11 @@ class UsersNeedList extends Component {
         }
       }
       console.log(ageCounter)
-      if(ageCounter === this.state.needFulfillments[i].length){
+      // condition making ageCounter = 5 to address the fact that not only the time from last fulfiment being more than 24h
+      // but also that a republish only makes sense when the need is not shown anymore to all users, which only happens
+      // when the number of helpers fulfilling the request is 5
+      let minHelpers = 5
+      if(ageCounter === this.state.needFulfillments[i].length && ageCounter === minHelpers){
         auxOpenNeed[0].republish = true
         auxOpenNeeds.push(auxOpenNeed[0])
       } else {
