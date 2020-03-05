@@ -22,11 +22,6 @@ class LandingPage extends Component {
     return (
     
       <Hero
-        auth=
-          {<AuthButtons
-            handleLogin={this.props.handleLogin}
-            handleNavbar={this.props.handleNavbar}
-          />}
         counter={
             <NeedsCounter/>
           }

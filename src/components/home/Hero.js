@@ -17,7 +17,6 @@ const Hero = (props) => {
     block =
       <Fragment>
       <h2 className="p-1" id="secondHeading">Help Out!</h2>
-      {props.auth}
       </Fragment>
   }
 
