@@ -28,18 +28,15 @@ class NeedDetail extends Component {
     
   }
 
-  async componentDidMount(){
-    // this.props.getUserLocation(); 
+  async componentDidMount(){ 
     await this.props.fetchNeeds();
     this.assignSelectedNeed()
   }
 
   assignSelectedNeed(){
     
-    let i
-
-    for (i = 0; i < this.state.selectedNeedID; i++) {
-      if (this.props.needs[i] !== undefined) {
+    for (let i = 0; i < this.props.needs.length; i++) {
+      if (typeof this.props.needs[i] !== "undefined") {
         if(this.props.needs[i].id === this.state.selectedNeedID) {
           this.setState({
             selectedNeed: this.props.needs[i]
@@ -48,10 +45,9 @@ class NeedDetail extends Component {
         }
       }
     }
-    console.log(this.state.selectedNeed)
   }
 
-  // called once user clicks on "fulfill" button
+  // Fulfillment related methods ; called once user clicks on "fulfill" button
   handleFulfill(event) {
     event.preventDefault();
     this.checkHelperID();  

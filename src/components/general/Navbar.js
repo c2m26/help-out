@@ -105,11 +105,11 @@ class Navbar extends Component {
   render () {
     
     // Conditional statement for buttons
-    
+    let navitems
     let navblock
-      
-    if (this.props.loggedInStatus === 'LOGGED_IN') {
-      navblock = 
+    let authblock
+
+    navitems = 
         <Fragment>
           <button className="btn btn-primary text-white mr-xl-2 mr-lg-2 p-2" onClick={this.handleModalNewHelp}>New HelpOut</button>
           <Link className="nav-item nav-link" to="/dashboard">Open HelpOuts</Link>
@@ -124,11 +124,26 @@ class Navbar extends Component {
               <a className="dropdown-item" href="#" onClick={this.handleLogoutClick}>Logout</a>
             </div>
           </div>
-        </Fragment> } else {
-      navblock = 
+        </Fragment>
+      
+    if (this.props.loggedInStatus === 'LOGGED_IN') {
+      
+      navblock =
         <Fragment>
-          <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
-          <div className="nav-item nav-link btn btn-warning text-dark ml-xl-2 ml-lg-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            {navitems}
+          </div>
+        </div>
+        </Fragment>
+      } else {
+      authblock = 
+        <Fragment>
+          <div className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
+          <div className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
         </Fragment>
       }
 
@@ -180,16 +195,20 @@ class Navbar extends Component {
   
       <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
         <NavLink className="navbar-brand" to="/">HelpOut !</NavLink>
-        
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <div className="d-flex">
+          {authblock}
+        </div>
+
+        {navblock}
+        {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            {navblock}
+            {navitems}
           </div>
             
-        </div>
+        </div> */}
       </nav>
       </div>
     )
