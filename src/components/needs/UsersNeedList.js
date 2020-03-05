@@ -27,13 +27,26 @@ class UsersNeedList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchNeeds()
     this.getUserNeeds()
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props.user !== prevProps.user) {
+      this.getUserNeeds()
+    }
+    if(this.props.newNeed !== prevProps.newNeed) {
+      this.props.fetchNeeds()
+      this.getUserNeeds()
+    }
+  }
+
   async getUserNeeds() {
-    
-    const url = `http://localhost:3001/api/v1/needs/get_userNeeds?id=${this.props.user.id}`;
+    this.props.fetchNeeds()
+
+    const userID = this.props.user.id
+    console.log(userID)
+
+    const url = `http://localhost:3001/api/v1/needs/get_userNeeds?id=${userID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -48,7 +61,7 @@ class UsersNeedList extends Component {
     .then((data) =>{
       console.log(data);
       this.setState({
-        userNeeds: data.data
+        userNeeds: data
       })
     })    
     .catch(error => {
@@ -59,11 +72,16 @@ class UsersNeedList extends Component {
   }
 
   filterOpenNeeds() {
+    console.log(this.state.userNeeds.filter(needs => needs.status === "open"))
+
+    if(this.state.userNeeds.filter(needs => needs.status === "open") === null){
+      this.getFulfillments()  
+    } else {
     this.setState({
       userOpenNeeds: this.state.userNeeds.filter(needs => needs.status === "open")
     })
-  
-  this.getFulfillments()
+    this.getFulfillments()
+    }
   }
 
   async getFulfillments(){
@@ -211,7 +229,6 @@ class UsersNeedList extends Component {
     this.getUserFulfillmentsDetails()
   }
 
-  // maybe this should be done only for "open need requests". as it is now it will show all fulfimments
   getUserFulfillmentsDetails() {
 
     let auxUserFN = []
@@ -245,15 +262,19 @@ class UsersNeedList extends Component {
                           key={need.id}
                           data={need}
                           fulfillments={this.state.needFulfillments}
+                          getUserNeeds={this.getUserNeeds}
                         />
                       )
                     })
+    
+    let showFulfillments = this.state.userFulfillmentsDetails.filter(fulfill => fulfill.status === "open")
 
-    let userFulfillments = this.state.userFulfillmentsDetails.map( need => {
+    let userFulfillments = showFulfillments.map( need => {
                             return(
                               <UserFulfillmentCard
                                 key={need.fulfillmentID}
                                 data={need}
+                                getUserNeeds={this.getUserNeeds}
                               />
                             )
                           })
@@ -261,7 +282,7 @@ class UsersNeedList extends Component {
 
     return(
       <div className="container-fluid">
-      <div className="row">
+      <div className="row mt-2">
         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
           <h5 className="text-center">Requests</h5>
           {userNeeds}
@@ -278,11 +299,13 @@ class UsersNeedList extends Component {
 
 UsersNeedList.propTypes = {
   fetchNeeds: PropTypes.func.isRequired,
-  needs: PropTypes.array.isRequired
+  needs: PropTypes.array.isRequired,
+  newNeed: PropTypes.object
   }
 
 const mapStateToProps = state => ({
   needs: state.needs.items,
+  newNeed: state.needs.item.data
 });
 
 export default connect(mapStateToProps, { fetchNeeds }) (UsersNeedList)

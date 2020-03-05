@@ -28,13 +28,13 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleNavbar = this.handleNavbar.bind(this)
-    this.getUserLocation = this.getUserLocation.bind(this)
+    // this.getUserLocation = this.getUserLocation.bind(this)
   }
 // Auth methods
-  checkLoginStatus() {
+  async checkLoginStatus() {
     let url = 'http://localhost:3001/api/v1/logged_in'
     
-    fetch(url, {
+    await fetch(url, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -65,7 +65,7 @@ class App extends Component {
   componentDidMount() {
     this.checkLoginStatus()
     // to be removed once workign fine in redux
-    this.getUserLocation()
+    // this.getUserLocation()
   }
 
   handleLogin(data) {
@@ -91,14 +91,14 @@ class App extends Component {
   }
 
   // getting user location; to moved to global state
-  getUserLocation(){
-    navigator.geolocation.getCurrentPosition( position => {
-      this.setState({
-        userLat: position.coords.latitude,
-        userLng: position.coords.longitude
-      })
-    })
-  }
+  // getUserLocation(){
+  //   navigator.geolocation.getCurrentPosition( position => {
+  //     this.setState({
+  //       userLat: position.coords.latitude,
+  //       userLng: position.coords.longitude
+  //     })
+  //   })
+  // }
 
 
 //App rendering method

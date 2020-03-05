@@ -68,7 +68,7 @@ class Fulfillment extends Component {
     .then((data) =>{
       console.log(data);
       this.setState({
-        creatorID: data.creatorID
+        creatorID: data.creatorID,
       })
     })    
     .catch(error => {
@@ -79,6 +79,7 @@ class Fulfillment extends Component {
   }
 
   checkUserAccess() {
+    console.log(this.props.user)
     if (this.props.user.id === this.state.creatorID || this.props.user.id === this.state.helperID) {
       this.setState({
         allowAcess: true
@@ -91,14 +92,26 @@ class Fulfillment extends Component {
 
 render () {
   return(
-    <div className="row"> 
-      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12">Details and Map</div>
-      <div className="col-xl-8 col-lg-8 col-md-8 col-sm-12">
-        <Conversation
-          creatorID={this.state.creatorID}
-          helperID={this.state.helperID}
-          user={this.props.user}
-        />
+    <div className="container-fluid d-flex flex-column justify-content-center" style={{height: 'calc(100vh - 58px)'}}>
+      <div className="d-flex flex-column flex-fill justify-content-center align-items-center " >
+        <div className="col-xl-6 col-lg-10 col-md-11 col-sm-11 col-11 ">
+          <div className="card bg-light ">
+            <div className="card-body">
+              <h5 className="card-title">Title</h5>
+              <p className="card-text">Description</p>
+              <p className="card-text">Address</p>
+            </div>
+          </div>  
+          <div className="my-3 overflow-auto">
+          <Conversation
+            creatorID={this.state.creatorID}
+            helperID={this.state.helperID}
+            user={this.props.user}
+          />
+          </div>
+          
+        </div>
+        
       </div>
     </div>
   )

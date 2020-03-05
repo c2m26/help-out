@@ -85,7 +85,7 @@ class Conversation extends Component {
     });
   }
 
-  handleSubmit(event){
+  async handleSubmit(event){
     event.preventDefault();
 
     const message = {
@@ -98,7 +98,7 @@ class Conversation extends Component {
 
     const url = 'http://localhost:3001/api/v1/messages';
     
-    fetch(url, {
+    await fetch(url, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -117,6 +117,11 @@ class Conversation extends Component {
       console.log("Message could not be sent", error)
     })
 
+    this.getMessages()
+    
+    this.setState({
+      messageInput: ''
+    })
   }
 
   render() {
@@ -136,8 +141,8 @@ class Conversation extends Component {
         }
         return(
           <div key={message.id} className={`d-flex flex-row${flexDirection}`}>
-            <div className={`col-xl-2 text${alignText}`}>{message.senderID}</div>
-            <div className={`col-xl-10 text${alignText}`}>{message.content}</div>
+            <div className={`col-xl-1 text${alignText}`}>{message.senderID}</div>
+            <div className={`col-xl-6 text${alignText}`}>{message.content}</div>
           </div>
         )       
       })
@@ -147,7 +152,9 @@ class Conversation extends Component {
 
     return(
       <Fragment>
-        <div> {conversation} </div>
+        <div className="overflow-auto">
+          {conversation}
+        </div>
         
         <form className="d-flex" onSubmit={this.handleSubmit}>
           <input required type="message" name="messageInput" value={this.state.messageInput} onChange={this.handleInputChange} id="textarea" className="form-control m-2"/>

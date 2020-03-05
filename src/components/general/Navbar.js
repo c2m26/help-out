@@ -112,8 +112,18 @@ class Navbar extends Component {
       navblock = 
         <Fragment>
           <button className="btn btn-primary text-white mr-xl-2 mr-lg-2 p-2" onClick={this.handleModalNewHelp}>New HelpOut</button>
-          <Link className="btn btn-warning mr-xl-2 mr-lg-2 p-2" to={`/myHelpOuts/${this.props.user.id}`}>My HelpOuts</Link>
-          <button className="nav-item nav-link btn btn-danger text-white p-2" onClick={this.handleLogoutClick}>Logout</button>
+          <Link className="nav-item nav-link" to="/dashboard">Open HelpOuts</Link>
+          <Link className="nav-item nav-link" to={`/myHelpOuts/${this.props.user.id}`}>My HelpOuts</Link>
+          
+          <div className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Hi {this.props.user.firstName}
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <Link className="dropdown-item" to={`/user/${this.props.user.id}`}>Profile</Link>
+              <a className="dropdown-item" href="#" onClick={this.handleLogoutClick}>Logout</a>
+            </div>
+          </div>
         </Fragment> } else {
       navblock = 
         <Fragment>

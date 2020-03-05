@@ -212,55 +212,44 @@ class NeedDetail extends Component {
       console.log("no map")
     }
 
+    let needType
+    if(this.state.selectedNeed.needType === "material"){
+      needType = <div className="badge badge-pill badge-danger">material</div>
+    } else {
+      needType = <div className="badge badge-pill badge-warning">one time</div>
+    }
+
     
     return(
       <div className="container-fluid">
-        <div className="row d-flex flex-column flex-fill justify-content-center align-items-center" style={{height: 'calc(100vh - 56px)'}}>
-      <div className="card bg-light col-xl-6 col-lg-10 col-md-11 col-sm-11 col-11">
-      <div className="card-body">
-        <div className="row">
-          <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9">
-          <h5 className="card-title">{this.state.selectedNeed.title}</h5>
-          <p className="card-text">{this.state.selectedNeed.description}</p>
-          <p className="card-text">{this.state.selectedNeed.formattedAddress}</p>
-          </div>
-          <div className="col d-flex flex-column justify-content-around aling-items-center">
-            
-            <Link to="/dashboard" className="btn btn-warning">Back</Link>
+        <div className="d-flex flex-column flex-fill justify-content-center align-items-center" style={{height: 'calc(100vh - 58px)'}}>
+          <div className="card bg-light col-xl-6 col-lg-10 col-md-11 col-sm-11 col-11">
+            <div className="card-body">
+              <div className="row">
+                <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9">
+                <h5 className="card-title">{this.state.selectedNeed.title}</h5>
+                <p className="card-text">{this.state.selectedNeed.description}</p>
+                <p className="card-text">{this.state.selectedNeed.formattedAddress}</p>
+                </div>
+                <div className="col d-flex flex-column justify-content-around aling-items-center">
+                  
+                  <Link to="/dashboard" className="btn btn-warning">Back</Link>
 
-            <button className="btn btn-primary" onClick={this.handleFulfill}>Fulfill</button>
+                  <button className="btn btn-primary" onClick={this.handleFulfill}>Fulfill</button>
+                </div>
+                
+              </div>
+              <div className="d-flex justify-content-between mt-2">
+                {needType}
+                {/* <div><span className="pr-2">Type:</span>{this.state.selectedNeed.needType}</div>
+                <div><span className="pr-2">Status:</span>{this.state.selectedNeed.status}</div> */}
+              </div>
+            </div>
+            <div className="pb-3">
+              {MapElement}
+            </div>
           </div>
-          
         </div>
-        <div className="d-flex justify-content-between">
-          <div><span className="pr-2">Type:</span>{this.state.selectedNeed.needType}</div>
-          <div><span className="pr-2">Status:</span>{this.state.selectedNeed.status}</div>
-        </div>
-      </div>
-      <div className="pb-3">
-        {MapElement}
-    
-      {/* <Map
-        id = "mapDashboard"
-        style={{height: '60vh'}}
-        options = {{
-          center: {
-            lat: this.state.selectedNeed.lat,
-            lng: this.state.selectedNeed.lng
-            },
-            zoom: 14
-        }}
-        userMarker={this.props.userLocation}
-        currentNeed={
-          {
-          lat: this.state.selectedNeed.lat,
-          lng: this.state.selectedNeed.lng
-          }
-        }
-      /> */}
-      </div>
-      </div>
-      </div>
       </div>
       
     )

@@ -56,9 +56,19 @@ class UserFulfillmentCard extends Component {
     .catch(error => {
       console.log("Error changing the need status", error)
     })
+
+    this.props.getUserNeeds()
   }
 
 render(){
+
+  let needType
+  if(this.props.data.needType === "material"){
+    needType = <div className="badge badge-pill badge-danger">material</div>
+  } else {
+    needType = <div className="badge badge-pill badge-warning">one time</div>
+  }
+
   return(
   <Link className="text-reset" to= {`/fulfillment/${this.props.data.fulfillmentID}`}>
   
@@ -74,8 +84,7 @@ render(){
       </div>
       <p className="card-text">{this.props.data.formattedAddress}</p>
       <div className="d-flex justify-content-between">
-        <div><span className="pr-2">Type:</span>{this.props.data.needType}</div>
-        <div><span className="pr-2">Status:</span>{this.props.data.status}</div>
+        {needType}
       </div>
     </div>
   </div>

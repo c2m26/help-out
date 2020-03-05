@@ -45,6 +45,14 @@ class NeedCard extends Component {
 
 
 render(){
+
+  let needType
+  if(this.props.needs.needType === "material"){
+    needType = <div className="badge badge-pill badge-danger">material</div>
+  } else {
+    needType = <div className="badge badge-pill badge-warning">one time</div>
+  }
+
   return(
   <Link className="text-reset" to= {`/helpNeed/${this.props.needs.id}`}>
   
@@ -52,10 +60,7 @@ render(){
     <div className="card-body">
       <h5 className="card-title">{this.props.needs.title}</h5>
       <p className="card-text">{this.props.needs.formattedAddress}</p>
-      <div className="d-flex justify-content-between">
-        <div><span className="pr-2">Type:</span>{this.props.needs.needType}</div>
-        <div><span className="pr-2">Status:</span>{this.props.needs.status}</div>
-      </div>
+      {needType}
     </div>
   </div>
   </Link>

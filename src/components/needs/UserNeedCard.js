@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { postNeed } from '../actions/needsAction'
 
 class UserNeedCard extends Component {
   constructor(props){
@@ -154,6 +151,8 @@ class UserNeedCard extends Component {
     .catch(error => {
       console.log("Error changing the need status", error)
     })
+
+    this.props.getUserNeeds()
   }
 
 render(){
@@ -167,9 +166,16 @@ render(){
   if(typeof this.state.needFulfillments !== "undefined") {
     helpersButtons = this.state.needFulfillments.map( fulfillments => {
       return(
-      <Link to= {`/fulfillment/${fulfillments.id}`} className="btn btn-warning m-2">Helper {fulfillments.helperID}</Link>
+      <Link key={fulfillments.id} to={`/fulfillment/${fulfillments.id}`} className="btn btn-warning m-2">Helper {fulfillments.helperID}</Link>
       )
     })
+  }
+
+  let needType
+  if(this.props.data.needType === "material"){
+    needType = <div className="badge badge-pill badge-danger">material</div>
+  } else {
+    needType = <div className="badge badge-pill badge-warning">one time</div>
   }
 
   return(
@@ -188,8 +194,7 @@ render(){
       
       <p className="card-text">{this.props.data.formattedAddress}</p>
       <div className="d-flex flex-wrap justify-content-between">
-        <div><span className="pr-2">Type:</span>{this.props.data.needType}</div>
-        <div><span className="pr-2">Status:</span>{this.props.data.status}</div>
+        {needType}
       </div>
     </div>
     
@@ -208,22 +213,9 @@ render(){
 
   </div>
   
-  // <Link className="text-reset" to= {`/helpNeed/${this.props.data.id}`}>
-  
   )
 }
 
 }  
-
-// UserNeedCard.propTypes = {
-//   postNeed: PropTypes.func.isRequired,
-//   // need: PropTypes.object.isRequired,
-// }
-
-// const mapStateToProps = state => ({
-//   need: state.needs.item
-// })
-
-// export default connect(mapStateToProps,{ postNeed })(UserNeedCard)
 
 export default UserNeedCard
