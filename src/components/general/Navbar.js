@@ -108,8 +108,10 @@ class Navbar extends Component {
     let navitems
     let navblock
     let authblock
-
-    navitems = 
+      
+    if (this.props.loggedInStatus === 'LOGGED_IN') {
+      
+      navitems = 
         <Fragment>
           <button className="btn btn-primary text-white mr-xl-2 mr-lg-2 p-2" onClick={this.handleModalNewHelp}>New HelpOut</button>
           <Link className="nav-item nav-link" to="/dashboard">Open HelpOuts</Link>
@@ -126,25 +128,25 @@ class Navbar extends Component {
           </div>
         </Fragment>
       
-    if (this.props.loggedInStatus === 'LOGGED_IN') {
-      
       navblock =
         <Fragment>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
+          <div className="navbar-nav" id="navitems">
             {navitems}
           </div>
         </div>
         </Fragment>
       } else {
       authblock = 
-        <Fragment>
+        // <Fragment>
+          <div id="authblock" className="d-flex">
           <div className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
           <div className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
-        </Fragment>
+          </div>
+        // </Fragment>
       }
 
     // Conditional statement for modal
@@ -193,23 +195,13 @@ class Navbar extends Component {
       <div>
         {modalblock}
   
-      <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
-        <NavLink className="navbar-brand" to="/">HelpOut !</NavLink>
-        <div className="d-flex">
+        <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
+          <NavLink className="navbar-brand" to="/">HelpOut !</NavLink>
+          
           {authblock}
-        </div>
-
-        {navblock}
-        {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            {navitems}
-          </div>
-            
-        </div> */}
-      </nav>
+          
+          {navblock}
+        </nav>
       </div>
     )
   } 
