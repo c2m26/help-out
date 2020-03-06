@@ -332,11 +332,11 @@ class Dashboard extends Component {
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
             <NeedsList
               content= {this.state.activedNeeds.map(
-                needs => {
+                need => {
                   return(
                     <NeedCard
-                      key={needs.id} 
-                      needs={needs}
+                      key={need.id} 
+                      need={need}
                       buildNeedsArrays={this.buildNeedsArrays}
                       handleRemoveHighlight={this.handleRemoveHighlight}
                     />

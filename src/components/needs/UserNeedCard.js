@@ -155,67 +155,63 @@ class UserNeedCard extends Component {
     this.props.getUserNeeds()
   }
 
-render(){
-  let republishButton
-  if(this.props.data.republish === true ) {
-    republishButton = <div className="btn btn-primary" onClick={this.handleRepublish}>Republish</div>
-  }
-  console.log(this.props.data.status)
+  render(){
+    let republishButton
+    if(this.props.data.republish === true ) {
+      republishButton = <div className="btn btn-primary" onClick={this.handleRepublish}>Republish</div>
+    }
+    console.log(this.props.data.status)
 
-  let helpersButtons
-  if(typeof this.state.needFulfillments !== "undefined") {
-    helpersButtons = this.state.needFulfillments.map( fulfillments => {
-      return(
-      <Link key={fulfillments.id} to={`/fulfillment/${fulfillments.id}`} className="btn btn-warning m-2">Helper {fulfillments.helperID}</Link>
-      )
-    })
-  }
+    let helpersButtons
+    if(typeof this.state.needFulfillments !== "undefined") {
+      helpersButtons = this.state.needFulfillments.map( fulfillments => {
+        return(
+        <Link key={fulfillments.id} to={`/fulfillment/${fulfillments.id}`} className="btn btn-warning m-2">Helper {fulfillments.helperID}</Link>
+        )
+      })
+    }
 
-  let needType
-  if(this.props.data.needType === "material"){
-    needType = <div className="badge badge-pill badge-danger">material</div>
-  } else {
-    needType = <div className="badge badge-pill badge-warning">one time</div>
-  }
+    let needType
+    if(this.props.data.needType === "material"){
+      needType = <div className="badge badge-pill badge-danger">material</div>
+    } else {
+      needType = <div className="badge badge-pill badge-warning">one time</div>
+    }
 
-  return(
-  
-  
-  <div id={this.props.data.id+"R"} className="card mb-4" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
-    <div className="card-body">
-      <div className="card-title row">
-        <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
-          <h5>{this.props.data.title}</h5>
-        </div>
-        <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 d-flex justify-content-end align-items-start">
-          <div className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
-        </div>
-      </div>
-      
-      <p className="card-text">{this.props.data.formattedAddress}</p>
-      <div className="d-flex flex-wrap justify-content-between">
-        {needType}
-      </div>
-    </div>
-    
-    <div className="collapse" id={`collapseNeedCard${this.props.data.id}`}>
-      <div className="card-body">
-        <div className="row">
-          <div className="d-flex flex-wrap justify-content-around col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
-            {helpersButtons}
+
+    return(
+      <div id={this.props.data.id+"R"} className="card mb-4" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
+        <div className="card-body">
+          <div className="card-title row">
+            <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+              <h5>{this.props.data.title}</h5>
+            </div>
+            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 d-flex justify-content-end align-items-start">
+              <div className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
+            </div>
           </div>
-          <div className="col d-flex justify-content-end align-items-start col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
-            {republishButton}
+          
+          <p className="card-text">{this.props.data.formattedAddress}</p>
+          <div className="d-flex flex-wrap justify-content-between">
+            {needType}
           </div>
         </div>
+        
+        <div className="collapse" id={`collapseNeedCard${this.props.data.id}`}>
+          <div className="card-body">
+            <div className="row">
+              <div className="d-flex flex-wrap justify-content-around col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                {helpersButtons}
+              </div>
+              <div className="col d-flex justify-content-end align-items-start col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+                {republishButton}
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
+    )
+  }
 
-  </div>
-  
-  )
-}
-
-}  
-
-export default UserNeedCard
+} export default UserNeedCard
