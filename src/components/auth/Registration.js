@@ -105,7 +105,7 @@ class Registration extends Component {
   render () {
     
     return(
-      <div>
+      <div id="signUp">
         <h3>Sign Up</h3>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">

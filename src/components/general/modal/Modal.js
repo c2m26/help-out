@@ -18,8 +18,8 @@ const Modal = props => {
   
   return(
     ReactDom.createPortal(
-      slot
-      ,document.querySelector("#modal")
+      slot,
+      document.querySelector("#modal")
     )
   )
 } 

@@ -2,8 +2,9 @@ import React from 'react'
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import {withRouter, BrowserRouter} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import Navbar from './Navbar'
+
 
 let container = null;
 beforeEach(() => {
@@ -53,4 +54,17 @@ it("renders with user signed in", () => {
   expect(container.querySelector('[id="navitems"]').innerHTML).toBeTruthy()
   expect(container.querySelector('[id="authblock"]')).toBeNull()
   expect(container.textContent).toContain(fakeUser.firstName);
+})
+
+it("renders the correct color scheme", () => {
+  act(() => {
+    render(<BrowserRouter>
+              <Navbar
+              navcolorscheme = "navbar-dark"
+              navbg = "bg-transparent"
+              />
+            </BrowserRouter>, 
+            container)
+  });
+  expect(document.querySelector('div').innerHTML).toContain('navbar-dark bg-transparent')
 })

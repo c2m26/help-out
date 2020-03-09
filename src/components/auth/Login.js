@@ -71,7 +71,7 @@ class Login extends Component {
      
   render () {
     return(
-      <div>
+      <div id="signIn">
         <h3>Sign In</h3>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -83,10 +83,6 @@ class Login extends Component {
             <input required type="password" name="password" value={this.state.password} onChange={this.handleInputChange} className="form-control" placeholder="Enter your password"/>
           </div>
           
-          {/* <div className="form-group">
-            <input type="submit" value="Sign In" className="btn btn-primary"/>
-          </div> */}
-
           <div className="d-flex">
             <input type="submit" value="Sign In" className="btn btn-primary"/>
             <button onClick={this.props.handleModalClose} className="btn btn-primary ml-3">Back</button>

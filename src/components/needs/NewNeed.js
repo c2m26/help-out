@@ -117,7 +117,7 @@ class NewNeed extends Component {
     console.log(this.props)
     return (
       
-      <div>
+      <div id="newHelpOut">
       <h3>New HelpOut</h3>
       
       <form onSubmit={this.handleGeocoding}>

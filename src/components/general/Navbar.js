@@ -113,7 +113,7 @@ class Navbar extends Component {
       
       navitems = 
         <Fragment>
-          <button className="btn btn-primary text-white mr-xl-2 mr-lg-2 p-2" onClick={this.handleModalNewHelp}>New HelpOut</button>
+          <button id="newHelpOut" className="btn btn-primary text-white mr-xl-2 mr-lg-2 p-2" onClick={this.handleModalNewHelp}>New HelpOut</button>
           <Link className="nav-item nav-link" to="/dashboard">Open HelpOuts</Link>
           <Link className="nav-item nav-link" to={`/myHelpOuts/${this.props.user.id}`}>My HelpOuts</Link>
           
@@ -143,8 +143,8 @@ class Navbar extends Component {
       authblock = 
         // <Fragment>
           <div id="authblock" className="d-flex">
-          <div className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
-          <div className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
+          <div id="signIn" className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
+          <div id="signUp" className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
           </div>
         // </Fragment>
       }
@@ -199,7 +199,7 @@ class Navbar extends Component {
           <NavLink className="navbar-brand" to="/">HelpOut !</NavLink>
           
           {authblock}
-          
+            
           {navblock}
         </nav>
       </div>
