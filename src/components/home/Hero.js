@@ -12,11 +12,11 @@ const Hero = (props) => {
 
   if (props.loggedInStatus === 'LOGGED_IN') {
     block = 
-    <NavLink className="btn btn-lg btn-warning m-4" to="/dashboard">Check them out!</NavLink>
+    <NavLink className="btn btn-lg btn-warning m-4" data-testid="conditionalLinkButton" to="/dashboard">Check them out!</NavLink>
   } else {
     block =
       <Fragment>
-      <h2 className="p-1" id="secondHeading">Help Out!</h2>
+      <h2 className="p-1" id="secondHeading" data-testid="conditionalText">Help Out!</h2>
       </Fragment>
   }
 

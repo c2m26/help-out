@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Hero from './Hero.js'
-import AuthButtons from './AuthButtons'
 import NeedsCounter from './NeedsCounter.js'
 
 
@@ -20,16 +19,14 @@ class LandingPage extends Component {
   render () {
     
     return (
-    
       <Hero
         counter={
             <NeedsCounter/>
           }
         loggedInStatus={this.props.loggedInStatus}
-      />
-      
-    
-  )}
+      />  
+    )
+  }
 }
 
 export default LandingPage
