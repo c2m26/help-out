@@ -322,7 +322,7 @@ class Dashboard extends Component {
         history = {this.props.history}
       />
     } else
-    {MapElement = null}
+    {MapElement = "Loading map..."}
 
     return (
       

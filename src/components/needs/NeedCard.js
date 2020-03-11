@@ -55,7 +55,6 @@ render(){
 
   return(
   <Link className="text-reset" to= {`/helpNeed/${this.props.need.id}`}>
-  
   <div id={this.props.need.id} className="card mb-4">
     <div className="card-body">
       <h5 className="card-title">{this.props.need.title}</h5>
