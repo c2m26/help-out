@@ -147,7 +147,7 @@ class Registration extends Component {
           
 
           <div className="d-flex">
-            <input type="submit" value="Sign Up" className="btn btn-primary"/>
+            <input data-testid="submit" type="submit" value="Sign Up" className="btn btn-primary"/>
             <button onClick={this.handleModalClose} className="btn btn-primary ml-3">Back</button>
           </div>
         </form>

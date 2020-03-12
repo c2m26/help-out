@@ -65,18 +65,17 @@ class Map extends Component {
   
   async initMap() {
     
-      this.map = await new window.google.maps.Map(
-        document.getElementById(this.props.id),
-        this.props.options)
+    this.map = await new window.google.maps.Map(
+      document.getElementById(this.props.id),
+      this.props.options)
 
-        this.props.getUserLocation()
-    
-        this.createMarkers()
+      this.props.getUserLocation()
+  
+      this.createMarkers()
   }
   
     
   createMarkers(){
-    console.log(this.map)
     
     if(this.map === undefined) {
       console.log('waiting for map to be defined')
@@ -93,13 +92,13 @@ class Map extends Component {
           });
         } 
         
-        if(this.props.currentNeed) {
-          const currentNeed = new window.google.maps.Marker({
-            position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
-            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-            map: this.map     
-          });
-        } 
+        // if(this.props.currentNeed) {
+        //   const currentNeed = new window.google.maps.Marker({
+        //     position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
+        //     icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        //     map: this.map     
+        //   });
+        // } 
   
         if(typeof this.props.MTMarkers !== "undefined"){
           this.MTMarkers = this.props.MTMarkers.map( needs => { 

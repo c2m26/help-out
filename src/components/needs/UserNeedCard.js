@@ -16,8 +16,8 @@ class UserNeedCard extends Component {
   }
   
   componentDidMount(){
-    this.handleMouseOver()
-    
+    this.handleMouseOver();
+    this.getHelpersID()
   }
 
   componentDidUpdate(prevProps) {
@@ -53,9 +53,9 @@ class UserNeedCard extends Component {
         continue
       } else {
         if(this.props.fulfillments[i][0].needID === this.props.data.id){
-          console.log(this.props.fulfillments[i])  
+          // console.log(this.props.fulfillments[i])  
           auxFulfillments = this.props.fulfillments[i]
-          console.log(auxFulfillments)
+          // console.log(auxFulfillments)
         }
       }
     }
@@ -64,7 +64,7 @@ class UserNeedCard extends Component {
     })
   }
 
-  // republishes the Need following the user clock on the button "republish"
+  // republishes the Need following the user click on the button "republish"
   async handleRepublish(event){
     event.preventDefault();
     
@@ -158,9 +158,9 @@ class UserNeedCard extends Component {
   render(){
     let republishButton
     if(this.props.data.republish === true ) {
-      republishButton = <div className="btn btn-primary" onClick={this.handleRepublish}>Republish</div>
+      republishButton = <div data-testid="republish" className="btn btn-primary" onClick={this.handleRepublish}>Republish</div>
     }
-    console.log(this.props.data.status)
+    // console.log(this.props.data.status)
 
     let helpersButtons
     if(typeof this.state.needFulfillments !== "undefined") {
@@ -180,6 +180,7 @@ class UserNeedCard extends Component {
 
 
     return(
+      <div data-testid="card">
       <div id={this.props.data.id+"R"} className="card mb-4" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
         <div className="card-body">
           <div className="card-title row">
@@ -200,7 +201,7 @@ class UserNeedCard extends Component {
         <div className="collapse" id={`collapseNeedCard${this.props.data.id}`}>
           <div className="card-body">
             <div className="row">
-              <div className="d-flex flex-wrap justify-content-around col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+              <div data-testid="helperButton" className="d-flex flex-wrap justify-content-around col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                 {helpersButtons}
               </div>
               <div className="col d-flex justify-content-end align-items-start col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
@@ -210,6 +211,7 @@ class UserNeedCard extends Component {
           </div>
         </div>
 
+      </div>
       </div>
     )
   }
