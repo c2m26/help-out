@@ -50,7 +50,7 @@ it("renders the content according to props passed", () =>{
   expect(container.textContent).toContain("one time")
 })
 
-it("adds handels correctly css class chnages on mouseenter and mouseleave", () => {
+it("adds handles correctly css class chnages on mouseenter and mouseleave", () => {
   
   jest.spyOn(NeedCard.prototype, "handleCardId").mockImplementation(() => null)
   jest.spyOn(NeedCard.prototype, "handleRemoveMarker").mockImplementation(() => null)

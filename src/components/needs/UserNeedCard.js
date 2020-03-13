@@ -188,7 +188,7 @@ class UserNeedCard extends Component {
               <h5>{this.props.data.title}</h5>
             </div>
             <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 d-flex justify-content-end align-items-start">
-              <div className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
+              <div data-testid="fulfillButton" className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
             </div>
           </div>
           

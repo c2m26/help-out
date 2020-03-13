@@ -54,7 +54,6 @@ it("renders the content according to props passed", () =>{
           <BrowserRouter>
             <UserNeedCard
               data={testContent}
-              // fulfillments={testFulfillments}
             />
           </BrowserRouter>
           ,
@@ -82,7 +81,6 @@ it("handles correctly css class changes on mouseenter and mouseleave", () => {
           <BrowserRouter>
             <UserNeedCard
               data={testContent}
-              // fulfillments={testFulfillments}
             />
           </BrowserRouter>
           ,
@@ -120,7 +118,6 @@ it("expands and collapses on click", () => {
           <BrowserRouter>
             <UserNeedCard
               data={testContent}
-              // fulfillments={testFulfillments}
             />
           </BrowserRouter>
           ,
@@ -144,7 +141,6 @@ it("expands and collapses on click", () => {
   
   // add another click event to verify that card collapses and gos back to initial shape
 
-  
 })
 
 it("renders button with id of Helper", () => {
@@ -166,6 +162,66 @@ it("renders button with id of Helper", () => {
   const target = getByTestId(card, 'helperButton');
   
   expect(target.textContent).toContain("Helper 3")
+})
+
+
+it("it calls handleFulfilled method after user clicking 'Fulfill' button", () => {
+
+  jest.spyOn(UserNeedCard.prototype, 'getHelpersID').mockImplementation(() => {})
+  const fulfill = jest.spyOn(UserNeedCard.prototype, 'handleFulfilled');
+  
+  act(() => {
+    render(
+          <UserNeedCard
+          data={testContent}
+          />
+          , 
+          container
+    )
+  });
+  
+  const fulfillButton = getByTestId(document, 'fulfillButton');
+  
+  act(() => {
+    fulfillButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+
+  expect(UserNeedCard.prototype.handleFulfilled).toHaveBeenCalled();
+
+  // remove the mock to ensure tests are completely isolated
+  UserNeedCard.prototype.getHelpersID.mockRestore();
+  fulfill.mockRestore();
   
 })
+
+it("it calls handleRepublish method after user clicking 'Republish' button", () => {
+
+  jest.spyOn(UserNeedCard.prototype, 'getHelpersID').mockImplementation(() => {})
+  const republish = jest.spyOn(UserNeedCard.prototype, 'handleRepublish');
+  
+  act(() => {
+    render(
+          <UserNeedCard
+          data={testContent}
+          />
+          , 
+          container
+    )
+  });
+  
+  const republishButton = getByTestId(document, 'republish');
+  
+  act(() => {
+    republishButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+
+  expect(UserNeedCard.prototype.handleRepublish).toHaveBeenCalled();
+
+  // remove the mock to ensure tests are completely isolated
+  UserNeedCard.prototype.getHelpersID.mockRestore();
+  republish.mockRestore();
+  
+})
+
+
 

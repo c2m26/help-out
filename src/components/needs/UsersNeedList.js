@@ -269,11 +269,11 @@ class UsersNeedList extends Component {
     
     let showFulfillments = this.state.userFulfillmentsDetails.filter(fulfill => fulfill.status === "open")
 
-    let userFulfillments = showFulfillments.map( need => {
+    let userFulfillments = showFulfillments.map( fulfillment => {
                             return(
                               <UserFulfillmentCard
-                                key={need.fulfillmentID}
-                                data={need}
+                                key={fulfillment.fulfillmentID}
+                                data={fulfillment}
                                 getUserNeeds={this.getUserNeeds}
                               />
                             )
