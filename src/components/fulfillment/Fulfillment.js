@@ -92,9 +92,9 @@ class Fulfillment extends Component {
 
 render () {
   return(
-    <div className="container-fluid d-flex flex-column justify-content-center" style={{height: 'calc(100vh - 58px)'}}>
-      <div className="d-flex flex-column flex-fill justify-content-center align-items-center " >
-        <div className="col-xl-6 col-lg-10 col-md-11 col-sm-11 col-11 ">
+    <div className="d-flex justify-content-center py-2" style={{height: 'calc(100vh - 58px)'}}>
+      {/* <div className="d-flex flex-column flex-fill justify-content-center align-items-center " > */}
+        <div className="d-flex flex-column col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 ">
           <div className="card bg-light ">
             <div className="card-body">
               <h5 className="card-title">Title</h5>
@@ -102,17 +102,17 @@ render () {
               <p className="card-text">Address</p>
             </div>
           </div>  
-          <div className="my-3 overflow-auto">
-          <Conversation
-            creatorID={this.state.creatorID}
-            helperID={this.state.helperID}
-            user={this.props.user}
-          />
+          <div className="d-flex flex-column flex-fill pt-3">
+            <Conversation
+              creatorID={this.state.creatorID}
+              helperID={this.state.helperID}
+              user={this.props.user}
+            />
           </div>
           
         </div>
         
-      </div>
+      {/* </div> */}
     </div>
   )
 }

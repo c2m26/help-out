@@ -140,10 +140,12 @@ class Conversation extends Component {
           alignText= '-left'
         }
         return(
+          
           <div key={message.id} className={`d-flex flex-row${flexDirection}`}>
             <div className={`col-xl-1 text${alignText}`}>{message.senderID}</div>
             <div className={`col-xl-6 text${alignText}`}>{message.content}</div>
           </div>
+          
         )       
       })
     } else {
@@ -152,7 +154,7 @@ class Conversation extends Component {
 
     return(
       <Fragment>
-        <div className="overflow-auto">
+        <div className="flex-fill overflow-auto" style={{"height": "60vh"}}>
           {conversation}
         </div>
         
@@ -160,7 +162,6 @@ class Conversation extends Component {
           <input required type="message" name="messageInput" value={this.state.messageInput} onChange={this.handleInputChange} id="textarea" className="form-control m-2"/>
           <input type="submit" value="Send" className="btn btn-primary m-2"/> 
         </form>
-
       </Fragment>    
     )
   }

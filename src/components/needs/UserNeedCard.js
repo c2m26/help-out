@@ -181,7 +181,7 @@ class UserNeedCard extends Component {
 
     return(
       <div data-testid="card">
-      <div id={this.props.data.id+"R"} className="card mb-4" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
+      <div id={this.props.data.id+"R"} className="card mb-3" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
         <div className="card-body">
           <div className="card-title row">
             <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">

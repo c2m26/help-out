@@ -1,7 +1,5 @@
 import React from 'react'
 
-import './NeedsList.css'
-
 function NeedsList (props) {
 
   return(

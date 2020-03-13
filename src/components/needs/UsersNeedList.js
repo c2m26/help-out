@@ -282,15 +282,19 @@ class UsersNeedList extends Component {
 
     return(
       <div className="container-fluid">
-      <div className="row mt-2">
-        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-          <h5 className="text-center">Requests</h5>
-          {userNeeds}
+      <div className="row">
+        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
+          <h5 className="bg-dark text-light text-center p-1">Requests</h5>
+          <div className="overflow-auto" style={{"height": "88vh"}}>
+            {userNeeds}
+          </div>
         </div>
-        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-        <h5 className="text-center">Fulfillments</h5>
-         {userFulfillments}
-        </div>
+        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
+          <h5 className="bg-dark text-light text-center p-1">Fulfillments</h5>
+          <div className="overflow-auto" style={{"height": "88vh"}}>
+            {userFulfillments}
+          </div>
+          </div>
       </div>
       </div>
     )
