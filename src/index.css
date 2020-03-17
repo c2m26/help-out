@@ -21,3 +21,8 @@ code {
   height: 92vh;
   overflow-y: scroll;
 }
+
+#viewframe{
+  overflow: hidden;
+  height: calc(100vh - 58px);
+}

@@ -26,8 +26,8 @@ const Hero = (props) => {
 
       <div className="overlay d-flex flex-column justify-content-center align-items-center text-center text-white">    
           <h1 className="p-1" id="mainHeading">Together we are stronger</h1>
-          <h2 className="p-1" id="secondHeading">and</h2>
-          <h2 className="p-1" id="secondHeading">each pair of hands counts</h2>
+          <h2 className="p-1 d-none d-lg-block" id="secondHeading">and</h2>
+          <h2 className="p-1 d-none d-lg-block" id="secondHeading">each pair of hands counts</h2>
           <h3 className="p-1"><span id="secondHeading">{props.counter} </span>help requests are currently unfufilled</h3>
           {block}
       </div>

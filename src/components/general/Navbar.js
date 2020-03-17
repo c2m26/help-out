@@ -113,19 +113,12 @@ class Navbar extends Component {
       
       navitems = 
         <Fragment>
+          <div>
           <button id="newHelpOut" className="btn btn-primary text-white mr-xl-2 mr-lg-2 p-2" onClick={this.handleModalNewHelp}>New HelpOut</button>
+          </div>
           <Link className={`nav-item nav-link ${this.props.textColor}`} to="/dashboard">Open HelpOuts</Link>
           <Link className={`nav-item nav-link ${this.props.textColor}`} to={`/myHelpOuts/${this.props.user.id}`}>My HelpOuts</Link>
-          
-          <div className="nav-item dropdown">
-            <a className={`nav-link dropdown-toggle ${this.props.textColor}`} href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Hi {this.props.user.firstName}
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <Link className="dropdown-item" to={`/user/${this.props.user.id}`}>Profile</Link>
-              <a className="dropdown-item" href="#" onClick={this.handleLogoutClick}>Logout</a>
-            </div>
-          </div>
+          <div className={`nav-item nav-link font-italic ${this.props.textColor}`}>Hi {this.props.user.firstName}<span className="badge badge-danger ml-2" onClick={this.handleLogoutClick}>Logout</span></div>
         </Fragment>
       
       navblock =
@@ -133,7 +126,7 @@ class Navbar extends Component {
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div className="collapse navbar-collapse justify-content-end p-2" id="navbarNavAltMarkup">
           <div className="navbar-nav" id="navitems">
             {navitems}
           </div>

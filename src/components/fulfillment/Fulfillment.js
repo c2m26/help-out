@@ -170,30 +170,33 @@ class Fulfillment extends Component {
   }
 
 render () {
+
+  // let dateISO = this.state.need.created_at
+  // let date = String(dateISO).split("T")[0]
+
   return(
     <div className="d-flex justify-content-center py-2" style={{height: 'calc(100vh - 58px)'}}>
-      {/* <div className="d-flex flex-column flex-fill justify-content-center align-items-center " > */}
-        <div className="d-flex flex-column col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 ">
-          <div className="card bg-light ">
-            <div className="card-body">
-              <h5 className="card-title">{this.state.need.title}</h5>
-              <p className="card-text">{this.state.need.description}</p>
-              <p className="card-text">{this.state.need.formattedAddress}</p>
-            </div>
-          </div>  
-          <div className="d-flex flex-column flex-fill pt-3">
-            <Conversation
-              creatorID={this.state.creatorID}
-              helperID={this.state.helperID}
-              creatorName={this.state.creatorName}
-              helperName={this.state.helperName}
-              user={this.props.user}
-            />
+      <div className="d-flex flex-column col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 ">
+        <div className="card shadow-sm">
+          <div className="card-body">
+            <h5 className="card-title">{this.state.need.title}</h5>
+            <p className="card-text">{this.state.need.description}</p>
+            <small className="card-text">{this.state.need.formattedAddress}</small>
+            {/* <small className="card-text">Requested: {date} </small> */}
           </div>
-          
+        </div>  
+        <div className="d-flex flex-column flex-fill mt-3">
+          <Conversation
+            creatorID={this.state.creatorID}
+            helperID={this.state.helperID}
+            creatorName={this.state.creatorName}
+            helperName={this.state.helperName}
+            user={this.props.user}
+          />
         </div>
         
-      {/* </div> */}
+      </div>
+        
     </div>
   )
 }
