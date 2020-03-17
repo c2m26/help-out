@@ -7,7 +7,9 @@ class Fulfillment extends Component {
 
     this.state = {
       creatorID: null,
+      creatorName: null,
       helperID: null,
+      helperName: null,
       needID: null,
       need: {},
       allowAcess: false
@@ -94,7 +96,7 @@ class Fulfillment extends Component {
 
   async getNeed(){
     
-    const url = `http://localhost:3001/api/v1/needs/${this.state.needID}`;
+    const url = `http://localhost:3001/api/v1/needs/get_Need?id=${this.state.needID}`;
     
     await fetch(url, {
       method: 'GET',
