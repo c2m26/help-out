@@ -9,12 +9,14 @@ class Fulfillment extends Component {
       creatorID: null,
       helperID: null,
       needID: null,
+      need: {},
       allowAcess: false
     }
 
     this.getFulfillmentforeignKeys = this.getFulfillmentforeignKeys.bind(this)
     this.getNeedCreatorId = this.getNeedCreatorId.bind(this)
     this.checkUserAccess = this.checkUserAccess.bind(this)
+    this.getNeed = this.getNeed.bind(this)
   }
 
   componentDidMount() {
@@ -83,12 +85,38 @@ class Fulfillment extends Component {
     if (this.props.user.id === this.state.creatorID || this.props.user.id === this.state.helperID) {
       this.setState({
         allowAcess: true
-      })
+      });
+      this.getNeed();
     } else {
       this.props.history.push("/")
     }
   }
 
+  async getNeed(){
+    
+    const url = `http://localhost:3001/api/v1/needs/${this.state.needID}`;
+    
+    await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((data) =>{
+      console.log(data);
+      this.setState({
+        need: data,
+      })
+    })    
+    .catch(error => {
+      console.log("Error getting need data", error)
+    })
+  
+  }
 
 render () {
   return(
@@ -97,9 +125,9 @@ render () {
         <div className="d-flex flex-column col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 ">
           <div className="card bg-light ">
             <div className="card-body">
-              <h5 className="card-title">Title</h5>
-              <p className="card-text">Description</p>
-              <p className="card-text">Address</p>
+              <h5 className="card-title">{this.state.need.title}</h5>
+              <p className="card-text">{this.state.need.description}</p>
+              <p className="card-text">{this.state.need.formattedAddress}</p>
             </div>
           </div>  
           <div className="d-flex flex-column flex-fill pt-3">
