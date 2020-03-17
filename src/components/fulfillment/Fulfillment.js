@@ -19,6 +19,7 @@ class Fulfillment extends Component {
     this.getNeedCreatorId = this.getNeedCreatorId.bind(this)
     this.checkUserAccess = this.checkUserAccess.bind(this)
     this.getNeed = this.getNeed.bind(this)
+    this.getUsersName = this.getUsersName.bind(this)
   }
 
   componentDidMount() {
@@ -72,7 +73,7 @@ class Fulfillment extends Component {
     .then((data) =>{
       console.log(data);
       this.setState({
-        creatorID: data.creatorID,
+        creatorID: data,
       })
     })    
     .catch(error => {
@@ -117,7 +118,55 @@ class Fulfillment extends Component {
     .catch(error => {
       console.log("Error getting need data", error)
     })
-  
+
+    this.getUsersName()
+  }
+
+  async getUsersName(){
+    
+    const url = `http://localhost:3001/api/v1/users/${this.state.creatorID}`;
+    
+    await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((data) =>{
+      console.log(data);
+      this.setState({
+        creatorName: data.firstName,
+      })
+    })    
+    .catch(error => {
+      console.log("Error getting need creator name", error)
+    })
+
+    const url1 = `http://localhost:3001/api/v1/users/${this.state.helperID}`;
+    
+    await fetch(url1, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((data) =>{
+      console.log(data);
+      this.setState({
+        helperName: data.firstName,
+      })
+    })    
+    .catch(error => {
+      console.log("Error getting need creator name", error)
+    })
   }
 
 render () {
@@ -136,6 +185,8 @@ render () {
             <Conversation
               creatorID={this.state.creatorID}
               helperID={this.state.helperID}
+              creatorName={this.state.creatorName}
+              helperName={this.state.helperName}
               user={this.props.user}
             />
           </div>

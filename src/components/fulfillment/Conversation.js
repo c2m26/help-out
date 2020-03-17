@@ -11,7 +11,8 @@ class Conversation extends Component {
       messageInput: ''
     }
     this.getMessages = this.getMessages.bind(this);
-    this.getConversationID = this.getConversationID.bind(this)
+    this.getConversationID = this.getConversationID.bind(this);
+    // this.assignUsersName = this.assignUsersName.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -66,13 +67,25 @@ class Conversation extends Component {
     .then((data) =>{
       console.log(data);
       this.setState({
-        messages: data.data
+        messages: data
       })
     })    
     .catch(error => {
       console.log("Error getting help need creator ID", error)
     })
+
+    // this.assignUsersName()
   }
+
+  // assignUsersName(){
+  //   for(let i=0; i<this.state.messages.length; i++){
+  //     if(this.state.messages[i].senderID === this.props.creatorID) {
+  //       this.state.messages[i].senderName = this.props.creatorName
+  //     } else {
+  //       this.state.messages[i].senderName = this.props.helperName
+  //     }
+  //   }
+  // }
 
   handleInputChange(event) {
     
@@ -132,18 +145,27 @@ class Conversation extends Component {
       conversation = this.state.messages.map( message => {
         let flexDirection
         let alignText
+        let bgColor
+        let textColor
+
         if(message.senderID === this.props.creatorID) {
           flexDirection = '-reverse';
-          alignText= '-right'
+          alignText= '-right';
+          bgColor = '-info';
+          textColor = '-white';
+          message.senderName = this.props.creatorName
         } else {
-          flexDirection = ''
-          alignText= '-left'
+          flexDirection = '';
+          alignText= '-left';
+          bgColor = '-warning';
+          textColor = '-dark';
+          message.senderName = this.props.helperName
         }
         return(
           
-          <div key={message.id} className={`d-flex flex-row${flexDirection}`}>
-            <div className={`col-xl-1 text${alignText}`}>{message.senderID}</div>
-            <div className={`col-xl-6 text${alignText}`}>{message.content}</div>
+          <div key={message.id} className={`d-flex flex-row${flexDirection} m-2`}>
+            <div className={`col-xl-1 text${alignText}`}>{message.senderName}</div>
+            <div className={`font-italic text${alignText} text${textColor} bg${bgColor} py-1 px-3 rounded-pill`}>{message.content}</div>
           </div>
           
         )       
