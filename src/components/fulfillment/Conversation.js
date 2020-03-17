@@ -38,7 +38,7 @@ class Conversation extends Component {
     .then((data) =>{
       console.log(data);
       this.setState({
-        conversationID: data.id
+        conversationID: data
       })
     })    
     .catch(error => {
@@ -73,19 +73,7 @@ class Conversation extends Component {
     .catch(error => {
       console.log("Error getting help need creator ID", error)
     })
-
-    // this.assignUsersName()
   }
-
-  // assignUsersName(){
-  //   for(let i=0; i<this.state.messages.length; i++){
-  //     if(this.state.messages[i].senderID === this.props.creatorID) {
-  //       this.state.messages[i].senderName = this.props.creatorName
-  //     } else {
-  //       this.state.messages[i].senderName = this.props.helperName
-  //     }
-  //   }
-  // }
 
   handleInputChange(event) {
     
@@ -181,8 +169,8 @@ class Conversation extends Component {
         </div>
         
         <form className="d-flex" onSubmit={this.handleSubmit}>
-          <input required type="message" name="messageInput" value={this.state.messageInput} onChange={this.handleInputChange} id="textarea" className="form-control m-2"/>
-          <input type="submit" value="Send" className="btn btn-primary m-2"/> 
+          <input required type="message" name="messageInput" value={this.state.messageInput} onChange={this.handleInputChange} id="textarea" className="form-control mr-2 my-2"/>
+          <input type="submit" value="Send" className="btn btn-primary ml-2 my-2"/> 
         </form>
       </Fragment>    
     )

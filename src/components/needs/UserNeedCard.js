@@ -184,10 +184,10 @@ class UserNeedCard extends Component {
       <div id={this.props.data.id+"R"} className="card mb-3" data-toggle="collapse" href={`#collapseNeedCard${this.props.data.id}`} role="button" aria-expanded="false">
         <div className="card-body">
           <div className="card-title row">
-            <div className="d-flex align-items-center col-xl-10 col-lg-10 col-md-10 col-sm-8 col-8">
+            <div className="d-flex align-items-center col-xl-10 col-lg-9 col-md-9 col-sm-8 col-8">
               <h5>{this.props.data.title}</h5>
             </div>
-            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-4 col-4">
+            <div className="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-4 d-flex justify-content-center">
               <div data-testid="fulfillButton" className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
             </div>
           </div>

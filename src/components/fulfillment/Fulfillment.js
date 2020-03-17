@@ -175,7 +175,7 @@ render () {
   // let date = String(dateISO).split("T")[0]
 
   return(
-    <div className="d-flex justify-content-center py-2" style={{height: 'calc(100vh - 58px)'}}>
+    <div className="d-flex justify-content-center py-1" style={{height: 'calc(100vh - 58px)'}}>
       <div className="d-flex flex-column col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 ">
         <div className="card shadow-sm">
           <div className="card-body">
@@ -185,7 +185,7 @@ render () {
             {/* <small className="card-text">Requested: {date} </small> */}
           </div>
         </div>  
-        <div className="d-flex flex-column flex-fill mt-3">
+        <div className="d-flex flex-column flex-fill mt-2">
           <Conversation
             creatorID={this.state.creatorID}
             helperID={this.state.helperID}
