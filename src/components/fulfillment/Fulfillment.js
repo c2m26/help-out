@@ -23,7 +23,8 @@ class Fulfillment extends Component {
   }
 
   componentDidMount() {
-    this.getFulfillmentforeignKeys()
+    this.getFulfillmentforeignKeys();
+    this.getNeed()
   }
 
   async getFulfillmentforeignKeys() {
@@ -96,7 +97,7 @@ class Fulfillment extends Component {
   }
 
   async getNeed(){
-    
+
     const url = `http://localhost:3001/api/v1/needs/get_Need?id=${this.state.needID}`;
     
     await fetch(url, {
@@ -110,7 +111,7 @@ class Fulfillment extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
+      // console.log(data);
       this.setState({
         need: data,
       })
@@ -175,17 +176,16 @@ render () {
   // let date = String(dateISO).split("T")[0]
 
   return(
-    <div className="d-flex justify-content-center py-1" style={{height: 'calc(100vh - 58px)'}}>
+    <div data-testid="need" className="d-flex justify-content-center py-1" style={{height: 'calc(100vh - 58px)'}}>
       <div className="d-flex flex-column col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 ">
         <div className="card shadow-sm">
           <div className="card-body">
             <h5 className="card-title">{this.state.need.title}</h5>
             <p className="card-text">{this.state.need.description}</p>
             <small className="card-text">{this.state.need.formattedAddress}</small>
-            {/* <small className="card-text">Requested: {date} </small> */}
           </div>
         </div>  
-        <div className="d-flex flex-column flex-fill mt-2">
+        <div data-testid="conversation" className="d-flex flex-column flex-fill mt-2">
           <Conversation
             creatorID={this.state.creatorID}
             helperID={this.state.helperID}

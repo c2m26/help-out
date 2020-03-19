@@ -4,11 +4,6 @@ import { act } from "react-dom/test-utils";
 import { getByTestId, fireEvent } from '@testing-library/dom'
 import Conversation from './Conversation'
 
-// beforeAll(() => {
-//   global.fetch = jest.fn();
-//   //window.fetch = jest.fn(); if running browser environment
-// });
-
 let container = null;
 beforeEach(() => {
   // setup a DOM element as a render target
