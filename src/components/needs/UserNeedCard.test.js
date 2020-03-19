@@ -109,40 +109,6 @@ it("handles correctly css class changes on mouseenter and mouseleave", () => {
 
 })
 
-it("expands and collapses on click", () => {
-  
-  jest.spyOn(UserNeedCard.prototype, 'getHelpersID').mockImplementation(() => {})
-
-  act(() => {
-    render(
-          <BrowserRouter>
-            <UserNeedCard
-              data={testContent}
-            />
-          </BrowserRouter>
-          ,
-          container
-    )
-  });
-
-  const card = getByTestId(document, 'card');
-  const target = document.getElementById(testContent.id+"R");
-  
-  //there is an issue with this event. it is on "acting" on the card
-  act(() => {
-    card.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  });
-
-  // remove the mock to ensure tests are completely isolated
-  UserNeedCard.prototype.getHelpersID.mockRestore();
-
-  console.log(target.getAttribute('aria-expanded'))
-  expect(target.getAttribute('aria-expanded')).toEqual("true")
-  
-  // add another click event to verify that card collapses and gos back to initial shape
-
-})
-
 it("renders button with id of Helper", () => {
 
   act(() => {

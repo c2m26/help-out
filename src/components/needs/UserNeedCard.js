@@ -47,7 +47,7 @@ class UserNeedCard extends Component {
   getHelpersID(){
     let auxFulfillments = []
 
-    console.log(this.props.fulfillments.length)
+    // console.log(this.props.fulfillments.length)
     for(let i=0; i<this.props.fulfillments.length; i++){
       if(this.props.fulfillments[i].length === 0){
         continue

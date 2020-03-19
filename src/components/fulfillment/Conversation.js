@@ -12,7 +12,6 @@ class Conversation extends Component {
     }
     this.getMessages = this.getMessages.bind(this);
     this.getConversationID = this.getConversationID.bind(this);
-    // this.assignUsersName = this.assignUsersName.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -35,12 +34,9 @@ class Conversation extends Component {
     .then((response)=>{
       return response.json()
     })
-    .then((data) =>{
-      console.log(data);
-      this.setState({
+    .then((data) => this.setState({
         conversationID: data
-      })
-    })    
+    }))    
     .catch(error => {
       console.log("Error getting conversation ID", error)
     })
@@ -50,7 +46,7 @@ class Conversation extends Component {
 
   async getMessages() {
 
-    console.log(this.state.conversationID)
+    // console.log(this.state.conversationID)
 
     const url = `http://localhost:3001/api/v1/messages/get_Messages?id=${this.state.conversationID}`;
     
@@ -64,12 +60,9 @@ class Conversation extends Component {
     .then((response)=>{
       return response.json()
     })
-    .then((data) =>{
-      console.log(data);
-      this.setState({
+    .then((data) => this.setState({
         messages: data
-      })
-    })    
+    }))    
     .catch(error => {
       console.log("Error getting help need creator ID", error)
     })
@@ -164,13 +157,13 @@ class Conversation extends Component {
 
     return(
       <Fragment>
-        <div className="flex-fill overflow-auto bg-light pt-1" style={{"height": "60vh"}}>
+        <div data-testid="conversation" className="flex-fill overflow-auto bg-light pt-1" style={{"height": "60vh"}}>
           {conversation}
         </div>
         
-        <form className="d-flex" onSubmit={this.handleSubmit}>
+        <form data-testid="messageInput" className="d-flex" onSubmit={this.handleSubmit}>
           <input required type="message" name="messageInput" value={this.state.messageInput} onChange={this.handleInputChange} id="textarea" className="form-control mr-2 my-2"/>
-          <input type="submit" value="Send" className="btn btn-primary ml-2 my-2"/> 
+          <input data-testid="submit" type="submit" value="Send" className="btn btn-primary ml-2 my-2"/> 
         </form>
       </Fragment>    
     )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
+import { getByTestId } from '@testing-library/react'
 import NeedCard from './NeedCard'
 import { BrowserRouter } from 'react-router-dom';
 
@@ -67,7 +68,7 @@ it("adds handles correctly css class chnages on mouseenter and mouseleave", () =
     )
   });
 
-  const card = document.querySelector("[class='text-reset']");
+  const card = getByTestId(document, 'card');
   const control = card.innerHTML.length;
   const target = document.getElementById(testContent.id);
   

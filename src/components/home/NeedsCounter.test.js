@@ -6,6 +6,11 @@ import NeedsCounter from './NeedsCounter'
 
 jest.useFakeTimers();
 
+beforeAll(() => {
+  global.fetch = jest.fn();
+  //window.fetch = jest.fn(); if running browser environment
+});
+
 let container = null;
 beforeEach(() => {
   // setup a DOM element as a render target
@@ -23,7 +28,9 @@ afterEach(() => {
 it("renders the number of open help requests", async () => {
   const fakeOpenNeeds = [{id:1},{id:2},{id:2},{id:2},{id:2}];
 
-  jest.spyOn(global, "fetch").mockImplementation(()=>
+  const getNeeds = jest.spyOn(NeedsCounter.prototype, "getOpenNeeds")
+  
+  fetch.mockImplementation(()=>
     Promise.resolve({
       json: () => Promise.resolve(fakeOpenNeeds)
     })
@@ -41,5 +48,6 @@ it("renders the number of open help requests", async () => {
   expect(parseInt(container.innerHTML)).toBe(5)
   
   // remove the mock to ensure tests are completely isolated
-  global.fetch.mockRestore();
+  getNeeds.mockRestore();
+  fetch.mockClear;
 })

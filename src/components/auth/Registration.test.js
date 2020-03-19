@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
-import { getByTestId } from '@testing-library/dom'
+import { getByTestId, fireEvent } from '@testing-library/dom'
 import Registration from './Registration'
 
 
@@ -35,7 +35,7 @@ it("it calls handleSubmit method after user clicking 'sign in' button", () => {
   const submitButton = getByTestId(document, 'submit');
   
   act(() => {
-    submitButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    fireEvent.submit(getByTestId(document, 'submit'))
   });
 
   expect(component.prototype.handleSubmit).toHaveBeenCalled();
