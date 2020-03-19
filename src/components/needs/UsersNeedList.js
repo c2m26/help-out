@@ -5,7 +5,7 @@ import {fetchNeeds} from '../actions/needsAction'
 import UserNeedCard from "./UserNeedCard"
 import UserFulfillmentCard from "./UserFulfillmentCard"
 
-class UsersNeedList extends Component {
+export class UsersNeedList extends Component {
   constructor(props) {
     super(props)
     
@@ -282,16 +282,16 @@ class UsersNeedList extends Component {
 
     return(
       <div className="container-fluid">
-      <div className="row">
+      <div data-testid="rowBlock" className="row">
         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
           <h5 className="bg-dark text-light text-center p-1">Requests</h5>
-          <div className="overflow-auto" style={{"height": "88vh"}}>
+          <div data-testid="userNeeds" className="overflow-auto" style={{"height": "88vh"}}>
             {userNeeds}
           </div>
         </div>
         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
           <h5 className="bg-dark text-light text-center p-1">Fulfillments</h5>
-          <div className="overflow-auto" style={{"height": "88vh"}}>
+          <div data-testid="userFulfillments" className="overflow-auto" style={{"height": "88vh"}}>
             {userFulfillments}
           </div>
           </div>

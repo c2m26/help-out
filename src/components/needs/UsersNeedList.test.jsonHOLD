@@ -1,0 +1,87 @@
+import React from 'react'
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
+import { getByTestId } from '@testing-library/dom';
+import {Provider} from 'react-redux'
+import UserNeedCard from './UserNeedCard';
+import UserFulfillmentCard from './UserFulfillmentCard';
+import MockedUserNeedCar from "./UserNeedCard";
+import MockedUserFulfillmentCard from './UserFulfillmentCard';
+import { UsersNeedList } from './UsersNeedList';
+
+jest.mock("./UserNeedCard", ()=> {
+  return function DummyUserNeedCard (data) {
+    return(
+      <div>{data.need.title}</div>
+    );
+  };
+});
+
+jest.mock("./UserFulfillmentCard", ()=> {
+  return function DummyUserFulfillmentCard () {
+    return(
+      <div>Fulfillment Card</div>
+    );
+  };
+});
+
+  
+let container = null;
+beforeEach(() => {
+  // setup a DOM element as a render target
+  container = document.createElement("div");
+  document.body.appendChild(container);
+
+});
+
+afterEach(() => {
+  // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+const userOpenNeeds = 
+    {
+      id: 14,
+      userID: 1,
+      title: "New Need Again",
+      description: "adsadsad",
+      needType: "material",
+      lat: 50.1429351,
+      lng: 8.6874011,
+      formattedAddress: "Marbachweg 209, 60435 Frankfurt am Main",
+      status: "open",
+      created_at: "2020-03-05T11:14:36.973Z",
+      updated_at: "2020-03-05T11:14:36.973Z"
+    }
+
+it("renders child components", () => {
+  
+  const component = UsersNeedList.prototype
+  console.log(component)
+  const getUserNeeds = jest.spyOn(component, 'getUserNeeds').mockImplementation(() => component.setState({userOpenNeeds : userOpenNeeds}));
+
+  act( () => {
+            render(              
+              <UsersNeedList
+              fetchNeeds={()=>null}
+              needs={[0]}
+              />,
+              container
+            );
+          });
+  
+    const userNeeds = getByTestId(document, 'userNeeds');
+    const rowBlock = getByTestId(document, 'rowBlock');
+    
+    console.log(rowBlock.innerHTML)
+    // expect(block.innerHTML).toContain(needData.title);
+    // expect(block.innerHTML).toContain(needData.description);
+    // expect(block.innerHTML).toContain(needData.formattedAddress);
+    // expect(conversation.innerHTML).toContain("Conversation Block");
+  
+  // remove the mock to ensure tests are completely isolated
+  getUserNeeds.mockRestore();
+  fetch.mockClear;
+})

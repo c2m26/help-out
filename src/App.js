@@ -10,9 +10,6 @@ import Fulfillment from './components/fulfillment/Fulfillment'
 import UserNeedsList from './components/needs/UsersNeedList'
 import store from './components/store'
 
-
-
-
 class App extends Component {
   constructor() {
     super()
@@ -28,8 +25,8 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleNavbar = this.handleNavbar.bind(this)
-    // this.getUserLocation = this.getUserLocation.bind(this)
   }
+
 // Auth methods
   async checkLoginStatus() {
     let url = 'http://localhost:3001/api/v1/logged_in'
@@ -64,8 +61,6 @@ class App extends Component {
 
   componentDidMount() {
     this.checkLoginStatus()
-    // to be removed once workign fine in redux
-    // this.getUserLocation()
   }
 
   handleLogin(data) {
@@ -89,17 +84,6 @@ class App extends Component {
     })
     console.log(this.state.fsHero)
   }
-
-  // getting user location; to moved to global state
-  // getUserLocation(){
-  //   navigator.geolocation.getCurrentPosition( position => {
-  //     this.setState({
-  //       userLat: position.coords.latitude,
-  //       userLng: position.coords.longitude
-  //     })
-  //   })
-  // }
-
 
 //App rendering method
 

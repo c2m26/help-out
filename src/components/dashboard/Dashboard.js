@@ -8,7 +8,7 @@ import NeedsList from '../needs/NeedsList'
 import NeedCard from '../needs/NeedCard'
 import './Dashboard.css'
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
   constructor(props){
     super(props)
 
@@ -295,7 +295,7 @@ class Dashboard extends Component {
   render () {
     let MapElement
     if(typeof this.props.needs !== "undefined" && typeof this.state.needsOT !== "undefined" && typeof this.state.needsMT !== "undefined" && typeof this.props.userLocation.lng !== "undefined" && typeof this.props.userLocation.lat !== "undefined") {
-      console.log("passing in render map")
+      // console.log("passing in render map")
       MapElement = 
       <Map
         id = "mapDashboard"
@@ -321,14 +321,13 @@ class Dashboard extends Component {
 
         history = {this.props.history}
       />
-    } else
-    {MapElement = "Loading map..."}
+    } else {MapElement = "Loading map..."}
 
     return (
       
       <div id="viewframe" className="container-fluid">
 
-        <div className="row">
+        <div data-testid="content" className="row">
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
             <NeedsList
               content= {this.state.activedNeeds.map(
