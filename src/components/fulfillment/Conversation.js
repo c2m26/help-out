@@ -145,7 +145,7 @@ class Conversation extends Component {
         return(
           
           <div key={message.id} className={`d-flex flex-row${flexDirection} m-2`}>
-            <div className={`col-xl-1 col-lg-1 col-md-1 col-sm-3 col-3 text${alignText}`}>{message.senderName}</div>
+            <div className={`col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3 text${alignText}`}>{message.senderName}</div>
             <div className={`font-italic text${alignText} text${textColor} bg${bgColor} py-1 px-3 rounded-pill`}>{message.content}</div>
           </div>
           

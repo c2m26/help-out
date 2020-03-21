@@ -1,9 +1,9 @@
 import { GET_USER_LOCATION } from './types'
 
 export function getUserLocation() {
-  return async function (dispatch) {
+  return function (dispatch) {
     
-    await navigator.geolocation.getCurrentPosition( position => { 
+    navigator.geolocation.getCurrentPosition( position => { 
       dispatch(
         {
         type: GET_USER_LOCATION,

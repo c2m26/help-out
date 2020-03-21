@@ -1,5 +1,5 @@
 import { FETCH_NEEDS, NEW_NEED } from '../actions/types'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
 
 const initialState = {
   items: [],
