@@ -79,7 +79,6 @@ it("renders child components", () => {
     )
   });
   
-  const content = getByTestId(document, 'content');
   const listContent = getByTestId(document, 'needsList');
   const mapContent = getByTestId(document, 'map');
 

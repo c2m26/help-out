@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { postNeed } from '../actions/needsAction'
 import Keys from '../Keys'
 
-class NewNeed extends Component {
+export class NewNeed extends Component {
   constructor (props) {
     super (props)
 
@@ -114,7 +114,7 @@ class NewNeed extends Component {
     }
 
   render () {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       
       <div id="newHelpOut">
@@ -155,7 +155,7 @@ class NewNeed extends Component {
 
 
         <div className="d-flex">
-          <input type="submit" value="Create" className="btn btn-primary"/>
+          <input data-testid="submit" type="submit" value="Create" className="btn btn-primary"/>
           <button onClick={this.props.handleModalClose} className="btn btn-primary ml-3">Back</button>
         </div>
       </form>

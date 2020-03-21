@@ -92,13 +92,14 @@ class Map extends Component {
           });
         } 
         
-        // if(this.props.currentNeed) {
-        //   const currentNeed = new window.google.maps.Marker({
-        //     position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
-        //     icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-        //     map: this.map     
-        //   });
-        // } 
+        // marker for map in need detail component
+        if(this.props.currentNeed) {
+          const currentNeed = new window.google.maps.Marker({
+            position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+            map: this.map     
+          });
+        } 
   
         if(typeof this.props.MTMarkers !== "undefined"){
           this.MTMarkers = this.props.MTMarkers.map( needs => { 
