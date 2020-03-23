@@ -123,7 +123,8 @@ class UserNeedCard extends Component {
       .catch(error => {
         console.log("Error republishing need", error)
       })    
-  
+    
+    this.props.getUserNeeds()
   }
 
   async handleFulfilled(event){
@@ -201,10 +202,10 @@ class UserNeedCard extends Component {
         <div className="collapse" id={`collapseNeedCard${this.props.data.id}`}>
           <div className="card-body">
             <div className="row">
-              <div data-testid="helperButton" className="d-flex flex-wrap justify-content-around col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+              <div data-testid="helperButton" className="d-flex flex-wrap justify-content-around align-items-center col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
                 {helpersButtons}
               </div>
-              <div className="col d-flex justify-content-end align-items-start col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+              <div className="col d-flex justify-content-end align-items-center col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
                 {republishButton}
               </div>
             </div>

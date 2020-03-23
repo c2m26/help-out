@@ -140,27 +140,32 @@ export class UsersNeedList extends Component {
       let auxOpenNeed = this.state.userOpenNeeds.filter(need => need.id === needID)
       let auxNeedDate = new Date(auxOpenNeed[0].created_at)
       let auxNeedTime = auxNeedDate.getTime()
-      let ageCounter = 0
+      let currentTime = Date.now()
+      let ageNeed = currentTime - auxNeedTime
+      let ageReference = 24*60*60*1000
+      let minHelpers = 5
       console.log(needID, auxOpenNeed)
 
-      for(let j=0; j<this.state.needFulfillments[i].length; j++){
-        let auxFulfillmentDate = new Date(this.state.needFulfillments[i][j].created_at)
-        let auxFulfillmentTime = auxFulfillmentDate.getTime()
-        let ageFulfillment = auxFulfillmentTime-auxNeedTime
-        let ageReference = 24*60*60*1000
-        console.log("passa aqui")
-        console.log(auxFulfillmentTime, auxNeedTime)
 
-        if(ageFulfillment > ageReference) {
-          ageCounter++
-        }
-      }
-      console.log(ageCounter)
-      // condition making ageCounter = 5 to address the fact that not only the time from last fulfiment being more than 24h
+      // for(let j=0; j<this.state.needFulfillments[i].length; j++){
+      //   let auxFulfillmentDate = new Date(this.state.needFulfillments[i][j].created_at)
+      //   let auxFulfillmentTime = auxFulfillmentDate.getTime()
+      //   let ageFulfillment = auxFulfillmentTime-auxNeedTime
+      //   let ageReference = 24*60*60*1000
+      //   console.log(auxFulfillmentDate + " // " + auxNeedDate )
+      //   console.log("for evaluating republish", ageFulfillment-ageReference)
+
+      //   if(ageFulfillment > ageReference) {
+      //     ageCounter++
+      //   }
+      // }
+      console.log(ageNeed, ageReference)
+      // NOT VALID ANYMORE condition making ageCounter = 5 to address the fact that not only the time from last fulfillment being more than 24h
       // but also that a republish only makes sense when the need is not shown anymore to all users, which only happens
       // when the number of helpers fulfilling the request is 5
-      let minHelpers = 5
-      if(ageCounter === this.state.needFulfillments[i].length && ageCounter === minHelpers){
+
+      console.log(this.state.needFulfillments[i].length)
+      if(ageNeed >= ageReference && minHelpers <= this.state.needFulfillments[i].length){
         auxOpenNeed[0].republish = true
         auxOpenNeeds.push(auxOpenNeed[0])
       } else {
