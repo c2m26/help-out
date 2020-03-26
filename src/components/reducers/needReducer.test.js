@@ -23,37 +23,6 @@ describe('need reducer', () => {
         }
       )
 
-    expect(
-      needReducer(
-        {
-          items:[
-            {id: 1},
-            {id: 2}
-          ]
-        }
-        
-        
-      , 
-        {
-          type: FETCH_NEEDS,
-          payload: 
-            [ 
-              {id: 3},
-              {id: 4}
-            ]       
-        }
-      )
-    ).toContain(
-        {
-          items: [
-            {id:1},
-            {id: 2},
-            {id: 3},
-            {id: 4}
-          ]
-        }
-      )
-
   })
 
   it("should handle NEW_NEED", () => {

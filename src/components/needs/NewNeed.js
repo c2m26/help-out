@@ -89,13 +89,6 @@ export class NewNeed extends Component {
 
       console.log(this.props)
       
-      // if(this.props.need.status == "ok") {
-      //     this.handleModalClose()
-      //   } else {
-      //     alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
-      //   }
-
-    
     }
 
     componentDidUpdate(prevProps){
@@ -106,7 +99,6 @@ export class NewNeed extends Component {
           alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
         }
       }
-      
     }
 
     handleModalClose() {
@@ -125,11 +117,13 @@ export class NewNeed extends Component {
         <div className="form-group">
           <label>Title</label>
           <input required type="text" name="title" value={this.state.title} onChange={this.handleInputChange} className="form-control" placeholder="Short and descriptive title"/>
+          <small id="Title" className="form-text text-muted pl-1">Max. 60 characters</small>
         </div>
         
         <div className="form-group">
           <label htmlFor="textarea">Description</label>
-          <textarea required name="description" value={this.state.description} onChange={this.handleInputChange} className="form-control" id="textarea" rows="4" placeholder="Brief descrption of the help need in maximum 300 characters"/>
+          <textarea required name="description" value={this.state.description} onChange={this.handleInputChange} className="form-control" id="textarea" rows="4" placeholder="Informative and concise description of the help request"/>
+          <small id="Title" className="form-text text-muted pl-1">Max. 300 characters</small>
         </div>
 
         <div className="form-group">
@@ -150,7 +144,8 @@ export class NewNeed extends Component {
 
         <div className="form-group">
           <label>Location</label>
-          <input required type="text" name="location" value={this.state.location} onChange={this.handleInputChange} className="form-control" placeholder="Help need address"/>
+          <input required type="text" name="location" value={this.state.location} onChange={this.handleInputChange} className="form-control" placeholder="Help request address"/>
+          <small id="Title" className="form-text text-muted pl-1">Include zip code</small>
         </div>
 
 

@@ -127,7 +127,7 @@ class Registration extends Component {
           <div className="form-group">
             <label>Password</label>
             <input required type="password" name="password" value={this.state.password} onChange={this.handleInputChange} className="form-control" placeholder="Enter your password"/>
-            <small id="passwordHelp" className="form-text text-muted">Strong passwords are safer</small>
+            <small id="passwordHelp" className="form-text text-muted">Strong passwords are safer: Min. 6 characters.</small>
           </div>
 
           <div className="form-group">
@@ -138,10 +138,11 @@ class Registration extends Component {
           <div className="form-group">
           <label>Upload Id Document</label>
             <div className="custom-file">
-              <input required type="file" className="custom-file-input" id="customFile" onChange={this.handleFileSelect}/>
+              <input required type="file" name="idFile" className="custom-file-input" id="customFile" onChange={this.handleFileSelect}/>
               <label className="custom-file-label" htmlFor="customFile">
                 {this.state.idDocName}
               </label>
+              <small id="idFiledHelp" className="form-text text-muted">Only .png, .jpeg or .pdf file formats.</small>
             </div>
           </div>
           

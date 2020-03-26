@@ -70,11 +70,38 @@ class App extends Component {
     })
   }
 
-  handleLogout (){
-    this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
+  async handleLogout (){
+
+    let url = 'http://localhost:3001/api/v1/logout'
+    
+    await fetch(url, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data)=> {
+      console.log(data, data.session)
+      if (typeof data.session && data.user === null) {
+        this.setState({
+          loggedInStatus: "NOT_LOGGED_IN",
+          user: {}
+        })
+      }
+      console.log(this.state)
+    })
+    .catch(error => {
+      console.log("Log out error", error)
+    })
+
+    // this.setState({
+    //   loggedInStatus: "NOT_LOGGED_IN",
+    //   user: {}
+    // })
   }
 
   // Navbar methods for switching props depending on Landingpage true
