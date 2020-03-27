@@ -9,9 +9,12 @@ const initialState = {
 export default function(state = initialState, action){
   switch(action.type){
     case FETCH_NEEDS:
-      state.items = action.payload  
-    return state
-      
+    //   state.items = action.payload  
+    // return state
+    return{
+      ...state,
+      items: action.payload,
+    }
     case NEW_NEED:
       return{
         ...state,

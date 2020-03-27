@@ -70,25 +70,24 @@ render(){
   }
 
   return(
-  <Link className="text-reset text-decoration-none" to= {`/fulfillment/${this.props.data.fulfillmentID}`}>
-  
-  <div id={this.props.data.fulfillmentID+"F"} className="card mb-3">
-    <div className="card-body">
-      <div className="card-title row">
-        <div className="col-xl-10 col-lg-9 col-md-8 col-sm-8 col-8 d-flex align-items-center">
-          <h5>{this.props.data.title}</h5>
-        </div>
-        <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-4 d-flex justify-content-center">
-          <div className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
+    <Link className="text-reset text-decoration-none" to= {`/fulfillment/${this.props.data.fulfillmentID}`}>
+      <div id={this.props.data.fulfillmentID+"F"} className="card mb-3">
+        <div className="card-body">
+          <div className="card-title row">
+            <div className="col-xl-10 col-lg-9 col-md-8 col-sm-8 col-8 d-flex align-items-center">
+              <h5>{this.props.data.title}</h5>
+            </div>
+            <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-4 d-flex justify-content-center">
+              <div className="btn btn-success m-2" onClick={this.handleFulfilled}>Fulfilled</div>
+            </div>
+          </div>
+          <p className="card-text">{this.props.data.formattedAddress}</p>
+          <div className="d-flex justify-content-between">
+            {needType}
+          </div>
         </div>
       </div>
-      <p className="card-text">{this.props.data.formattedAddress}</p>
-      <div className="d-flex justify-content-between">
-        {needType}
-      </div>
-    </div>
-  </div>
-  </Link>
+    </Link>
   )
 }
 

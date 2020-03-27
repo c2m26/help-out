@@ -7,7 +7,7 @@ import Map from '../general/map/Map'
 import { Link } from 'react-router-dom'
 
 
-class NeedDetail extends Component {
+export class NeedDetail extends Component {
   constructor(props){
     super(props)
 
@@ -18,7 +18,6 @@ class NeedDetail extends Component {
       userFulfillments: null
     }
     
-
     this.handleFulfill = this.handleFulfill.bind(this)
     this.checkHelperID = this.checkHelperID.bind(this)
     this.getUserFulfillments = this.getUserFulfillments.bind(this)
@@ -34,6 +33,7 @@ class NeedDetail extends Component {
   }
 
   assignSelectedNeed(){
+    console.log(this.state.selectedNeedID)
     
     for (let i = 0; i < this.props.needs.length; i++) {
       if (typeof this.props.needs[i] !== "undefined") {
@@ -41,6 +41,7 @@ class NeedDetail extends Component {
           this.setState({
             selectedNeed: this.props.needs[i]
           })
+          console.log(this.state.selectedNeed)
           break
         }
       }
@@ -136,7 +137,6 @@ class NeedDetail extends Component {
         fulfillmentID: payload.data.id
       })
       console.log(payload)
-      // this.props.history.push(`/fulfillment/${this.state.fulfillmentID}`)
     })    
     .catch(error => {
       console.log("Error", error)
@@ -167,9 +167,6 @@ class NeedDetail extends Component {
       return response.json()
     })
     .then((payload) =>{
-      // this.setState({
-      //   fulfillmentID: payload.data.id
-      // })
       console.log(payload)
       this.props.history.push(`/fulfillment/${this.state.fulfillmentID}`)
     })    
@@ -220,7 +217,7 @@ class NeedDetail extends Component {
       <div className="container-fluid">
         <div className="d-flex flex-column flex-fill justify-content-center align-items-center" style={{height: 'calc(100vh - 58px)'}}>
           <div className="card bg-light col-xl-6 col-lg-10 col-md-11 col-sm-11 col-11">
-            <div className="card-body">
+            <div data-testid="need-data" className="card-body">
               <div className="row">
                 <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9">
                 <h5 className="card-title">{this.state.selectedNeed.title}</h5>
@@ -237,8 +234,6 @@ class NeedDetail extends Component {
               </div>
               <div className="d-flex justify-content-between mt-2">
                 {needType}
-                {/* <div><span className="pr-2">Type:</span>{this.state.selectedNeed.needType}</div>
-                <div><span className="pr-2">Status:</span>{this.state.selectedNeed.status}</div> */}
               </div>
             </div>
             <div className="pb-3">

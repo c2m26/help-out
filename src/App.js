@@ -97,11 +97,6 @@ class App extends Component {
     .catch(error => {
       console.log("Log out error", error)
     })
-
-    // this.setState({
-    //   loggedInStatus: "NOT_LOGGED_IN",
-    //   user: {}
-    // })
   }
 
   // Navbar methods for switching props depending on Landingpage true

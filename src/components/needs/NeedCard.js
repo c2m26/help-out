@@ -55,13 +55,13 @@ render(){
 
   return(
   <Link data-testid="card" className="text-reset text-decoration-none" to= {`/helpNeed/${this.props.need.id}`}>
-  <div id={this.props.need.id} className="card mb-3">
-    <div className="card-body">
-      <h5 className="card-title">{this.props.need.title}</h5>
-      <p className="card-text">{this.props.need.formattedAddress}</p>
-      {needType}
+    <div id={this.props.need.id} className="card mb-3">
+      <div className="card-body">
+        <h5 className="card-title">{this.props.need.title}</h5>
+        <p className="card-text">{this.props.need.formattedAddress}</p>
+        {needType}
+      </div>
     </div>
-  </div>
   </Link>
   )
 }

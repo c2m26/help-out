@@ -181,18 +181,12 @@ class Navbar extends Component {
       modalblock = null
     }
     
-     
-  
     return (
-      
       <div>
         {modalblock}
-  
         <nav className={`navbar navbar-expand-lg sticky-top ${this.props.navcolorscheme} ${this.props.navbg}`}>
           <NavLink className="navbar-brand" to="/">HelpOut !</NavLink>
-          
           {authblock}
-            
           {navblock}
         </nav>
       </div>

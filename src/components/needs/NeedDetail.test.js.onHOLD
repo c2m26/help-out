@@ -1,0 +1,80 @@
+import React from 'react'
+
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
+import { getByTestId } from '@testing-library/dom'
+
+import MockedMap from '../general/map/Map'
+import { NeedDetail } from './NeedDetail'
+import { BrowserRouter } from 'react-router-dom';
+
+
+jest.mock("../general/map/Map", ()=> {
+  return function DummyMap (props) {
+    return(
+      <div data-testid="map">
+        Map
+      </div>
+    );
+  };
+});
+
+let container = null;
+beforeEach(() => {
+  // setup a DOM element as a render target
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+const sampleNeed = [
+  {
+    id: 9,
+    userID: 3,
+    title: "Furniture carrying",
+    description: "ffsfasgshs",
+    needType: "oneTime",
+    lat: 50.14103,
+    lng: 8.68023,
+    formattedAddress: "Marbachweg 279, 60320 Frankfurt am Main",
+    status: "material",
+    created_at: "2020-03-04T16:22:18.513Z",
+    updated_at: "2020-03-04T16:22:18.513Z"
+  }
+]
+
+it("renders content", () => {
+
+const component = NeedDetail.prototype
+
+const checkHelperID = jest.spyOn(component, 'checkHelperID').mockImplementation(() => null);
+
+act(() => {
+  render(
+    <BrowserRouter>
+      <NeedDetail
+        match = {{params: {id:9}}}
+        getUserLocation={() => null}
+        userLocation={{lat:5, lng:5}}
+        fetchNeeds = {() => null}
+        needs = {sampleNeed}
+      />
+    </BrowserRouter>
+    , 
+    container
+  )
+});
+
+  const needData = getByTestId(document, 'need-data');
+  // const mapContent = getByTestId(document, 'map');
+
+  console.log(needData.innerHTML)
+
+  checkHelperID.mockRestore();
+})

@@ -53,25 +53,11 @@ class Registration extends Component {
 
     console.log(user.get('idFile'))
 
-    // const firstName = this.state.firstName;
-    // const lastName = this.state.lastName;
-    // const email = this.state.email;
-    // const password = this.state.password;
-    // const password_confirmation = this.state.password_confirmation;
-    // const idFile = this.state.idDoc;
-
-    // console.log(idFile)
-
-    // const user = {firstName, lastName, email, password, password_confirmation, idFile}
-
     const url = 'http://localhost:3001/api/v1/registrations';
 
     fetch(url, {
       method: 'POST',
       credentials: 'include',
-      // headers: {
-      //   // 'Content-Type': 'application/json'
-      // },
       body: user,
     })
     
@@ -90,7 +76,6 @@ class Registration extends Component {
         })
         alert ("Sorry, but we could not conclude your registration")
       }
-      // console.log(data.user)
     })    
     .catch(error => {
       console.log("registration error", error)
@@ -101,7 +86,7 @@ class Registration extends Component {
     this.props.handleModalClose()
   }
  
-     
+  
   render () {
     
     return(

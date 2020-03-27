@@ -244,10 +244,7 @@ export class UsersNeedList extends Component {
           let auxBuild = {}
           auxBuild = JSON.parse(JSON.stringify(this.props.needs[i]));
           auxBuild.fulfillmentID = this.state.userFulfillments[j].id;
-          auxUserFN.push(auxBuild);
-          // console.log("i = " + i, "j = " + j, "fulfillmentID = " + this.state.userFulfillments[j].id,
-          //  auxUserFN[j], auxUserFN[j].fulfillmentID)
-          
+          auxUserFN.push(auxBuild);      
         }
       }
     }
@@ -287,20 +284,20 @@ export class UsersNeedList extends Component {
 
     return(
       <div className="container-fluid">
-      <div data-testid="rowBlock" className="row">
-        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-          <h5 className="bg-dark text-light text-center p-1">Requests</h5>
-          <div data-testid="userNeeds" className="overflow-auto" style={{"height": "88vh"}}>
-            {userNeeds}
+        <div data-testid="rowBlock" className="row">
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
+            <h5 className="bg-dark text-light text-center p-1">Requests</h5>
+            <div data-testid="userNeeds" className="overflow-auto" style={{"height": "88vh"}}>
+              {userNeeds}
+            </div>
           </div>
+          <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
+            <h5 className="bg-dark text-light text-center p-1">Fulfillments</h5>
+            <div data-testid="userFulfillments" className="overflow-auto" style={{"height": "88vh"}}>
+              {userFulfillments}
+            </div>
+            </div>
         </div>
-        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-          <h5 className="bg-dark text-light text-center p-1">Fulfillments</h5>
-          <div data-testid="userFulfillments" className="overflow-auto" style={{"height": "88vh"}}>
-            {userFulfillments}
-          </div>
-          </div>
-      </div>
       </div>
     )
   }

@@ -69,8 +69,6 @@ export class NewNeed extends Component {
   }
       
     handleSubmit() {
-      // e.preventDefault();
-
       // Posting new help need to database
       let need = {
         userID: this.state.user,
@@ -93,7 +91,7 @@ export class NewNeed extends Component {
 
     componentDidUpdate(prevProps){
       if(this.props.need !== prevProps.need) {
-        if(this.props.need.status == "ok") {
+        if(this.props.need.status === "ok") {
           this.handleModalClose()
         } else {
           alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
