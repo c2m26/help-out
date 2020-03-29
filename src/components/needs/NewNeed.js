@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { postNeed } from '../actions/needsAction'
-import Keys from '../Keys'
+// import Keys from '../Keys'
 
 export class NewNeed extends Component {
   constructor (props) {
@@ -43,8 +43,8 @@ export class NewNeed extends Component {
 
     // Getting data from Geocoding API
     let address = this.state.location
-    let apiKey = Keys.googleMaps
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
+    // let apiKey = Keys.googleMaps
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GMAPS_API_KEY}`
 
     await fetch(url,
       {method: 'GET'})
