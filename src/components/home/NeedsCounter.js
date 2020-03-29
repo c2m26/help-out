@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import APIendpoints from '../APIendpoints'
 
 class NeedsCounter extends Component {
   constructor(props){
@@ -26,7 +27,7 @@ class NeedsCounter extends Component {
   // fetching status=open needs from API
   async getOpenNeeds() {
       
-    let url = 'http://localhost:3001/api/v1/needs/get_openNeeds'
+    let url = `${backendURL}api/v1/needs/get_openNeeds`
 
     await fetch(url, {
       method: 'GET',

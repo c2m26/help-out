@@ -1,4 +1,5 @@
 import { FETCH_NEEDS, NEW_NEED } from './types'
+import APIendpoints from '../APIendpoints'
 
 export function fetchNeeds() {
   return async function(dispatch){
@@ -6,7 +7,7 @@ export function fetchNeeds() {
     // console.log('passing here')
     // let urlneeds = 'http://localhost:3001/api/v1/needs'
 
-    await fetch('http://localhost:3001/api/v1/needs', {
+    await fetch(`${backendURL}v1/needs`, {
       method: 'GET',
       credentials: 'include',
       headers: {
