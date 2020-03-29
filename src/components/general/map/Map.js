@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {getUserLocation} from '../../actions/userLocationAction'
-import Keys from '../../Keys'
+// import Keys from '../../Keys'
 
 class Map extends Component {
   constructor(props) {
@@ -40,11 +40,11 @@ class Map extends Component {
       this.createMarkers()
                       
     } else {
-      let apiKey = Keys.googleMaps
+      // let apiKey = Keys.googleMaps
       var s = document.createElement('script');
       s.id = 'googleMaps'
       s.type = 'text/javascript';
-      s.src = `https://maps.google.com/maps/api/js?key=${apiKey}`;
+      s.src = `https://maps.google.com/maps/api/js?key=${process.env.GMAPS_API_KEY}`;
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
       //We cannot access google.maps until it's finished loading
