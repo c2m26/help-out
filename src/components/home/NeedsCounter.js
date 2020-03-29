@@ -26,10 +26,10 @@ class NeedsCounter extends Component {
 
   // fetching status=open needs from API
   async getOpenNeeds() {
-    let backendURL
-    console.log(backendURL)
+    let endpoint = APIendpoints.backendURL; 
+    console.log(endpoint)
       
-    let url = `${backendURL}api/v1/needs/get_openNeeds`
+    let url = `${endpoint}api/v1/needs/get_openNeeds`
 
     await fetch(url, {
       method: 'GET',

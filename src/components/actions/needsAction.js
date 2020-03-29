@@ -6,9 +6,9 @@ export function fetchNeeds() {
     // fetching all needs from API
     // console.log('passing here')
     // let urlneeds = 'http://localhost:3001/api/v1/needs'
-    let backendURL
-    
-    await fetch(`${backendURL}v1/needs`, {
+    let endpoint = APIendpoints.backendURL
+
+    await fetch(`${endpoint}v1/needs`, {
       method: 'GET',
       credentials: 'include',
       headers: {
