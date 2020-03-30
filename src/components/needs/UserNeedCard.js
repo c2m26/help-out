@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import {backendURL} from '../APIendpoints'
 
 class UserNeedCard extends Component {
   constructor(props){
@@ -72,7 +73,7 @@ class UserNeedCard extends Component {
     let id = this.props.data.id
     let status = "closed"
       
-    const url = `http://localhost:3001/api/v1/needs/update_status?id=${id}&status=${status}`;
+    const url = `${backendURL}/api/v1/needs/update_status?id=${id}&status=${status}`;
     
     await fetch(url, {
       method: 'PATCH',
@@ -103,7 +104,7 @@ class UserNeedCard extends Component {
       status: 'open'
     }
     
-    let urlneeds = 'http://localhost:3001/api/v1/needs'
+    let urlneeds = `${backendURL}/api/v1/needs`
 
       fetch(urlneeds, {
         method: 'POST',
@@ -134,7 +135,7 @@ class UserNeedCard extends Component {
     let id = this.props.data.id
     let status = "closed"
       
-    const url = `http://localhost:3001/api/v1/needs/update_status?id=${id}&status=${status}`;
+    const url = `${backendURL}/api/v1/needs/update_status?id=${id}&status=${status}`;
     
     await fetch(url, {
       method: 'PATCH',

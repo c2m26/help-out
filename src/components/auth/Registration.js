@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
+import {backendURL} from '../APIendpoints'
   
 class Registration extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class Registration extends Component {
 
     console.log(user.get('idFile'))
 
-    const url = 'http://localhost:3001/api/v1/registrations';
+    const url = `${backendURL}/api/v1/registrations`;
 
     fetch(url, {
       method: 'POST',

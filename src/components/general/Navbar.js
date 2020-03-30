@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import {NavLink} from 'react-router-dom'
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { HashLink as Link } from 'react-router-hash-link'
 import { Link } from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
+import {backendURL} from '../APIendpoints'
 import Registration from '../auth/Registration'
 import Login from '../auth/Login'
 import Modal from './modal/Modal'
@@ -34,7 +33,7 @@ class Navbar extends Component {
 
   // Auth methods
   handleLogoutClick(){
-    let url = 'http://localhost:3001/api/v1/logout'
+    let url = `${backendURL}/api/v1/logout`
     
     fetch(url, {
       method: 'DELETE',

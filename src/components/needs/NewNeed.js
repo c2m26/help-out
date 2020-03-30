@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-// import {withRouter} from 'reac-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { postNeed } from '../actions/needsAction'
-// import Keys from '../Keys'
 
 export class NewNeed extends Component {
   constructor (props) {
@@ -157,7 +155,7 @@ export class NewNeed extends Component {
   }
 
 } 
-// export default withRouter(NewNeed)
+
 NewNeed.propTypes = {
   postNeed: PropTypes.func.isRequired,
   need: PropTypes.object.isRequired,

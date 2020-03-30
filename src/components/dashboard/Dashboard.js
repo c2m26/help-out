@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {fetchNeeds} from '../actions/needsAction'
 import {getUserLocation} from '../actions/userLocationAction'
+import { backendURL } from '../APIendpoints'
 import Map from '../general/map/Map'
 import NeedsList from '../needs/NeedsList'
 import NeedCard from '../needs/NeedCard'
@@ -44,7 +45,7 @@ export class Dashboard extends Component {
 
   async getFulfillments() {
     
-    const url = 'http://localhost:3001/api/v1/fulfillments';
+    const url = `${backendURL}/api/v1/fulfillments`;
     
     await fetch(url, {
       method: 'GET',
@@ -72,7 +73,7 @@ export class Dashboard extends Component {
 
   async getConversations() {
     
-    const url = 'http://localhost:3001/api/v1/conversations';
+    const url = `${backendURL}/api/v1/conversations`;
     
     await fetch(url, {
       method: 'GET',
@@ -99,7 +100,7 @@ export class Dashboard extends Component {
 
   async getMessages() {
     
-    const url = 'http://localhost:3001/api/v1/messages';
+    const url = `${backendURL}/api/v1/messages`;
     
     await fetch(url, {
       method: 'GET',

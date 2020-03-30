@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {getUserLocation} from '../../actions/userLocationAction'
-// import Keys from '../../Keys'
 
 class Map extends Component {
   constructor(props) {

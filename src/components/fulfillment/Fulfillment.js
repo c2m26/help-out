@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Conversation from './Conversation'
+import {backendURL} from '../APIendpoints'
 
 class Fulfillment extends Component {
   constructor(props){
@@ -30,7 +31,7 @@ class Fulfillment extends Component {
   async getFulfillmentforeignKeys() {
     
     const fulfillmentID = this.props.match.params.id
-    const url = `http://localhost:3001/api/v1/fulfillments/get_foreignKeys?id=${fulfillmentID}`;
+    const url = `${backendURL}/api/v1/fulfillments/get_foreignKeys?id=${fulfillmentID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -59,7 +60,7 @@ class Fulfillment extends Component {
 
   async getNeedCreatorId() {
     
-    const url = `http://localhost:3001/api/v1/needs/get_creatorID?id=${this.state.needID}`;
+    const url = `${backendURL}/api/v1/needs/get_creatorID?id=${this.state.needID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -98,7 +99,7 @@ class Fulfillment extends Component {
 
   async getNeed(){
 
-    const url = `http://localhost:3001/api/v1/needs/get_Need?id=${this.state.needID}`;
+    const url = `${backendURL}/api/v1/needs/get_Need?id=${this.state.needID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -125,7 +126,7 @@ class Fulfillment extends Component {
 
   async getUsersName(){
     
-    const url = `http://localhost:3001/api/v1/users/${this.state.creatorID}`;
+    const url = `${backendURL}/api/v1/users/${this.state.creatorID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -147,7 +148,7 @@ class Fulfillment extends Component {
       console.log("Error getting need creator name", error)
     })
 
-    const url1 = `http://localhost:3001/api/v1/users/${this.state.helperID}`;
+    const url1 = `${backendURL}/api/v1/users/${this.state.helperID}`;
     
     await fetch(url1, {
       method: 'GET',

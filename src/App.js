@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
-
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {backendURL} from './components/APIendpoints'
 import Navbar from './components/general/Navbar.js'
 import Dashboard from './components/dashboard/Dashboard.js'
 import LandingPage from './components/home/LandingPage.js'
@@ -29,7 +29,7 @@ class App extends Component {
 
 // Auth methods
   async checkLoginStatus() {
-    let url = 'http://localhost:3001/api/v1/logged_in'
+    let url = `${backendURL}/api/v1/logged_in`
     
     await fetch(url, {
       method: 'GET',
@@ -72,7 +72,7 @@ class App extends Component {
 
   async handleLogout (){
 
-    let url = 'http://localhost:3001/api/v1/logout'
+    let url = `${backendURL}/api/v1/logout`
     
     await fetch(url, {
       method: 'DELETE',

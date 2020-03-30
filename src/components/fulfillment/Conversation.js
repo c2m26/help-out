@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import {withRouter} from 'react-router-dom'
+import {backendURL} from '../APIendpoints'
 
 class Conversation extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class Conversation extends Component {
 
   async getConversationID() {
 
-    const url = `http://localhost:3001/api/v1/conversations/getID?id=${parseInt(this.props.match.params.id)}`;
+    const url = `${backendURL}/api/v1/conversations/getID?id=${parseInt(this.props.match.params.id)}`;
     
     await fetch(url, {
       method: 'GET',
@@ -48,7 +49,7 @@ class Conversation extends Component {
 
     // console.log(this.state.conversationID)
 
-    const url = `http://localhost:3001/api/v1/messages/get_Messages?id=${this.state.conversationID}`;
+    const url = `${backendURL}/api/v1/messages/get_Messages?id=${this.state.conversationID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -90,7 +91,7 @@ class Conversation extends Component {
 
     console.log(JSON.stringify(message))
 
-    const url = 'http://localhost:3001/api/v1/messages';
+    const url = `${backendURL}/api/v1/messages`;
     
     await fetch(url, {
       method: 'POST',

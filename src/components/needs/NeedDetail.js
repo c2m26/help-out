@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {fetchNeeds} from '../actions/needsAction'
 import {getUserLocation} from '../actions/userLocationAction'
+import {backendURL} from '../APIendpoints'
 import Map from '../general/map/Map'
 import { Link } from 'react-router-dom'
 
@@ -67,7 +68,7 @@ export class NeedDetail extends Component {
   // fetches current user fulfillments
   async getUserFulfillments() {
     
-    const url = `http://localhost:3001/api/v1/fulfillments/get_userFulfillments?id=${this.props.user.id}`;
+    const url = `${backendURL}/api/v1/fulfillments/get_userFulfillments?id=${this.props.user.id}`;
     
     await fetch(url, {
       method: 'GET',
@@ -112,7 +113,7 @@ export class NeedDetail extends Component {
   
   async createFulfillment(){
 
-    const url = 'http://localhost:3001/api/v1/fulfillments';
+    const url = `${backendURL}/api/v1/fulfillments`;
     const data = {
       needID: this.state.selectedNeedID,
       helperID: this.props.user.id
@@ -147,7 +148,7 @@ export class NeedDetail extends Component {
 
   createConversation(){
     
-    const url = 'http://localhost:3001/api/v1/conversations';
+    const url = `${backendURL}/api/v1/conversations`;
     const data = {
       fulfillmentID: this.state.fulfillmentID
     }

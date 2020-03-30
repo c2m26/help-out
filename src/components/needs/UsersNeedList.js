@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {fetchNeeds} from '../actions/needsAction'
+import {backendURL} from '../APIendpoints'
 import UserNeedCard from "./UserNeedCard"
 import UserFulfillmentCard from "./UserFulfillmentCard"
 
@@ -46,7 +47,7 @@ export class UsersNeedList extends Component {
     const userID = this.props.user.id
     console.log(userID)
 
-    const url = `http://localhost:3001/api/v1/needs/get_userNeeds?id=${userID}`;
+    const url = `${backendURL}/api/v1/needs/get_userNeeds?id=${userID}`;
     
     await fetch(url, {
       method: 'GET',
@@ -86,7 +87,7 @@ export class UsersNeedList extends Component {
 
   async getFulfillments(){
 
-    const url = 'http://localhost:3001/api/v1/fulfillments';
+    const url = `${backendURL}/api/v1/fulfillments`;
     
     await fetch(url, {
       method: 'GET',
@@ -209,7 +210,7 @@ export class UsersNeedList extends Component {
   // fetches all user's fulfillments
   async getUserFulfillments() {
     
-    const url = `http://localhost:3001/api/v1/fulfillments/get_userFulfillments?id=${this.props.user.id}`;
+    const url = `${backendURL}/api/v1/fulfillments/get_userFulfillments?id=${this.props.user.id}`;
     
     await fetch(url, {
       method: 'GET',
