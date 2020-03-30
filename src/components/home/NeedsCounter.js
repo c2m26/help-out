@@ -33,7 +33,8 @@ class NeedsCounter extends Component {
 
     await fetch(url, {
       method: 'GET',
-      // credentials: 'include',
+      mode: 'cors',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       }
