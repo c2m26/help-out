@@ -43,7 +43,7 @@ class Map extends Component {
       var s = document.createElement('script');
       s.id = 'googleMaps'
       s.type = 'text/javascript';
-      s.src = `https://maps.google.com/maps/api/js?key=${process.env.GMAPS_API_KEY}`;
+      s.src = `https://maps.google.com/maps/api/js?key=${process.env.REACT_APP_GMAPS_API_KEY}`;
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
       //We cannot access google.maps until it's finished loading

@@ -6,6 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 
+if (process.env.NODE_ENV !== 'production') { require('dotenv').config(); }
+
 
 ReactDOM.render(<App/>, document.getElementById('root'));
 
