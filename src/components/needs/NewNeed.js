@@ -42,7 +42,7 @@ export class NewNeed extends Component {
     // Getting data from Geocoding API
     let address = this.state.location
     // let apiKey = Keys.googleMaps
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GMAPS_API_KEY}`
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GMAPS_API_KEY}`
 
     await fetch(url,
       {method: 'GET'})
