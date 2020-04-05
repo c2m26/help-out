@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { postNeed } from '../actions/needsAction'
+import { withRouter } from 'react-router'
 
 export class NewNeed extends Component {
   constructor (props) {
@@ -90,7 +91,8 @@ export class NewNeed extends Component {
     componentDidUpdate(prevProps){
       if(this.props.need !== prevProps.need) {
         if(this.props.need.status === "ok") {
-          this.handleModalClose()
+          this.handleModalClose();
+          this.props.history.push("/dashboard")
         } else {
           alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
         }
@@ -165,4 +167,4 @@ const mapStateToProps = state => ({
   need: state.needs.item
 })
 
-export default connect(mapStateToProps, { postNeed })(NewNeed)
+export default withRouter (connect(mapStateToProps, { postNeed }) (NewNeed))

@@ -55,7 +55,6 @@ class App extends Component {
       };
       console.log(data)
     })
-    .then((data)=>{console.log(data)})
     .catch(error => {
       console.log("Log In error", error)
     })
