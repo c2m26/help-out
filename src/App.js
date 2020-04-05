@@ -9,6 +9,7 @@ import NeedDetail from './components/needs/NeedDetail'
 import Fulfillment from './components/fulfillment/Fulfillment'
 import UserNeedsList from './components/needs/UsersNeedList'
 import store from './components/store'
+import {ProtectedRoute} from './components/ProtectedRoute'
 
 class App extends Component {
   constructor() {
@@ -157,39 +158,51 @@ class App extends Component {
                   />
                 )}
               />
-              <Route
+              <ProtectedRoute
                 exact
                 path={"/dashboard"}
-                render = {props => (
-                  <Dashboard { ... props}
-                  handleLogin={this.handleLogin}
-                  user={this.state.user}
-                  />
-                )}
+                component = {Dashboard}
+                user={this.state.user}
+                authStatus={this.state.loggedInStatus}
+                // render = {props => (
+                //   <Dashboard { ... props}
+                //   handleLogin={this.handleLogin}
+                //   user={this.state.user}
+                //   />
+                // )}
               />
-              <Route
+              <ProtectedRoute
                 path={"/helpNeed/:id"}
-                render = {props => (
-                  <NeedDetail {...props}
-                  user={this.state.user}
-                  />
-                )}
+                component = {NeedDetail}
+                user={this.state.user}
+                authStatus={this.state.loggedInStatus}
+                // render = {props => (
+                //   <NeedDetail {...props}
+                //   user={this.state.user}
+                //   />
+                // )}
               />
-              <Route
+              <ProtectedRoute
                 path={"/fulfillment/:id"}
-                render = {props => (
-                  <Fulfillment {...props}
-                  user={this.state.user}
-                  />
-                )}
+                component = {Fulfillment}
+                user={this.state.user}
+                authStatus={this.state.loggedInStatus}
+                // render = {props => (
+                //   <Fulfillment {...props}
+                //   user={this.state.user}
+                //   />
+                // )}
               />
-              <Route
+              <ProtectedRoute
                 path={"/myHelpOuts/:id"}
-                render = {props => (
-                  <UserNeedsList {...props}
-                  user={this.state.user}
-                  />
-                )}
+                component = {UserNeedsList}
+                user={this.state.user}
+                authStatus={this.state.loggedInStatus}
+                // render = {props => (
+                //   <UserNeedsList {...props}
+                //   user={this.state.user}
+                //   />
+                // )}
               />
 
             </Switch>
