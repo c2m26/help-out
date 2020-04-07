@@ -179,7 +179,7 @@ class Fulfillment extends Component {
           <div className="card shadow-sm">
             <div className="card-body">
               <h5 className="card-title">{this.state.need.title}</h5>
-              <p className="card-text">{this.state.need.description}</p>
+              <p className="card-text mb-1">{this.state.need.description}</p>
               <small className="card-text">{this.state.need.formattedAddress}</small>
             </div>
           </div>  

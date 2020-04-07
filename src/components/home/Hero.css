@@ -30,25 +30,28 @@
 }
 
 @media only screen and (max-width: 600px) {
- 
   #mainHeading{
     font-size: 5rem; 
   }
-  
   #secondHeading{
     font-size: 3.5rem;
   }
-
 }
 
 @media only screen and (max-width: 400px) {
- 
   #mainHeading{
     font-size: 4rem; 
   }
-  
   #secondHeading{
     font-size: 2.5rem;
   }
+}
 
+@media only screen and (orientation: landscape) and (max-height: 600px) {
+  #mainHeading{
+    font-size: 3.5rem; 
+  }
+  #secondHeading{
+    font-size: 1.5rem;
+  }
 }

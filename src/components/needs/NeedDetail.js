@@ -215,34 +215,34 @@ export class NeedDetail extends Component {
 
     
     return(
-      <div className="container-fluid">
-        <div className="d-flex flex-column flex-fill justify-content-center align-items-center" style={{height: 'calc(100vh - 58px)'}}>
-          <div className="card bg-light col-xl-6 col-lg-10 col-md-11 col-sm-11 col-11">
-            <div data-testid="need-data" className="card-body">
+      
+        <div className="d-flex flex-column flex-fill justify-content-center align-items-center" >
+          <div className="card-body bg-light col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12">
+            <div data-testid="need-data">
               <div className="row">
                 <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9">
                 <h5 className="card-title">{this.state.selectedNeed.title}</h5>
                 <p className="card-text">{this.state.selectedNeed.description}</p>
                 <p className="card-text">{this.state.selectedNeed.formattedAddress}</p>
                 </div>
-                <div className="col d-flex flex-column justify-content-around aling-items-center">
-                  
+                
+                  <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 p-0 d-flex flex-wrap flex-column flex-fill justify-content-between align-items-center">
                   <Link to="/dashboard" className="btn btn-warning">Back</Link>
-
                   <button className="btn btn-primary" onClick={this.handleFulfill}>Fulfill</button>
-                </div>
+                  </div>
+                
                 
               </div>
               <div className="d-flex justify-content-between mt-2">
                 {needType}
               </div>
             </div>
-            <div className="pb-3">
+            <div className="mt-2 pb-3">
               {MapElement}
             </div>
           </div>
         </div>
-      </div>
+      
       
     )
   }
