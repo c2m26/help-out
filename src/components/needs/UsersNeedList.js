@@ -287,13 +287,13 @@ export class UsersNeedList extends Component {
       <div className="container-fluid">
         <div data-testid="rowBlock" className="row">
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-            <h5 className="bg-dark text-light text-center p-1">Requests</h5>
+            <h5 className="bg-dark text-light text-center p-1">My requests</h5>
             <div data-testid="userNeeds" className="overflow-auto" style={{"height": "88vh"}}>
               {userNeeds}
             </div>
           </div>
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-            <h5 className="bg-dark text-light text-center p-1">Fulfillments</h5>
+            <h5 className="bg-dark text-light text-center p-1">My fulfillments</h5>
             <div data-testid="userFulfillments" className="overflow-auto" style={{"height": "88vh"}}>
               {userFulfillments}
             </div>
