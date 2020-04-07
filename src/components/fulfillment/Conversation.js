@@ -19,6 +19,15 @@ class Conversation extends Component {
 
   componentDidMount(){
     this.getConversationID()
+
+    this.timerID = setInterval(
+      () => this.getMessages(),
+      6000
+    );
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.timerID);
   }
 
   async getConversationID() {
@@ -47,7 +56,7 @@ class Conversation extends Component {
 
   async getMessages() {
 
-    // console.log(this.state.conversationID)
+    console.log(this.state.conversationID)
 
     const url = `${backendURL}/api/v1/messages/get_Messages?id=${this.state.conversationID}`;
     
