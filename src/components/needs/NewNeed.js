@@ -94,7 +94,7 @@ export class NewNeed extends Component {
           this.handleModalClose();
           this.props.history.push("/dashboard")
         } else {
-          alert ("Sorry, your Need could not be submitted. Check if you have inserted an address with zip code and city and try again!")
+          alert ("Sorry, your Help request could not be submitted. Check if you have inserted an address with zip code and city and try again!")
         }
       }
     }

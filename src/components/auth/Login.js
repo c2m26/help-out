@@ -44,7 +44,6 @@ class Login extends Component {
       },
       body: JSON.stringify(user)
     })
-    
     .then((response)=>{
       return response.json()
     })
@@ -56,12 +55,14 @@ class Login extends Component {
       } else {
         this.setState({
           registration_errors: "Error in Log In!"
-        })
+        });
+        alert("Authentication error, please check your email and/or password");
       }
-      console.log(data.user)
+      console.log(data)
     })    
     .catch(error => {
-      console.log("Log In error", error)
+      console.log("Log In error", error);
+      
     })
   }
 
