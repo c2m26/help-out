@@ -40,3 +40,15 @@
   }
 
 }
+
+@media only screen and (max-width: 400px) {
+ 
+  #mainHeading{
+    font-size: 4rem; 
+  }
+  
+  #secondHeading{
+    font-size: 2.5rem;
+  }
+
+}
