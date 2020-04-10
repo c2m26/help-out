@@ -25,7 +25,7 @@ class Fulfillment extends Component {
 
   componentDidMount() {
     this.getFulfillmentforeignKeys();
-    this.getNeed()
+    // this.getNeed()
   }
 
   async getFulfillmentforeignKeys() {
