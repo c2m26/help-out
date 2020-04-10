@@ -174,16 +174,16 @@ class Fulfillment extends Component {
   render () {
 
     return(
-      <div data-testid="need" className="d-flex justify-content-center py-1" style={{height: 'calc(100vh - 58px)'}}>
-        <div className="d-flex flex-column col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 ">
+      <div data-testid="need" className="d-flex flex-column align-items-center p-1" style={{height: 'calc(100vh - 58px)'}}>
+        <div className="d-flex flex-column flex-grow-1 col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12 px-0" style={{overflow: 'scroll'}}>
           <div className="card shadow-sm">
-            <div className="card-body">
+            <div className="card-body p-3 d-flex flex-column">
               <h5 className="card-title">{this.state.need.title}</h5>
               <p className="card-text mb-1">{this.state.need.description}</p>
               <small className="card-text">{this.state.need.formattedAddress}</small>
             </div>
           </div>  
-          <div data-testid="conversation" className="d-flex flex-column flex-fill mt-2">
+          <div data-testid="conversation" className="d-flex flex-column flex-grow-1 mt-2" style={{overflow: 'scroll'}}>
             <Conversation
               creatorID={this.state.creatorID}
               helperID={this.state.helperID}

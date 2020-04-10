@@ -183,7 +183,7 @@ export class NeedDetail extends Component {
       MapElement = 
       <Map
       id = "mapDashboard"
-      style={{height: '60vh'}}
+      style={{height: '42vh'}}
       options = {{
         center: {
           lat: this.state.selectedNeed.lat,
@@ -214,29 +214,33 @@ export class NeedDetail extends Component {
     
     return(
       
-        <div className="d-flex flex-column flex-fill justify-content-center align-items-center" >
-          <div className="card-body bg-light col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12">
-            <div data-testid="need-data">
-              <div className="card-title row mb-2">
-                <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9 d-flex align-items-center">
-                  <h5>{this.state.selectedNeed.title}</h5>
-                </div>            
-                <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 p-0 d-flex justify-content-around align-items-center">
-                  <button className="btn btn-primary" onClick={this.handleFulfill}>Fulfill</button>
+        <div className="d-flex flex-column justify-content-center align-items-center" style={{height: 'calc(100vh - 58px)'}}>
+          <div className="container-fluid d-flex flex-fill justify-content-center align-items-center p-0">
+            <div className="card-body bg-light d-flex flex-column justify-content-between col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12">
+              <div data-testid="need-data">
+                <div className="card-title row mb-2">
+                  <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9 d-flex align-items-center">
+                    <h5>{this.state.selectedNeed.title}</h5>
+                  </div>            
+                  <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 p-0 d-flex justify-content-around align-items-center">
+                    <button className="btn btn-primary" onClick={this.handleFulfill}>Fulfill</button>
+                  </div>
+                </div>
+                <div>
+                  <p className="card-text">{this.state.selectedNeed.description}</p>
+                  <p className="card-text">{this.state.selectedNeed.formattedAddress}</p>
+                </div>
+                <div className="d-flex justify-content-between mt-2">
+                  {needType}
                 </div>
               </div>
-              <div>
-                <p className="card-text">{this.state.selectedNeed.description}</p>
-                <p className="card-text">{this.state.selectedNeed.formattedAddress}</p>
+
+              <div className="pt-4">
+                {MapElement}
               </div>
-              <div className="d-flex justify-content-between mt-2">
-                {needType}
-              </div>
+
             </div>
-            <div className="mt-2 pb-3">
-              {MapElement}
             </div>
-          </div>
         </div>
       
       

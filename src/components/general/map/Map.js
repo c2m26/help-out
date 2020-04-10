@@ -39,7 +39,6 @@ class Map extends Component {
       this.createMarkers()
                       
     } else {
-      // let apiKey = Keys.googleMaps
       var s = document.createElement('script');
       s.id = 'googleMaps'
       s.type = 'text/javascript';
@@ -54,9 +53,13 @@ class Map extends Component {
     }
   }
   
-  async initMap() {
+  initMap() {
     
-    this.map = await new window.google.maps.Map(
+    // this.map = await new window.google.maps.Map(
+    //   document.getElementById(this.props.id),
+    //   this.props.options)
+
+    this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.props.options)
 
