@@ -13,11 +13,11 @@ class Map extends Component {
     this.addMarkers = this.addMarkers.bind(this)
     this.removeMarkers = this.removeMarkers.bind(this)
     
-    var map  
-    var activeMarker
-    var userMarker
-    var MTMarkers
-    var OTMarkers
+    this.map = [] 
+    this.activeMarker = []
+    this.userMarker = []
+    this.MTMarkers = []
+    this.OTMarkers = []
 
   }
 
@@ -85,7 +85,7 @@ class Map extends Component {
       
       // marker for map in need detail component
       if(this.props.currentNeed) {
-        const currentNeed = new window.google.maps.Marker({
+        this.currentNeed = new window.google.maps.Marker({
           position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
           icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
           map: this.map     
