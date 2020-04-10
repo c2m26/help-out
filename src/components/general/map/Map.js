@@ -71,7 +71,7 @@ class Map extends Component {
     
   createMarkers(){
     
-    if(this.map === undefined) {
+    if(typeof this.map === "undefined") {
       console.log('waiting for map to be defined')
     } else {
         

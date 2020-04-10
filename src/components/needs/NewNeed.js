@@ -143,7 +143,7 @@ export class NewNeed extends Component {
         <div className="form-group">
           <label>Location</label>
           <input required type="text" name="location" value={this.state.location} onChange={this.handleInputChange} className="form-control" placeholder="Help request address"/>
-          <small id="Title" className="form-text text-muted pl-1">Include zip code</small>
+          <small id="Title" className="form-text text-muted pl-1">Like in the postal service</small>
         </div>
 
 
