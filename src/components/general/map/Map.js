@@ -61,11 +61,11 @@ class Map extends Component {
 
     this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
-      this.props.options)
+      this.props.options);
 
-      this.props.getUserLocation()
+    this.props.getUserLocation();
   
-      this.createMarkers()
+    this.createMarkers()
   }
   
     
@@ -90,7 +90,7 @@ class Map extends Component {
       if(this.props.currentNeed) {
         this.currentNeed = new window.google.maps.Marker({
           position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
-          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+          icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
           map: this.map     
         });
       } 
@@ -99,7 +99,7 @@ class Map extends Component {
         this.MTMarkers = this.props.MTMarkers.map( needs => { 
           return ( new window.google.maps.Marker({
             position: { lat: needs.lat, lng: needs.lng },
-            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+            icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
             url: `/helpNeed/${needs.id}`
             }))
           })
@@ -110,7 +110,7 @@ class Map extends Component {
         this.OTMarkers = this.props.OTMarkers.map( needs => { 
           return ( new window.google.maps.Marker({
             position: { lat: needs.lat, lng: needs.lng },
-            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+            icon: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
             url: `/helpNeed/${needs.id}`
             }))
           })
@@ -119,12 +119,12 @@ class Map extends Component {
       if(typeof this.props.activeMarker === "undefined" || typeof this.props.activeMarker.lat === "undefined") {
         this.activeMarker = new window.google.maps.Marker({
           position: { lat: 0, lng: 0 },
-          icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'    
+          icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
           });
       } else {
         this.activeMarker = new window.google.maps.Marker({
           position: { lat: this.props.activeMarker.lat, lng: this.props.activeMarker.lng },
-          icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'    
+          icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
           });
         }
       this.addMarkers()
@@ -132,7 +132,7 @@ class Map extends Component {
   }
 
   addMarkers (){
-    var self = this
+    // var self = this
     let i
 
     if(typeof this.activeMarker !== "undefined") {
@@ -144,7 +144,7 @@ class Map extends Component {
     if(typeof this.MTMarkers !== "undefined"){
       for ( i = 0; i < this.MTMarkers.length; i++) {
         this.MTMarkers[i].setMap(this.map);
-        const history = self.props.history
+        const history = this.props.history
         window.google.maps.event.addListener(this.MTMarkers[i], 'click', function (event) {
           history.push(`${this.url}`)
         }
@@ -155,7 +155,7 @@ class Map extends Component {
     if(typeof this.OTMarkers !== "undefined"){
       for ( i = 0; i < this.OTMarkers.length; i++) {
         this.OTMarkers[i].setMap(this.map)
-        const history = self.props.history
+        const history = this.props.history
         window.google.maps.event.addListener(this.OTMarkers[i], 'click', function (event) {
           history.push(`${this.url}`)
         }
@@ -167,9 +167,9 @@ class Map extends Component {
 
   removeMarkers() {
     let i
-      if(this.props.showMarkers === false) {
-        this.activeMarker.setMap(null)
-      }
+    if(this.props.showMarkers === false) {
+      this.activeMarker.setMap(null)
+    }
 
     if(typeof this.MTMarkers !== "undefined"){
       for ( i = 0; i < this.MTMarkers.length; i++) {
