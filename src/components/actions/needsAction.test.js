@@ -14,7 +14,7 @@ describe('async actions', () => {
   })
 
   it('creates FETCH_NEEDS when fetching needs has been done', () => {
-    fetchMock.getOnce('http://localhost:3001/api/v1/needs', {
+    fetchMock.getOnce('https://help-out-api-oc-p8.herokuapp.com/api/v1/needs', {
       body: { needs: ['random help need'] },
       headers: { 'content-type': 'application/json' }
     })

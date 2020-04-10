@@ -55,7 +55,7 @@ it("renders the content according to props passed", () =>{
   expect(container.textContent).toContain(testContent.title)
   expect(container.textContent).toContain(testContent.formattedAddress)
   expect(container.textContent).toContain("one time")
-  expect(container.textContent).toContain("Fulfilled")
+  expect(container.textContent).toContain("Mark as fulfilled")
 
   // remove the mock to ensure tests are completely isolated
   UserFulfillmentCard.prototype.getHelpersID.mockRestore();

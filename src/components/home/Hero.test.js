@@ -50,5 +50,5 @@ it("does NOT render 'check them out' button when user is NOT signed in and rende
     )
   });
   expect(container.querySelector('[data-testid="conditionalLinkButton"]')).toBeNull();
-  expect(container.querySelector('[data-testid="conditionalText"]').textContent).toContain('Help Out!');
+  expect(container.querySelector('[data-testid="conditionalText"]').textContent).toContain('Help Out !');
 })
