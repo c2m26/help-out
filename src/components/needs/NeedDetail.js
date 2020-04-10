@@ -5,8 +5,6 @@ import {fetchNeeds} from '../actions/needsAction'
 import {getUserLocation} from '../actions/userLocationAction'
 import {backendURL} from '../APIendpoints'
 import Map from '../general/map/Map'
-import { Link } from 'react-router-dom'
-
 
 export class NeedDetail extends Component {
   constructor(props){
@@ -219,19 +217,17 @@ export class NeedDetail extends Component {
         <div className="d-flex flex-column flex-fill justify-content-center align-items-center" >
           <div className="card-body bg-light col-xl-6 col-lg-10 col-md-11 col-sm-12 col-12">
             <div data-testid="need-data">
-              <div className="row">
-                <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9">
-                <h5 className="card-title">{this.state.selectedNeed.title}</h5>
+              <div className="card-title row mb-2">
+                <div className="col-xl-10 col-lg-10 col-md-9 col-sm-9 col-9 d-flex align-items-center">
+                  <h5>{this.state.selectedNeed.title}</h5>
+                </div>            
+                <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 p-0 d-flex justify-content-around align-items-center">
+                  <button className="btn btn-primary" onClick={this.handleFulfill}>Fulfill</button>
+                </div>
+              </div>
+              <div>
                 <p className="card-text">{this.state.selectedNeed.description}</p>
                 <p className="card-text">{this.state.selectedNeed.formattedAddress}</p>
-                </div>
-                
-                  <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 p-0 d-flex flex-wrap flex-column flex-fill justify-content-between align-items-center">
-                  <Link to="/dashboard" className="btn btn-warning">Back</Link>
-                  <button className="btn btn-primary" onClick={this.handleFulfill}>Fulfill</button>
-                  </div>
-                
-                
               </div>
               <div className="d-flex justify-content-between mt-2">
                 {needType}
