@@ -21,9 +21,9 @@ class Map extends Component {
 
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // this.checkMapScript()
-    this.loadMapScript()
+    await this.loadMapScript()
   }
 
   componentDidUpdate(prevProps) {
@@ -32,9 +32,18 @@ class Map extends Component {
     }
   }
 
+  componentWillUnmount(){
+    let smap = document.getElementById('googleMaps')
+    if(smap !== null) {
+      smap.remove()
+      console.log('removing gmaps script')
+    }
+    
+  }
+
   loadMapScript(){
        
-    if (document.getElementById('googleMaps')) {
+    if (document.getElementById('googleMaps') !== null) {
                 
       this.createMarkers()
                       
@@ -166,6 +175,10 @@ class Map extends Component {
   }
 
   removeMarkers() {
+    if(typeof document.getElementById('googleMaps') === "undefined"){
+      this.loadMapScript();
+    } else {
+
     let i
     if(this.props.showMarkers === false) {
       this.activeMarker.setMap(null)
@@ -184,13 +197,7 @@ class Map extends Component {
     }
     this.loadMapScript()
   }
-  
-
-  componentWillUnmount(){
-    let smap = document.getElementById('googleMaps')
-    smap.remove()
-    console.log('removing gmaps script')
-  }
+}
   
   render() {
     let MapContent

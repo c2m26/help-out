@@ -295,6 +295,7 @@ export class Dashboard extends Component {
     
   render () {
     let MapElement
+    console.log(this.props.userLocation, this.state)
     if(typeof this.props.needs !== "undefined" && typeof this.state.needsOT !== "undefined" && typeof this.state.needsMT !== "undefined" && typeof this.props.userLocation.lng !== "undefined" && typeof this.props.userLocation.lat !== "undefined") {
       // console.log("passing in render map")
       MapElement = 
