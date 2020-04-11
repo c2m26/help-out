@@ -114,15 +114,12 @@ class UserNeedCard extends Component {
         },
         body: JSON.stringify(needRepublish)
       })
-      
       .then((response)=>{
         return response.json()
       })
-      .then((response)=>{
-        console.log(response)
-      })
       .catch(error => {
-        console.log("Error republishing need", error)
+        console.log("Error republishing need", error);
+        alert("Error republishing need")
       })    
     
     this.props.getUserNeeds()
@@ -151,7 +148,8 @@ class UserNeedCard extends Component {
       console.log(response)
     })    
     .catch(error => {
-      console.log("Error changing the need status", error)
+      console.log("Error changing the need status", error);
+      alert("Error: status could not be changed to fulfilled")
     })
 
     this.props.getUserNeeds()
@@ -162,7 +160,6 @@ class UserNeedCard extends Component {
     if(this.props.data.republish === true ) {
       republishButton = <div data-testid="republish" className="btn btn-primary" onClick={this.handleRepublish}>Republish</div>
     }
-    // console.log(this.props.data.status)
 
     let helpersButtons
     if(typeof this.state.needFulfillments !== "undefined") {

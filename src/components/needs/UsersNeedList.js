@@ -45,7 +45,6 @@ export class UsersNeedList extends Component {
     this.props.fetchNeeds()
 
     const userID = this.props.user.id
-    console.log(userID)
 
     const url = `${backendURL}/api/v1/needs/get_userNeeds?id=${userID}`;
     
@@ -60,7 +59,6 @@ export class UsersNeedList extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         userNeeds: data
       })
@@ -73,8 +71,6 @@ export class UsersNeedList extends Component {
   }
 
   filterOpenNeeds() {
-    console.log(this.state.userNeeds.filter(needs => needs.status === "open"))
-
     if(this.state.userNeeds.filter(needs => needs.status === "open") === null){
       this.getFulfillments()  
     } else {
@@ -100,7 +96,6 @@ export class UsersNeedList extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         Fulfillments: data
       })
@@ -118,7 +113,6 @@ export class UsersNeedList extends Component {
 
     for(let i=0; i<this.state.userOpenNeeds.length; i++){
       auxNeedFulfillment.push(this.state.Fulfillments.filter(Fulfillment => Fulfillment.needID === this.state.userOpenNeeds[i].id))
-      console.log(auxNeedFulfillment)
     }
 
     this.setState({
@@ -145,27 +139,7 @@ export class UsersNeedList extends Component {
       let ageNeed = currentTime - auxNeedTime
       let ageReference = 24*60*60*1000
       let minHelpers = 5
-      console.log(needID, auxOpenNeed)
-
-
-      // for(let j=0; j<this.state.needFulfillments[i].length; j++){
-      //   let auxFulfillmentDate = new Date(this.state.needFulfillments[i][j].created_at)
-      //   let auxFulfillmentTime = auxFulfillmentDate.getTime()
-      //   let ageFulfillment = auxFulfillmentTime-auxNeedTime
-      //   let ageReference = 24*60*60*1000
-      //   console.log(auxFulfillmentDate + " // " + auxNeedDate )
-      //   console.log("for evaluating republish", ageFulfillment-ageReference)
-
-      //   if(ageFulfillment > ageReference) {
-      //     ageCounter++
-      //   }
-      // }
-      console.log(ageNeed, ageReference)
-      // NOT VALID ANYMORE condition making ageCounter = 5 to address the fact that not only the time from last fulfillment being more than 24h
-      // but also that a republish only makes sense when the need is not shown anymore to all users, which only happens
-      // when the number of helpers fulfilling the request is 5
-
-      console.log(this.state.needFulfillments[i].length)
+      
       if(ageNeed >= ageReference && minHelpers <= this.state.needFulfillments[i].length){
         auxOpenNeed[0].republish = true
         auxOpenNeeds.push(auxOpenNeed[0])
@@ -177,7 +151,7 @@ export class UsersNeedList extends Component {
 
     // addresses the case when a need exists but still has no fulfillments:
     // compares the total user's open needs with the ones that have fulfillments;
-    // needs that have no fulfillment will make he final auxUserOpenNeeds array;
+    // needs that have no fulfillment will make the final auxUserOpenNeeds array;
     // this array will then be merged with the auxOpenNeeeds and finally set a new UserOpenNeeds state
     let auxUserOpenNeeds = this.state.userOpenNeeds
 
@@ -186,8 +160,7 @@ export class UsersNeedList extends Component {
         if(auxOpenNeeds[k].id === auxUserOpenNeeds[l].id){
           auxUserOpenNeeds.splice(l,1)
         }
-      }
-      console.log(auxUserOpenNeeds) 
+      } 
     }
 
     // adds republish entry before pushing to auxOpenNeeds
@@ -195,11 +168,9 @@ export class UsersNeedList extends Component {
       auxUserOpenNeeds[i].republish = false
       auxOpenNeeds.push(auxUserOpenNeeds[i])
     }
-  
-    console.log(auxOpenNeeds)
 
     //sets the array with all needs including a republish status as the userOpenNeeds state;
-    //userOpenNeeds will be used to build the cards no the request column of the page MyHelpOuts
+    //userOpenNeeds will be used to build the cards on the request column of the page MyHelpOuts
     this.setState({
       userOpenNeeds: auxOpenNeeds
     })
@@ -223,7 +194,6 @@ export class UsersNeedList extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         userFulfillments: data.data
       })
@@ -249,8 +219,6 @@ export class UsersNeedList extends Component {
         }
       }
     }
-
-    console.log(auxUserFN)
     this.setState({
       userFulfillmentsDetails: auxUserFN
     })

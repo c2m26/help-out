@@ -58,7 +58,6 @@ export class Dashboard extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         fulfillments: data
       })
@@ -86,7 +85,6 @@ export class Dashboard extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         conversations: data
       })
@@ -113,7 +111,6 @@ export class Dashboard extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         messages: data
       })
@@ -139,7 +136,6 @@ export class Dashboard extends Component {
           auxConversation.push(auxBuild);
         }
       }
-      console.log(auxConversation)
     }
 
     
@@ -153,8 +149,6 @@ export class Dashboard extends Component {
       let messages = this.state.messages
   
       filteredMessages = messages.filter(messages => messages.conversationID === conversationID)
-
-      console.log(filteredMessages)
       
       // checks if there are messages by the helper in the conversation
       let auxCountSenderMessages = 0
@@ -164,15 +158,11 @@ export class Dashboard extends Component {
           auxCountSenderMessages++
         }
       }
-
-      console.log(auxCountSenderMessages)
       
       if(auxCountSenderMessages === 0) {
-        console.log(auxConversation[i])
         auxConversation.splice(i,1)
       }
     }
-    console.log(auxConversation) 
 
     // creates active fulfillment array based on the fulfillments part of auxConversation (i.e. conversations which have at least one message sent by the helper)
     let auxActiveFulfillment = []
@@ -184,11 +174,9 @@ export class Dashboard extends Component {
         }
       }
     }
-    console.log(auxActiveFulfillment)
     this.setState({
       activeFulfillments: auxActiveFulfillment
     })
-    
     this.buildOpenNeeds()
   }
 
@@ -197,7 +185,6 @@ export class Dashboard extends Component {
     let auxOpenNeeds = []
     let needs = this.props.needs
     auxOpenNeeds = needs.filter(needs => needs.status === "open")
-    console.log(auxOpenNeeds)
 
     this.setState({
       openNeeds: auxOpenNeeds
@@ -218,14 +205,11 @@ export class Dashboard extends Component {
           auxCountNeedFulfillments++
         }
       }
-      console.log(auxCountNeedFulfillments, this.state.openNeeds[i].id)
       
       if(auxCountNeedFulfillments < 5) {
-        console.log(this.state.openNeeds[i])
         auxActiveNeeds.push(this.state.openNeeds[i])
       }
     }
-    console.log(auxActiveNeeds)
     this.setState({
       activedNeeds: auxActiveNeeds
     })
@@ -234,8 +218,6 @@ export class Dashboard extends Component {
   }
   // creates one array for each type of need - one time and material - to be shown in the map
   buildNeedsArrays(needHighID){
-    console.log(needHighID)
-    
     let material = []
     let oneTime = []
     let needHighlight = {}
@@ -246,7 +228,6 @@ export class Dashboard extends Component {
       } else {
         oneTime.push(this.state.activedNeeds[i])
       }
-      console.log("MT & OT arrays built")
     }
 
     for (let i=0; i<material.length; i++) { 
@@ -271,7 +252,6 @@ export class Dashboard extends Component {
       needHL: needHighlight,
       showMarkers: true
     })
-    console.log(this.state.needHL)
   }
 
   handleRemoveHighlight(data){
@@ -279,7 +259,6 @@ export class Dashboard extends Component {
     this.setState({
       showMarkers: data
     })
-    console.log('passou no remove', data)
   }
   
   componentDidUpdate(prevProps, prevState) {
@@ -295,7 +274,6 @@ export class Dashboard extends Component {
     
   render () {
     let MapElement
-    console.log(this.props.userLocation, this.state)
     if(typeof this.props.needs !== "undefined" && typeof this.state.needsOT !== "undefined" && typeof this.state.needsMT !== "undefined" && typeof this.props.userLocation.lng !== "undefined" && typeof this.props.userLocation.lat !== "undefined") {
       // console.log("passing in render map")
       MapElement = 

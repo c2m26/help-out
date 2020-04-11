@@ -18,11 +18,9 @@ class Map extends Component {
     this.userMarker = []
     this.MTMarkers = []
     this.OTMarkers = []
-
   }
 
   async componentDidMount() {
-    // this.checkMapScript()
     await this.loadMapScript()
   }
 
@@ -38,7 +36,6 @@ class Map extends Component {
       smap.remove()
       console.log('removing gmaps script')
     }
-    
   }
 
   loadMapScript(){
@@ -63,18 +60,11 @@ class Map extends Component {
   }
   
   initMap() {
-    
-    // this.map = await new window.google.maps.Map(
-    //   document.getElementById(this.props.id),
-    //   this.props.options)
-
     this.map = new window.google.maps.Map(
       document.getElementById(this.props.id),
       this.props.options);
-
     this.props.getUserLocation();
-  
-    this.createMarkers()
+    this.createMarkers();
   }
   
     
@@ -113,7 +103,6 @@ class Map extends Component {
             }))
           })
       }
-      
     
       if(typeof this.props.OTMarkers !== "undefined"){
         this.OTMarkers = this.props.OTMarkers.map( needs => { 
@@ -141,7 +130,6 @@ class Map extends Component {
   }
 
   addMarkers (){
-    // var self = this
     let i
 
     if(typeof this.activeMarker !== "undefined") {
