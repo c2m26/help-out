@@ -25,11 +25,14 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props !== prevProps && !window.google && !this.map) {
-      this.loadMapScript()
-    } else {
+    if(this.props !== prevProps && window.google) {
       this.removeMarkers()
     }
+    // if(this.props !== prevProps && !window.google && !this.map) {
+    //   this.loadMapScript()
+    // } else {
+    //   this.removeMarkers()
+    // }
   }
 
   componentWillUnmount(){
@@ -179,7 +182,6 @@ class Map extends Component {
       <Fragment>
         {MapContent}
       </Fragment>
-      
     );
   }
 }
@@ -198,9 +200,9 @@ const mapStateToProps = state => ({
 Map.defaultProps = {
   MTMarkers: [],
   OTMarkers: [],
-  currentNeed: {lat:0,lng:0},
-  userLocation: {lat:0,lng:0}
-
+  currentNeed: null,
+  userLocation: null,
+  activeMarker: {lat: 0, lng:0}
 } 
 
 export default connect(mapStateToProps, { getUserLocation })(Map)

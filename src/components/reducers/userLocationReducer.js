@@ -1,10 +1,11 @@
 import { GET_USER_LOCATION } from '../actions/types'
 
 
-const initialState = {
-  userCoords: {}
-  
-}
+const initialState = 
+  {
+    lat: 0,
+    lng: 0
+  }
 
 export default function(state = initialState, action){
   switch(action.type){

@@ -278,7 +278,10 @@ export class Dashboard extends Component {
         <Map
           id = "mapDashboard"
           options = {{
-            center: {lat: this.props.userLocation.lat || 0, lng: this.props.userLocation.lng || 0},
+            center: {
+              lat: this.props.userLocation.lat,
+              lng: this.props.userLocation.lng
+            },
             zoom: 15
           }}
           activeMarker={
