@@ -14,7 +14,7 @@ class Map extends Component {
     this.removeMarkers = this.removeMarkers.bind(this)
     
     this.map = [] 
-    this.activeMarker = []
+    this.activeMarker = null
     this.userMarker = []
     this.MTMarkers = []
     this.OTMarkers = []
@@ -94,7 +94,7 @@ class Map extends Component {
         });
       } 
 
-      if(typeof this.props.MTMarkers !== "undefined"){
+      if(this.props.MTMarkers.length){
         this.MTMarkers = this.props.MTMarkers.map( needs => { 
           return ( new window.google.maps.Marker({
             position: { lat: needs.lat, lng: needs.lng },
@@ -104,7 +104,7 @@ class Map extends Component {
           })
       }
     
-      if(typeof this.props.OTMarkers !== "undefined"){
+      if(this.props.OTMarkers.length){
         this.OTMarkers = this.props.OTMarkers.map( needs => { 
           return ( new window.google.maps.Marker({
             position: { lat: needs.lat, lng: needs.lng },
@@ -114,7 +114,7 @@ class Map extends Component {
           })
       }
 
-      if(typeof this.props.activeMarker === "undefined" || typeof this.props.activeMarker.lat === "undefined") {
+      if(!this.props.activeMarker) {
         this.activeMarker = new window.google.maps.Marker({
           position: { lat: 0, lng: 0 },
           icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
@@ -132,13 +132,13 @@ class Map extends Component {
   addMarkers (){
     let i
 
-    if(typeof this.activeMarker !== "undefined") {
+    if(this.activeMarker) {
       if(this.props.showMarkers) {
         this.activeMarker.setMap(this.map);
       } 
     }
 
-    if(typeof this.MTMarkers !== "undefined"){
+    if(this.MTMarkers.length){
       for ( i = 0; i < this.MTMarkers.length; i++) {
         this.MTMarkers[i].setMap(this.map);
         const history = this.props.history
@@ -149,7 +149,7 @@ class Map extends Component {
       }
     }
 
-    if(typeof this.OTMarkers !== "undefined"){
+    if(this.OTMarkers.length){
       for ( i = 0; i < this.OTMarkers.length; i++) {
         this.OTMarkers[i].setMap(this.map)
         const history = this.props.history
@@ -163,28 +163,27 @@ class Map extends Component {
   }
 
   removeMarkers() {
-    if(typeof document.getElementById('googleMaps') === "undefined"){
-      this.loadMapScript();
-    } else {
+    // if(typeof document.getElementById('googleMaps') === "undefined"){
+    //   this.loadMapScript();
+    // } else {
 
-    let i
-    if(this.props.showMarkers === false) {
+    if(this.props.showMarkers === false && this.activeMarker) {
       this.activeMarker.setMap(null)
     }
 
-    if(typeof this.MTMarkers !== "undefined"){
-      for ( i = 0; i < this.MTMarkers.length; i++) {
+    if(this.MTMarkers.length){
+      for (let i = 0; i < this.MTMarkers.length; i++) {
         this.MTMarkers[i].setMap(null)
       }
     }
 
-    if(typeof this.OTMarkers !== "undefined"){
-      for ( i = 0; i < this.OTMarkers.length; i++) {
+    if(this.OTMarkers.length){
+      for (let i = 0; i < this.OTMarkers.length; i++) {
         this.OTMarkers[i].setMap(null)
       }
     }
     this.loadMapScript()
-  }
+  // }
 }
   
   render() {
@@ -214,5 +213,10 @@ const mapStateToProps = state => ({
   needs: state.needs.items,
   userLocation: state.userCoords
 });
+
+Map.defaultProps = {
+  MTMarkers: [],
+  OTMarkers: []
+} 
 
 export default connect(mapStateToProps, { getUserLocation })(Map)

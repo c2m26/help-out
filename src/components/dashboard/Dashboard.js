@@ -285,8 +285,8 @@ export class Dashboard extends Component {
         
         activeMarker={
           {
-            lat: this.state.needHL.lat,
-            lng: this.state.needHL.lng
+            lat: this.state.needHL.lat || 0,
+            lng: this.state.needHL.lng || 0
           }
         }
         
