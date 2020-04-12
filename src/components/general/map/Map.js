@@ -20,12 +20,12 @@ class Map extends Component {
     this.OTMarkers = []
   }
 
-  async componentDidMount() {
-    await this.loadMapScript()
+  componentDidMount() {
+    this.loadMapScript()
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props !== prevProps && !window.google) {
+    if(this.props !== prevProps && !window.google && !this.map) {
       this.loadMapScript()
     } else {
       this.removeMarkers()
@@ -37,8 +37,7 @@ class Map extends Component {
   }
 
   loadMapScript(){
-       
-    if (window.google && document.getElementById('googleMaps')) {
+    if (window.google) {
       this.initMap()  
     } else {
       var s = document.createElement('script');
@@ -50,7 +49,7 @@ class Map extends Component {
       //We cannot access google.maps until it's finished loading
       s.onload = (event) => 
         {
-          this.initMap(); 
+          this.initMap();
         }
     }
   }
