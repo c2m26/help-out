@@ -20,8 +20,8 @@ class Map extends Component {
     this.OTMarkers = []
   }
 
-  async componentDidMount() {
-    await this.loadMapScript()
+  componentDidMount() {
+    this.loadMapScript()
   }
 
   componentDidUpdate(prevProps) {
@@ -38,11 +38,8 @@ class Map extends Component {
 
   loadMapScript(){
        
-    if (window.google) {
-        
-      this.initMap()
-      // this.createMarkers()
-                      
+    if (window.google && document.getElementById('googleMaps')) {
+      this.initMap()  
     } else {
       var s = document.createElement('script');
       s.id = 'googleMaps'
@@ -81,7 +78,7 @@ class Map extends Component {
     } 
     
     // marker for map in need detail component
-    if(this.props.currentNeed.lat !== 0) {
+    if(this.props.currentNeed) {
       this.currentNeed = new window.google.maps.Marker({
         position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
         icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
@@ -116,23 +113,10 @@ class Map extends Component {
         });
       }
 
-    // if(!this.props.activeMarker) {
-    //   this.activeMarker = new window.google.maps.Marker({
-    //     position: { lat: 0, lng: 0 },
-    //     icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
-    //     });
-    // } else {
-    //   this.activeMarker = new window.google.maps.Marker({
-    //     position: { lat: this.props.activeMarker.lat, lng: this.props.activeMarker.lng },
-    //     icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
-    //     });
-    //   }
     this.addMarkers()
-
   }
 
   addMarkers (){
-    let i
 
     if(this.activeMarker) {
       if(this.props.showMarkers) {
@@ -141,7 +125,7 @@ class Map extends Component {
     }
 
     if(this.MTMarkers.length){
-      for ( i = 0; i < this.MTMarkers.length; i++) {
+      for (let i = 0; i < this.MTMarkers.length; i++) {
         this.MTMarkers[i].setMap(this.map);
         const history = this.props.history
         window.google.maps.event.addListener(this.MTMarkers[i], 'click', function (event) {
@@ -152,7 +136,7 @@ class Map extends Component {
     }
 
     if(this.OTMarkers.length){
-      for ( i = 0; i < this.OTMarkers.length; i++) {
+      for (let i = 0; i < this.OTMarkers.length; i++) {
         this.OTMarkers[i].setMap(this.map)
         const history = this.props.history
         window.google.maps.event.addListener(this.OTMarkers[i], 'click', function (event) {

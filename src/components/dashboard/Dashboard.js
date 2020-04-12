@@ -273,32 +273,26 @@ export class Dashboard extends Component {
     
   render () {
     let MapElement
-    if(typeof this.props.needs !== "undefined" && typeof this.state.needsOT !== "undefined" && typeof this.state.needsMT !== "undefined" && typeof this.props.userLocation.lng !== "undefined" && typeof this.props.userLocation.lat !== "undefined") {
+    if(this.props.needs.length && this.state.needsOT.length && this.state.needsMT.length) {
       MapElement = 
-      <Map
-        id = "mapDashboard"
-        
-        options = {{
-          center: {lat: this.props.userLocation.lat, lng: this.props.userLocation.lng},
-          zoom: 15
-        }}
-        
-        activeMarker={
-          {
-            lat: this.state.needHL.lat || 0,
-            lng: this.state.needHL.lng || 0
+        <Map
+          id = "mapDashboard"
+          options = {{
+            center: {lat: this.props.userLocation.lat || 0, lng: this.props.userLocation.lng || 0},
+            zoom: 15
+          }}
+          activeMarker={
+            {
+              lat: this.state.needHL.lat || 0,
+              lng: this.state.needHL.lng || 0
+            }
           }
-        }
-        
-        MTMarkers={this.state.needsMT}
-        OTMarkers={this.state.needsOT}
-
-        showMarkers={this.state.showMarkers}
-        
-        style={{height: '92vh'}}
-
-        history = {this.props.history}
-      />
+          MTMarkers={this.state.needsMT}
+          OTMarkers={this.state.needsOT}
+          showMarkers={this.state.showMarkers}
+          style={{height: '92vh'}}
+          history = {this.props.history}
+        />
     } else {MapElement = "Loading map..."}
 
     return (
@@ -323,7 +317,7 @@ export class Dashboard extends Component {
             />
           </div>
 
-          <div className="col py-2">
+          <div data-testid="map" className="col py-2">
             {MapElement}
           </div>
         </div>      

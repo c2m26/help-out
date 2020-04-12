@@ -83,7 +83,7 @@ it("renders child components", () => {
   const mapContent = getByTestId(document, 'map');
 
   expect(listContent.textContent).toContain("Needs List");
-  expect(mapContent.textContent).toContain("Map");
+  expect(mapContent.textContent).toContain("Loading map...");
 
   getFulfillments.mockRestore();
 })

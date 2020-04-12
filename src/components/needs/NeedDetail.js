@@ -12,7 +12,7 @@ export class NeedDetail extends Component {
 
     this.state = {
       selectedNeedID: parseInt(this.props.match.params.id) ,
-      selectedNeed: {},
+      selectedNeed: [],
       fulfillmentID: null,
       userFulfillments: null
     }
@@ -33,7 +33,7 @@ export class NeedDetail extends Component {
 
   assignSelectedNeed(){  
     for (let i = 0; i < this.props.needs.length; i++) {
-      if (typeof this.props.needs[i] !== "undefined") {
+      if (this.props.needs[i]) {
         if(this.props.needs[i].id === this.state.selectedNeedID) {
           this.setState({
             selectedNeed: this.props.needs[i]
@@ -103,7 +103,6 @@ export class NeedDetail extends Component {
       this.createFulfillment()
     }
   }
-  
   
   async createFulfillment(){
 
@@ -175,15 +174,15 @@ export class NeedDetail extends Component {
         style={{height: '42vh'}}
         options = {{
           center: {
-            lat: this.state.selectedNeed.lat,
-            lng: this.state.selectedNeed.lng
+            lat: this.state.selectedNeed.lat || 0,
+            lng: this.state.selectedNeed.lng || 0
             },
             zoom: 14
         }}
         currentNeed={
           {
-          lat: this.state.selectedNeed.lat,
-          lng: this.state.selectedNeed.lng
+          lat: this.state.selectedNeed.lat || 0,
+          lng: this.state.selectedNeed.lng || 0
           }
         }
         />
@@ -192,11 +191,14 @@ export class NeedDetail extends Component {
     }
 
     let needType
-    if(this.state.selectedNeed.needType === "material"){
-      needType = <div className="badge badge-pill badge-danger">material</div>
-    } else {
-      needType = <div className="badge badge-pill badge-warning">one time</div>
+    if(this.state.selectedNeed) {
+      if(this.state.selectedNeed.needType === "material"){
+        needType = <div className="badge badge-pill badge-danger">material</div>
+      } else {
+        needType = <div className="badge badge-pill badge-warning">one time</div>
+      }
     }
+    
 
     
     return(
