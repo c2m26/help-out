@@ -40,7 +40,7 @@ class Map extends Component {
 
   loadMapScript(){
        
-    if (document.getElementById('googleMaps') !== null) {
+    if (window.google) {
                 
       this.createMarkers()
                       
@@ -70,9 +70,9 @@ class Map extends Component {
     
   createMarkers(){
     
-    if(typeof this.map === "undefined") {
-      console.log('waiting for map to be defined')
-    } else {
+    // if(typeof this.map === "undefined") {
+    //   console.log('waiting for map to be defined')
+    // } else {
         
       if(this.props.userLocation) {
         this.userLocation = new window.google.maps.Marker({
@@ -126,7 +126,7 @@ class Map extends Component {
           });
         }
       this.addMarkers()
-    }
+    // }
   }
 
   addMarkers (){
