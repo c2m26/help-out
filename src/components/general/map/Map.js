@@ -25,7 +25,7 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props !== prevProps && !this.map) {
+    if(this.props !== prevProps && !window.google) {
       this.loadMapScript()
     } else {
       this.removeMarkers()
