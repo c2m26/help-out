@@ -13,7 +13,7 @@ class Map extends Component {
     this.addMarkers = this.addMarkers.bind(this)
     this.removeMarkers = this.removeMarkers.bind(this)
     
-    this.map = [] 
+    this.map = null 
     this.activeMarker = null
     this.userMarker = []
     this.MTMarkers = []
@@ -25,24 +25,23 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props !== prevProps) {
+    if(this.props !== prevProps && !this.map) {
+      this.loadMapScript()
+    } else {
       this.removeMarkers()
     }
   }
 
   componentWillUnmount(){
-    let smap = document.getElementById('googleMaps')
-    if(smap !== null) {
-      smap.remove()
-      console.log('removing gmaps script')
-    }
+    this.map = null
   }
 
   loadMapScript(){
        
     if (window.google) {
-                
-      this.createMarkers()
+        
+      this.initMap()
+      // this.createMarkers()
                       
     } else {
       var s = document.createElement('script');
@@ -69,64 +68,67 @@ class Map extends Component {
   
     
   createMarkers(){
+       
+    if(this.props.userLocation) {
+      this.userLocation = new window.google.maps.Marker({
+        position: { lat: this.props.userLocation.lat, lng: this.props.userLocation.lng },
+        icon: {
+          path: window.google.maps.SymbolPath.CIRCLE,
+          scale: 7
+        },
+        map: this.map
+      });
+    } 
     
-    // if(typeof this.map === "undefined") {
-    //   console.log('waiting for map to be defined')
+    // marker for map in need detail component
+    if(this.props.currentNeed.lat !== 0) {
+      this.currentNeed = new window.google.maps.Marker({
+        position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
+        icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        map: this.map     
+      });
+    } 
+
+    if(this.props.MTMarkers.length){
+      this.MTMarkers = this.props.MTMarkers.map( needs => { 
+        return ( new window.google.maps.Marker({
+          position: { lat: needs.lat, lng: needs.lng },
+          icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+          url: `/helpNeed/${needs.id}`
+          }))
+        })
+    }
+  
+    if(this.props.OTMarkers.length){
+      this.OTMarkers = this.props.OTMarkers.map( needs => { 
+        return ( new window.google.maps.Marker({
+          position: { lat: needs.lat, lng: needs.lng },
+          icon: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+          url: `/helpNeed/${needs.id}`
+          }))
+        })
+    }
+
+    if(this.props.activeMarker) {
+      this.activeMarker = new window.google.maps.Marker({
+        position: { lat: this.props.activeMarker.lat, lng: this.props.activeMarker.lng },
+        icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
+        });
+      }
+
+    // if(!this.props.activeMarker) {
+    //   this.activeMarker = new window.google.maps.Marker({
+    //     position: { lat: 0, lng: 0 },
+    //     icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
+    //     });
     // } else {
-        
-      if(this.props.userLocation) {
-        this.userLocation = new window.google.maps.Marker({
-          position: { lat: this.props.userLocation.lat, lng: this.props.userLocation.lng },
-          icon: {
-            path: window.google.maps.SymbolPath.CIRCLE,
-            scale: 7
-          },
-          map: this.map
-        });
-      } 
-      
-      // marker for map in need detail component
-      if(this.props.currentNeed) {
-        this.currentNeed = new window.google.maps.Marker({
-          position: { lat: this.props.currentNeed.lat, lng: this.props.currentNeed.lng },
-          icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-          map: this.map     
-        });
-      } 
+    //   this.activeMarker = new window.google.maps.Marker({
+    //     position: { lat: this.props.activeMarker.lat, lng: this.props.activeMarker.lng },
+    //     icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
+    //     });
+    //   }
+    this.addMarkers()
 
-      if(this.props.MTMarkers.length){
-        this.MTMarkers = this.props.MTMarkers.map( needs => { 
-          return ( new window.google.maps.Marker({
-            position: { lat: needs.lat, lng: needs.lng },
-            icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
-            url: `/helpNeed/${needs.id}`
-            }))
-          })
-      }
-    
-      if(this.props.OTMarkers.length){
-        this.OTMarkers = this.props.OTMarkers.map( needs => { 
-          return ( new window.google.maps.Marker({
-            position: { lat: needs.lat, lng: needs.lng },
-            icon: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-            url: `/helpNeed/${needs.id}`
-            }))
-          })
-      }
-
-      if(!this.props.activeMarker) {
-        this.activeMarker = new window.google.maps.Marker({
-          position: { lat: 0, lng: 0 },
-          icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
-          });
-      } else {
-        this.activeMarker = new window.google.maps.Marker({
-          position: { lat: this.props.activeMarker.lat, lng: this.props.activeMarker.lng },
-          icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'    
-          });
-        }
-      this.addMarkers()
-    // }
   }
 
   addMarkers (){
@@ -163,10 +165,7 @@ class Map extends Component {
   }
 
   removeMarkers() {
-    // if(typeof document.getElementById('googleMaps') === "undefined"){
-    //   this.loadMapScript();
-    // } else {
-
+    
     if(this.props.showMarkers === false && this.activeMarker) {
       this.activeMarker.setMap(null)
     }
@@ -182,8 +181,7 @@ class Map extends Component {
         this.OTMarkers[i].setMap(null)
       }
     }
-    this.loadMapScript()
-  // }
+    this.createMarkers()
 }
   
   render() {
@@ -216,7 +214,10 @@ const mapStateToProps = state => ({
 
 Map.defaultProps = {
   MTMarkers: [],
-  OTMarkers: []
+  OTMarkers: [],
+  currentNeed: {lat:0,lng:0},
+  userLocation: {lat:0,lng:0}
+
 } 
 
 export default connect(mapStateToProps, { getUserLocation })(Map)

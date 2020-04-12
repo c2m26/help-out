@@ -82,7 +82,6 @@ class Fulfillment extends Component {
   }
 
   checkUserAccess() {
-    console.log(this.props.user)
     if (this.props.user.id === this.state.creatorID || this.props.user.id === this.state.helperID) {
       this.setState({
         allowAcess: true

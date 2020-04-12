@@ -169,26 +169,24 @@ export class NeedDetail extends Component {
 
     let MapElement
     if(typeof this.state.selectedNeed.lat !== "undefined") {
-      console.log("passing in render map", this.state.selectedNeed.lat)
       MapElement = 
-      <Map
-      id = "mapDashboard"
-      style={{height: '42vh'}}
-      options = {{
-        center: {
+        <Map
+        id = "mapDashboard"
+        style={{height: '42vh'}}
+        options = {{
+          center: {
+            lat: this.state.selectedNeed.lat,
+            lng: this.state.selectedNeed.lng
+            },
+            zoom: 14
+        }}
+        currentNeed={
+          {
           lat: this.state.selectedNeed.lat,
           lng: this.state.selectedNeed.lng
-          },
-          zoom: 14
-      }}
-      // userMarker={this.props.userLocation}
-      currentNeed={
-        {
-        lat: this.state.selectedNeed.lat,
-        lng: this.state.selectedNeed.lng
+          }
         }
-      }
-      />
+        />
     } else {
       MapElement = null;
     }
