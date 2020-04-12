@@ -66,7 +66,6 @@ class Registration extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data)
       if (data.status === 'created') {
         this.props.handleLogin(data)
         this.props.history.push("/dashboard")
@@ -75,7 +74,7 @@ class Registration extends Component {
         this.setState({
           registration_errors: "Error in registration!"
         })
-        alert ("Sorry, but we could not conclude your registration")
+        alert ("Sorry, but we could not conclude your registration. Please try again.")
       }
     })    
     .catch(error => {

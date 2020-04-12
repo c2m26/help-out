@@ -58,7 +58,6 @@ class Login extends Component {
         });
         alert("Authentication error, please check your email and/or password");
       }
-      console.log(data)
     })    
     .catch(error => {
       console.log("Log In error", error);

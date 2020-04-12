@@ -133,12 +133,10 @@ class Navbar extends Component {
         </Fragment>
       } else {
       authblock = 
-        // <Fragment>
-          <div id="authblock" className="d-flex">
+        <div id="authblock" className="d-flex">
           <div id="signIn" className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignIn}>Sign In</div>
           <div id="signUp" className="btn btn-warning text-dark ml-2 p-2" onClick={this.handleModalSignUp}>Sign Up</div>
-          </div>
-        // </Fragment>
+        </div>
       }
 
     // Conditional statement for modal

@@ -7,13 +7,11 @@ class LandingPage extends Component {
   
   componentDidMount(){
     this.props.handleNavbar(true)
-    console.log("mounted")
   }
   
 
   componentWillUnmount(){
     this.props.handleNavbar(false)
-    console.log("unmounted")
   }
 
   render () {

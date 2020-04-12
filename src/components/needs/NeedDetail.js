@@ -31,16 +31,13 @@ export class NeedDetail extends Component {
     this.assignSelectedNeed()
   }
 
-  assignSelectedNeed(){
-    console.log(this.state.selectedNeedID)
-    
+  assignSelectedNeed(){  
     for (let i = 0; i < this.props.needs.length; i++) {
       if (typeof this.props.needs[i] !== "undefined") {
         if(this.props.needs[i].id === this.state.selectedNeedID) {
           this.setState({
             selectedNeed: this.props.needs[i]
           })
-          console.log(this.state.selectedNeed)
           break
         }
       }
@@ -79,7 +76,6 @@ export class NeedDetail extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         userFulfillments: data.data
       })
@@ -116,8 +112,6 @@ export class NeedDetail extends Component {
       needID: this.state.selectedNeedID,
       helperID: this.props.user.id
     }
-
-    console.log(JSON.stringify(data))
     
     await fetch(url, {
       method: 'POST',
@@ -135,7 +129,6 @@ export class NeedDetail extends Component {
       this.setState({
         fulfillmentID: payload.data.id
       })
-      console.log(payload)
     })    
     .catch(error => {
       console.log("Error", error)
@@ -150,8 +143,6 @@ export class NeedDetail extends Component {
     const data = {
       fulfillmentID: this.state.fulfillmentID
     }
-
-    console.log(JSON.stringify(data))
     
     fetch(url, {
       method: 'POST',
@@ -166,7 +157,6 @@ export class NeedDetail extends Component {
       return response.json()
     })
     .then((payload) =>{
-      console.log(payload)
       this.props.history.push(`/fulfillment/${this.state.fulfillmentID}`)
     })    
     .catch(error => {
@@ -201,7 +191,6 @@ export class NeedDetail extends Component {
       />
     } else {
       MapElement = null;
-      console.log("no map")
     }
 
     let needType

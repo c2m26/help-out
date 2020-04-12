@@ -48,15 +48,12 @@ class UserNeedCard extends Component {
   getHelpersID(){
     let auxFulfillments = []
 
-    // console.log(this.props.fulfillments.length)
     for(let i=0; i<this.props.fulfillments.length; i++){
       if(this.props.fulfillments[i].length === 0){
         continue
       } else {
         if(this.props.fulfillments[i][0].needID === this.props.data.id){
-          // console.log(this.props.fulfillments[i])  
           auxFulfillments = this.props.fulfillments[i]
-          // console.log(auxFulfillments)
         }
       }
     }

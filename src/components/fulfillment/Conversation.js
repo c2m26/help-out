@@ -55,9 +55,6 @@ class Conversation extends Component {
   }  
 
   async getMessages() {
-
-    console.log(this.state.conversationID)
-
     const url = `${backendURL}/api/v1/messages/get_Messages?id=${this.state.conversationID}`;
     
     await fetch(url, {
@@ -98,8 +95,6 @@ class Conversation extends Component {
       content: this.state.messageInput
     }
 
-    console.log(JSON.stringify(message))
-
     const url = `${backendURL}/api/v1/messages`;
     
     await fetch(url, {
@@ -113,10 +108,6 @@ class Conversation extends Component {
     .then((response)=>{
       return response.json()
     })
-    .then(message =>{
-      console.log(message)
-    }
-      )
     .catch(error => {
       console.log("Message could not be sent", error)
     })

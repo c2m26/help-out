@@ -255,7 +255,6 @@ export class Dashboard extends Component {
   }
 
   handleRemoveHighlight(data){
-    
     this.setState({
       showMarkers: data
     })
@@ -275,7 +274,6 @@ export class Dashboard extends Component {
   render () {
     let MapElement
     if(typeof this.props.needs !== "undefined" && typeof this.state.needsOT !== "undefined" && typeof this.state.needsMT !== "undefined" && typeof this.props.userLocation.lng !== "undefined" && typeof this.props.userLocation.lat !== "undefined") {
-      // console.log("passing in render map")
       MapElement = 
       <Map
         id = "mapDashboard"

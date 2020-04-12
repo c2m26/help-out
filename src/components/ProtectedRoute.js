@@ -7,7 +7,6 @@ export const ProtectedRoute = ({component: Component, authStatus ,...rest}) => {
     <Route  
       {...rest}
       render = { (props) => {
-        // return <Component {...props} {...rest} />;
         if(authStatus === "LOGGED_IN") {
           return <Component {...props} {...rest} />;
         } else {

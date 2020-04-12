@@ -42,7 +42,6 @@ export class NewNeed extends Component {
 
     // Getting data from Geocoding API
     let address = this.state.location
-    // let apiKey = Keys.googleMaps
     let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
 
     await fetch(url,
@@ -51,14 +50,11 @@ export class NewNeed extends Component {
         return response.json()
       })
       .then((data)=>{
-        console.log(data)
         this.setState({
           lat: data.results[0].geometry.location.lat,
           lng: data.results[0].geometry.location.lng,
           formattedAddress: data.results[0].address_components[1].long_name + " " + data.results[0].address_components[0].long_name + ", " + data.results[0].address_components[7].long_name + " " + data.results[0].address_components[3].long_name
         })
-
-          console.log(data)
       })
       .catch(error => {
         console.log("registration error", error)
@@ -79,13 +75,7 @@ export class NewNeed extends Component {
         formattedAddress: this.state.formattedAddress,
         status: 'open'
       }
-
-      console.log(need)
-      
       this.props.postNeed(need)
-
-      console.log(this.props)
-      
     }
 
     componentDidUpdate(prevProps){
@@ -104,7 +94,6 @@ export class NewNeed extends Component {
     }
 
   render () {
-    // console.log(this.props)
     return (
       
       <div id="newHelpOut">

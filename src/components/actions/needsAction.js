@@ -3,10 +3,6 @@ import { backendURL } from '../APIendpoints'
 
 export function fetchNeeds() {
   return async function(dispatch){
-    // fetching all needs from API
-    // console.log('passing here')
-    // let urlneeds = 'http://localhost:3001/api/v1/needs'
-
     await fetch(`${backendURL}/api/v1/needs`, 
     {
       method: 'GET',
@@ -31,7 +27,6 @@ export function fetchNeeds() {
 
 export function postNeed(needData) {
   return function(dispatch){
-    console.log('new need post')
     let urlneeds = `${backendURL}/api/v1/needs`
 
       fetch(urlneeds, 
@@ -49,12 +44,9 @@ export function postNeed(needData) {
       })
       .then(
         (need) => dispatch({
-        type: NEW_NEED,
-        payload: need
-        },
-        console.log(need)
-        )
-        
+          type: NEW_NEED,
+          payload: need
+        })
       )
       .catch(error => {
         console.log("Error creating new help need", error)

@@ -25,7 +25,6 @@ class Fulfillment extends Component {
 
   componentDidMount() {
     this.getFulfillmentforeignKeys();
-    // this.getNeed()
   }
 
   async getFulfillmentforeignKeys() {
@@ -45,7 +44,6 @@ class Fulfillment extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         helperID: data.helperID,
         needID: data.needID
@@ -73,7 +71,6 @@ class Fulfillment extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         creatorID: data,
       })
@@ -81,7 +78,6 @@ class Fulfillment extends Component {
     .catch(error => {
       console.log("Error getting help need creator ID", error)
     })
-    
     this.checkUserAccess()
   }
 
@@ -112,7 +108,6 @@ class Fulfillment extends Component {
       return response.json()
     })
     .then((data) =>{
-      // console.log(data);
       this.setState({
         need: data,
       })
@@ -120,7 +115,6 @@ class Fulfillment extends Component {
     .catch(error => {
       console.log("Error getting need data", error)
     })
-
     this.getUsersName()
   }
 
@@ -139,7 +133,6 @@ class Fulfillment extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         creatorName: data.firstName,
       })
@@ -161,7 +154,6 @@ class Fulfillment extends Component {
       return response.json()
     })
     .then((data) =>{
-      console.log(data);
       this.setState({
         helperName: data.firstName,
       })

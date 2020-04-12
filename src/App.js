@@ -54,7 +54,6 @@ class App extends Component {
           user: {}
         })
       };
-      console.log(data)
     })
     .catch(error => {
       console.log("Log In error", error)
@@ -87,14 +86,12 @@ class App extends Component {
       return response.json()
     })
     .then((data)=> {
-      console.log(data, data.session)
       if (typeof data.session && data.user === null) {
         this.setState({
           loggedInStatus: "NOT_LOGGED_IN",
           user: {}
         })
       }
-      console.log(this.state)
     })
     .catch(error => {
       console.log("Log out error", error)
@@ -106,7 +103,6 @@ class App extends Component {
     this.setState({
       fsHero: data
     })
-    console.log(this.state.fsHero)
   }
 
 //App rendering method
@@ -114,8 +110,6 @@ class App extends Component {
   render(){
   
     // conditional rendering for Navbar
-    
-    console.log(this.state.fsHero)
     let navcolorscheme
     let navbg
     let textColor
@@ -164,45 +158,24 @@ class App extends Component {
                 component = {Dashboard}
                 user={this.state.user}
                 authStatus={this.state.loggedInStatus}
-                // render = {props => (
-                //   <Dashboard { ... props}
-                //   handleLogin={this.handleLogin}
-                //   user={this.state.user}
-                //   />
-                // )}
               />
               <ProtectedRoute
                 path={"/helpNeed/:id"}
                 component = {NeedDetail}
                 user={this.state.user}
                 authStatus={this.state.loggedInStatus}
-                // render = {props => (
-                //   <NeedDetail {...props}
-                //   user={this.state.user}
-                //   />
-                // )}
               />
               <ProtectedRoute
                 path={"/fulfillment/:id"}
                 component = {Fulfillment}
                 user={this.state.user}
                 authStatus={this.state.loggedInStatus}
-                // render = {props => (
-                //   <Fulfillment {...props}
-                //   user={this.state.user}
-                //   />
-                // )}
               />
               <ProtectedRoute
                 path={"/myHelpOuts/:id"}
                 component = {UserNeedsList}
                 user={this.state.user}
                 authStatus={this.state.loggedInStatus}
-                // render = {props => (
-                //   <UserNeedsList {...props}
-                //   user={this.state.user}
-                //   />
-                // )}
               />
 
             </Switch>
