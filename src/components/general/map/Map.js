@@ -20,8 +20,8 @@ class Map extends Component {
     this.OTMarkers = []
   }
 
-  componentDidMount() {
-    this.loadMapScript()
+  async componentDidMount() {
+    await this.loadMapScript()
   }
 
   componentDidUpdate(prevProps) {
