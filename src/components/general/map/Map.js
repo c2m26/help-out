@@ -28,11 +28,6 @@ class Map extends Component {
     if(this.props !== prevProps && window.google) {
       this.removeMarkers()
     }
-    // if(this.props !== prevProps && !window.google && !this.map) {
-    //   this.loadMapScript()
-    // } else {
-    //   this.removeMarkers()
-    // }
   }
 
   componentWillUnmount(){

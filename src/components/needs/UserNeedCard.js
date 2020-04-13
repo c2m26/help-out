@@ -81,9 +81,6 @@ class UserNeedCard extends Component {
     })
     .then((response)=>{
       return response.json()
-    })
-    .then((response)=>{
-      console.log(response)
     })    
     .catch(error => {
       console.log("Error changing the need status", error)
@@ -103,21 +100,21 @@ class UserNeedCard extends Component {
     
     let urlneeds = `${backendURL}/api/v1/needs`
 
-      fetch(urlneeds, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(needRepublish)
-      })
-      .then((response)=>{
-        return response.json()
-      })
-      .catch(error => {
-        console.log("Error republishing need", error);
-        alert("Error republishing need")
-      })    
+    await fetch(urlneeds, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(needRepublish)
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .catch(error => {
+      console.log("Error republishing need", error);
+      alert("Error republishing need")
+    })    
     
     this.props.getUserNeeds()
   }
@@ -140,9 +137,6 @@ class UserNeedCard extends Component {
     })
     .then((response)=>{
       return response.json()
-    })
-    .then((response)=>{
-      console.log(response)
     })    
     .catch(error => {
       console.log("Error changing the need status", error);
